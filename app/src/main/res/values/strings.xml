@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Inassa</string>
+
+    <string name="title_activity_information">InformationActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="by_card">Par carte client</string>
+    <string name="by_client_number">Par numero client</string>
+    <string name="number_client_hint">Numero client</string>
+    <string name="birthdate_hint">Date de naissance</string>
+    <string name="validate">Valider</string>
+</resources>
