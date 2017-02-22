@@ -1,13 +1,94 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="com.inassa.inassa.fragments.AuthBySwipe">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/auth_by_swipe_textview_default_message"
+        android:visibility="gone"
+        android:textSize="28sp"
+        android:layout_centerInParent="true"
+        android:textAlignment="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:text="@string/swipe_a_card"/>
 
-</FrameLayout>
+    <ProgressBar
+        android:id="@+id/auth_by_swipe_progressbar"
+        android:visibility="gone"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:id="@+id/auth_by_swipe_textview_error_message"
+        android:alpha="0.8"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="28sp"
+        android:layout_centerInParent="true"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bad_card_or_bad_prenom"/>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/auth_by_swipe_linearlayout_container_last_name"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:background="@drawable/bg_edittext"
+            android:padding="10dp"
+            android:id="@+id/auth_by_swipe_edittext_lastname_client"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/lastname_client_hint"/>
+
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/auth_by_swipe_button_validate"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/validate"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:padding="20dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/auth_by_swipe_textview_bonne_carte"
+            android:layout_weight="0.5"
+            android:textAlignment="center"
+            android:padding="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/swipe_good_card" />
+        <TextView
+            android:id="@+id/auth_by_swipe_textview_mauvaise_carte"
+            android:layout_weight="0.5"
+            android:textAlignment="center"
+            android:padding="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/swipe_bad_card" />
+
+    </LinearLayout>
+
+</RelativeLayout>

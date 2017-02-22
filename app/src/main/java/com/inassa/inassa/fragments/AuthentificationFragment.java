@@ -1,15 +1,21 @@
 package com.inassa.inassa.fragments;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.inassa.inassa.R;
+import com.inassa.inassa.interfaces.Communicator;
 
 
-public class AuthentificationFragment extends Fragment {
+public class AuthentificationFragment extends Fragment{
+
+    Button button_auth_by_swipe, button_auth_by_number;
+    Communicator communicator;
+
     public AuthentificationFragment() {
         // Required empty public constructor
     }
@@ -17,6 +23,29 @@ public class AuthentificationFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        communicator = (Communicator) getActivity();
+
+        button_auth_by_swipe = (Button) view.findViewById(R.id.authentification_button_auth_by_swipe);
+        button_auth_by_number = (Button) view.findViewById(R.id.authentification_button_auth_by_number);
+
+        button_auth_by_swipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                communicator.toAuthBySwipe();
+            }
+        });
+
+        button_auth_by_number.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                communicator.toAuthByNumber();
+            }
+        });
     }
 
     @Override
