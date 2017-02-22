@@ -2,9 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="@color/white"
     tools:context="com.inassa.inassa.fragments.AuthBySwipe">
+
+    <include
+        layout="@layout/appbar"
+        android:id="@+id/appbar"/>
 
     <TextView
         android:id="@+id/auth_by_swipe_textview_default_message"
@@ -24,18 +27,22 @@
         android:layout_centerInParent="true"/>
 
     <TextView
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:id="@+id/auth_by_swipe_textview_error_message"
-        android:alpha="0.8"
-        android:textColor="@android:color/holo_red_light"
+        android:textColor="@color/red_inactive"
         android:textSize="28sp"
         android:layout_centerInParent="true"
         android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_bad"
         android:text="@string/bad_card_or_bad_prenom"/>
 
     <LinearLayout
         android:visibility="gone"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:id="@+id/auth_by_swipe_linearlayout_container_last_name"
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
@@ -51,24 +58,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/lastname_client_hint"/>
-
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/auth_by_swipe_button_validate"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/validate"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:padding="20dp"/>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -91,4 +84,50 @@
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:background="@android:color/black"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_weight="0.32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close_white_32dp"/>
+
+        <View
+            android:layout_height="match_parent"
+            android:layout_width="1dp"
+            android:background="@color/white"/>
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_weight="0.32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_refresh_white_18dp"/>
+
+
+        <View
+            android:layout_height="match_parent"
+            android:layout_width="1dp"
+            android:background="@color/white"/>
+
+        <ImageView
+            android:id="@+id/image_valider"
+            android:layout_gravity="center"
+            android:layout_weight="0.32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_check_white_18dp"/>
+
+
+    </LinearLayout>
 </RelativeLayout>

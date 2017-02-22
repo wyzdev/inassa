@@ -33,7 +33,7 @@ public class AuthByNumber extends Fragment  {
         communicator = (Communicator) getActivity();
         editText_birthdate = (EditText) view.findViewById(R.id.auth_by_number_edittext_birthdate_client);
         editText_client_number = (EditText) view.findViewById(R.id.auth_by_number_edittext_number_client);
-        button_validate = (Button) view.findViewById(R.id.auth_by_number_button_validate);
+        //button_validate = (Button) view.findViewById(R.id.auth_by_number_button_validate);
 
         imageButton_calendar = (ImageButton) view.findViewById(R.id.auth_by_number_imagebutton_calendar);
 
@@ -44,12 +44,12 @@ public class AuthByNumber extends Fragment  {
             }
         });
 
-        button_validate.setOnClickListener(new View.OnClickListener() {
+        /*button_validate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 communicator.toInformationClient();
             }
-        });
+        });*/
     }
 
     public void getDate(){

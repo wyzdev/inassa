@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ public class AuthBySwipe extends Fragment {
     ProgressBar progressBar;
     LinearLayout linearLayout_lastname_container;
     Button button_validate;
+    ImageView imageView_valider;
 
     public AuthBySwipe() {
         // Required empty public constructor
@@ -42,7 +44,7 @@ public class AuthBySwipe extends Fragment {
         textView_error = (TextView) view.findViewById(R.id.auth_by_swipe_textview_error_message);
         progressBar = (ProgressBar) view.findViewById(R.id.auth_by_swipe_progressbar);
         linearLayout_lastname_container = (LinearLayout) view.findViewById(R.id.auth_by_swipe_linearlayout_container_last_name);
-        button_validate = (Button) view.findViewById(R.id.auth_by_swipe_button_validate);
+        imageView_valider = (ImageView) view.findViewById(R.id.image_valider);
 
         progressBar.setVisibility(View.GONE);
         linearLayout_lastname_container.setVisibility(View.GONE);
@@ -85,7 +87,7 @@ public class AuthBySwipe extends Fragment {
         textView_default.setVisibility(View.GONE);
         linearLayout_lastname_container.setVisibility(View.VISIBLE);
 
-        button_validate.setOnClickListener(new View.OnClickListener() {
+        imageView_valider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 communicator.toInformationClient();

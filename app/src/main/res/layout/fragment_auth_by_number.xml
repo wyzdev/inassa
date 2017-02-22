@@ -1,38 +1,88 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    tools:context="com.inassa.inassa.fragments.AuthByNumber"
-    android:background="@android:color/darker_gray">
+    android:background="@color/white"
+    tools:context="com.inassa.inassa.fragments.AuthByNumber">
+
+    <include
+        layout="@layout/appbar"
+        android:id="@+id/appbar"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:background="@android:color/black"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_weight="0.32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close_white_32dp"/>
+
+        <View
+            android:layout_height="match_parent"
+            android:layout_width="1dp"
+            android:background="@color/white"/>
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_weight="0.32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_refresh_white_18dp"/>
+
+
+        <View
+            android:layout_height="match_parent"
+            android:layout_width="1dp"
+            android:background="@color/white"/>
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_weight="0.32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_check_white_18dp"/>
+
+
+    </LinearLayout>
 
     <ScrollView
         android:layout_gravity="center_vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appbar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="135dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_gravity="center_horizontal"
-                android:id="@+id/profile_image"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
-                android:src="@drawable/logo_inassa"
-                android:layout_margin="16dp"/>
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/authenticate_text"/>
+
 
             <EditText
                 android:background="@drawable/bg_edittext"
                 android:padding="10dp"
                 android:id="@+id/auth_by_number_edittext_number_client"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/number_client_hint"/>
@@ -63,18 +113,7 @@
                     android:id="@+id/auth_by_number_imagebutton_calendar" />
             </LinearLayout>
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/auth_by_number_button_validate"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/validate"
-                android:background="@color/colorPrimary"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:padding="20dp"/>
+
         </LinearLayout>
     </ScrollView>
-</FrameLayout>
+</RelativeLayout>
