@@ -9,4 +9,5 @@ public interface Communicator {
     public void toAuthByNumber();
     public void toInformationClient();
     public void toAuthentification();
+    public void back();
 }

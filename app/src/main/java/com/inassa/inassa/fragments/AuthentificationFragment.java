@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.inassa.inassa.R;
 import com.inassa.inassa.interfaces.Communicator;
@@ -15,6 +16,7 @@ public class AuthentificationFragment extends Fragment{
 
     Button button_auth_by_swipe, button_auth_by_number;
     Communicator communicator;
+    ImageView imageView_back;
 
     public AuthentificationFragment() {
         // Required empty public constructor
@@ -32,6 +34,9 @@ public class AuthentificationFragment extends Fragment{
 
         button_auth_by_swipe = (Button) view.findViewById(R.id.authentification_button_auth_by_swipe);
         button_auth_by_number = (Button) view.findViewById(R.id.authentification_button_auth_by_number);
+        imageView_back = (ImageView) view.findViewById(R.id.appbar_imageview_back);
+
+        imageView_back.setVisibility(View.INVISIBLE);
 
         button_auth_by_swipe.setOnClickListener(new View.OnClickListener() {
             @Override

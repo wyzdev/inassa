@@ -12,6 +12,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/appbar_imageview_back"
             android:layout_gravity="center_vertical"
             android:layout_margin="8dp"
             android:layout_width="wrap_content"

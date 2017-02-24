@@ -1,5 +1,6 @@
 package com.inassa.inassa.fragments;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -13,23 +14,27 @@ import android.widget.DatePicker;
  * Created by root on 2/14/17.
  */
 
-public class DatePickerFragment extends DialogFragment
-        implements DatePickerDialog.OnDateSetListener {
+public class DatePickerFragment extends DialogFragment {
+    DatePickerDialog.OnDateSetListener ondateSet;
+    private int year, month, day;
 
-    @TargetApi(Build.VERSION_CODES.N)
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current date as the default date in the picker
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
+    public DatePickerFragment() {}
 
-        // Create a new instance of DatePickerDialog and return it
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+    public void setCallBack(DatePickerDialog.OnDateSetListener ondate) {
+        ondateSet = ondate;
     }
 
-    public void onDateSet(DatePicker view, int year, int month, int day) {
-        // Do something with the date chosen by the user
+    @SuppressLint("NewApi")
+    @Override
+    public void setArguments(Bundle args) {
+        super.setArguments(args);
+        year = args.getInt("year");
+        month = args.getInt("month");
+        day = args.getInt("day");
+    }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        return new DatePickerDialog(getActivity(), ondateSet, year, month, day);
     }
 }

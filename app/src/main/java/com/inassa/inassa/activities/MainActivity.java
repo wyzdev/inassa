@@ -78,6 +78,11 @@ public class MainActivity extends AppCompatActivity implements Communicator{
     }
 
     @Override
+    public void back() {
+        onBackPressed();
+    }
+
+    @Override
     public void onBackPressed() {
         if (fragment instanceof  AuthByNumber || fragment instanceof AuthBySwipe || fragment instanceof InformationClientFragment)
             toAuthentification();

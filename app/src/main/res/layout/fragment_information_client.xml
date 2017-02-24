@@ -159,7 +159,9 @@
         android:background="@android:color/black"
         android:layout_alignParentBottom="true">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/information_client_imagebutton_close"
+            android:background="@android:color/transparent"
             android:layout_gravity="center"
             android:layout_weight="0.32"
             android:layout_width="wrap_content"
