@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#363bac</color>
-    <color name="colorPrimaryDark">@android:color/black</color>
-    <color name="colorAccent">#00a149</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="primary_light">#C5CAE9</color>
+    <color name="colorAccent">#4CAF50</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
 
     <color name="black_overlay">#66000000</color>
-    <color name="white">#fff</color>
     <color name="red_inactive">#791313</color>
+
+
+    <color name="semi_transparent_white">#33ffffff</color>
+    <color name="semi_transparent_black">#33000000</color>
+    <color name="semi_transparent_white2">#55ffffff</color>
+    <color name="white">#ffffff</color>
 </resources>

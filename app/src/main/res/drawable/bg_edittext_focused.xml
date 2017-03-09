@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" >
-    <solid android:color="#FFFFFF" />
-    <stroke
-        android:width="2dip"
-        android:color="@color/colorAccent" />
+<layer-list  xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <corners android:radius="2dip" />
-    <padding
-        android:bottom="5dip"
-        android:left="5dip"
-        android:right="5dip"
-        android:top="5dip" />
-</shape>
+    <item android:top="@dimen/floating_hint_margin"
+        android:bottom="@dimen/floating_hint_margin">
+        <!--<your original background; can be <bitmap> or <shape> or whatever./>-->
+
+        <shape>
+            <solid android:color="@color/semi_transparent_white" />
+            <stroke
+                android:width="1dip"
+                android:color="@color/colorAccent" />
+
+            <corners android:radius="2dip" />
+            <padding
+                android:bottom="5dip"
+                android:left="5dip"
+                android:right="5dip"
+                android:top="5dip" />
+
+        </shape>
+    </item>
+</layer-list>

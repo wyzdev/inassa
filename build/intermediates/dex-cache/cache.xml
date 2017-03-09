@@ -3,102 +3,102 @@
 
     <item
         is-multidex="false"
-        jar="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/exploded-aar/com.android.support/transition/25.1.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="d38084015027549951cbaea5d5f6fb795cc81151">
-        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/com.android.support-transition-25.1.0_2823f74632db16b9b3ad5135a5ff23bf8c8d5786.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/exploded-aar/com.android.support/support-v13/25.1.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="e006c9b6f0aaed9d8c7934b74039738390fe3468">
-        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/com.android.support-support-v13-25.1.0_fd4be78cc0bef810b8185f93d83194bf43989607.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.1/jars/classes.jar"
+        jar="/root/.android/build-cache/c1f639a1f1ee20e23fd55a9466c28cdffb65b8b7/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
         sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-25.1.1_ac5c806a7df814b6c1257cd872d363683735c090.jar" />
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_953531f1a9d6e7da99184c5cfc35edcb08f2275e.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/exploded-aar/de.hdodenhof/circleimageview/2.1.0/jars/classes.jar"
+        jar="/root/.android/build-cache/cb80dc4ca54bd4d781cb248cd9c94df252911400/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="a2af9c72ccaa4c5c049b500ca6ea664a4ce1f7d4">
-        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/de.hdodenhof-circleimageview-2.1.0_5e124f5b2c1d94530d22e0a6c8e9890382080039.jar" />
+        sha1="04de44f90606c77f3b28cf44861f306290505aac">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_d48853be65c90ebb8132cb574feb59b927dec605.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.1.1/jars/classes.jar"
+        jar="/root/AndroidStudioProjects/inassa_android/app/libs/acsaj-1.0.0.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
-        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-25.1.1_f15051d2daf4f835a19d3855576ac628035480b5.jar" />
+        sha1="6a4b671719d47f492836e304168194feff743dbe">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/acsaj-1.0.0_3445fa596449f0659b846c423d6cc2814b56d866.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.1/jars/classes.jar"
+        jar="/root/.android/build-cache/a47076b0b2f37cc9cb58cff4b41745d14c86248e/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
-        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-25.1.1_7b80906375339aed470ea5d4927c77a227f9db3a.jar" />
+        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_0033bd0f244a1c2277e262c03de8db632fb9f5c8.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.1.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
-        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-25.1.1_e09a1b9b8471702ae0591011f30e3f07f44593af.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.1.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
-        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-25.1.1_0559c523251a5ce1d21c3cd3deccb92338ad7ff9.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/exploded-aar/com.android.support/design/25.1.0/jars/classes.jar"
+        jar="/root/.android/build-cache/8f7e61cbf664848e7f5cd82387008935ad692d31/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
         sha1="30103d98fa5ed824b54af839c85e2111f9bde8ec">
-        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/com.android.support-design-25.1.0_6397ec7c4f429409a4f68ed384017fe7e2c26d50.jar" />
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_30078619e165801aee42d9632972579b9d1e600f.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.1.1/jars/classes.jar"
+        jar="/root/.android/build-cache/b7e7dafba57370783c81ee18200503206089a8c4/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
-        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-25.1.1_b31abd1d6646298337f8d47ff86192244e18c80c.jar" />
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_daad49c819f6549619fdb1aa7364537d469564bb.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.1/jars/classes.jar"
+        jar="/root/.android/build-cache/d9d5b43652fa8cf38f2c6409fbaf61f5f9dfc442/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
-        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-25.1.1_b86b0a79285946657217d429c39a9862837c8fce.jar" />
+        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_6ecca37a92519a289db27f5ded4b840ef7b40100.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/root/.android/build-cache/f7b5d025bb6b128b17fc78b71450229254eb5b24/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="4c4a01dcbfd277f63d15cb5e25f8bbab377adde9">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_733b4f17d100b315170981bf3926ac74b9c6d4e6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/root/.android/build-cache/2e69a3f0a8240026529165e9e354460903a9cef0/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="2cd4b982617e544728de0782d718a58ce1b06e3f">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_ac9f467c85071a5f2ab5a44398235e8b5801ca24.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/root/.android/build-cache/9906f56b840a07c205ed58be716521a7d2b2e68e/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a2af9c72ccaa4c5c049b500ca6ea664a4ce1f7d4">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_d684957d1d8a2be25fd186450efc5734d69ff8e5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/root/.android/build-cache/f6c54c09a9616bbf5bd9ded05808763b839ab8d6/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_3758f3e6d07c4c775e95c5ae5bb9d445a1b070f2.jar" />
     </item>
     <item
         is-multidex="false"
@@ -111,39 +111,93 @@
     </item>
     <item
         is-multidex="false"
-        jar="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/exploded-aar/com.wdullaer/materialdatetimepicker/3.1.1/jars/classes.jar"
+        jar="/root/.android/build-cache/e90be517fbe3d4b2f74ded3febc41c31b6016127/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="4c4a01dcbfd277f63d15cb5e25f8bbab377adde9">
-        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/com.wdullaer-materialdatetimepicker-3.1.1_2268da688a5473f9f3a7b4bc8bd6344e337794f7.jar" />
+        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_c43ea478f73708f3686459a3e4133edd336035d7.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.1/jars/classes.jar"
+        jar="/root/.android/build-cache/fb52efe441ba9005d7d74772a8cfaa45e17b057c/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
-        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-25.1.1_0de5078a07680f9d9fe586076d06d46b53ca7654.jar" />
+        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_2cdb5da31c4a01060afdb20396ee6de0dca1facc.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/jars/classes.jar"
+        jar="/root/.android/build-cache/4db29a61bc67cec975e5f72145c4ab101b1f217b/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
-        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-25.1.1_f91ea59923a99d8e74aa6530ba2306e95b7de0f7.jar" />
+        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_78ebe0fcce56ae25d01543a67c88c1d2285415da.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.1.0/jars/classes.jar"
+        jar="/root/.android/build-cache/07af01fb349d56e42de621ba16a1a5d58a311655/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a8412b654dab86d57bf90683367488211c8a81f1">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_afe7898ccb256cd0926ed2923b1d4a9b1c3ad126.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/root/.android/build-cache/0766cc5b60b345979307ec7015835c22358b4964/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_f25ecb9c0bf984597ee19978836d548ca3fff6cb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/root/.android/build-cache/7880cdd92c4e95d9de3b5273ce3d5cdfdf1af924/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
         sha1="b266c8faa5af72e579b9da36ef35053ffed6ac64">
-        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-25.1.0_47880276b5a7105b4a119991860bb9270d9a0820.jar" />
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_350b3c8c635662ebe084099db72c27c629c745d9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/root/.android/build-cache/0133b4aaccd3ad1886ee65be7f432bd0fe927095/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d38084015027549951cbaea5d5f6fb795cc81151">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_8097c79b18ddee90705cff174a0aa814a1c85cc2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/root/.android/build-cache/404cc9b417278c6ff6d3f81209ac77d7dfd6eada/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_6eaeb48861c347e1594026f082ed761fd051dd68.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/root/.android/build-cache/cb21218407499da7df5e37c2cd1bbd0bdc44d097/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_6eab63bd7e50f92ea04e86563d8aa0c97f36a88c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/root/.android/build-cache/f9bd7c0035488401b571e77d6f7ba10e42d31c61/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e006c9b6f0aaed9d8c7934b74039738390fe3468">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/pre-dexed/debug/classes_3faa75c1ea7d6909b5840a32075bd975033b4318.jar" />
     </item>
 
 </items>

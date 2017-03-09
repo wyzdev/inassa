@@ -3,27 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:background="@color/colorPrimary"
     android:weightSum="1">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <ImageView
             android:id="@+id/appbar_imageview_back"
             android:layout_gravity="center_vertical"
-            android:layout_margin="8dp"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_arrow_back_black_18dp"/>
+            android:layout_height="56dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:scaleType="center"
+                android:src="@drawable/ic_arrow_back_white_18pt_3x" />
 
         <ImageView
-            android:layout_gravity="center_vertical"
-            android:layout_width="122dp"
+            android:id="@+id/imageView"
+            android:layout_width="153dp"
             android:layout_height="match_parent"
-            android:src="@drawable/inassa" />
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/inassa_white"
+            android:layout_marginLeft="4dp"/>
 
     </LinearLayout>
 

@@ -36,7 +36,7 @@ public class AuthentificationFragment extends Fragment{
         button_auth_by_number = (Button) view.findViewById(R.id.authentification_button_auth_by_number);
         imageView_back = (ImageView) view.findViewById(R.id.appbar_imageview_back);
 
-        imageView_back.setVisibility(View.INVISIBLE);
+        imageView_back.setVisibility(View.GONE);
 
         button_auth_by_swipe.setOnClickListener(new View.OnClickListener() {
             @Override
