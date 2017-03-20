@@ -4,9 +4,11 @@ import android.Manifest;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.media.AudioManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -17,6 +19,12 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.acs.audiojack.AesTrackData;
+import com.acs.audiojack.AudioJackReader;
+import com.acs.audiojack.DukptTrackData;
+import com.acs.audiojack.Result;
+import com.acs.audiojack.Status;
+import com.acs.audiojack.TrackData;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -39,6 +47,11 @@ public class MainActivity extends AppCompatActivity implements
     AuthentificationFragment authentificationFragment;
     Fragment fragment;
 
+
+    private AudioManager mAudioManager;
+    private AudioJackReader mReader;
+
+
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
@@ -54,6 +67,38 @@ public class MainActivity extends AppCompatActivity implements
 
         init();
 
+        mReader.setOnTrackDataNotificationListener(new AudioJackReader.OnTrackDataNotificationListener() {
+            @Override
+            public void onTrackDataNotification(AudioJackReader audioJackReader) {
+
+            }
+        });
+
+        mReader.setOnTrackDataAvailableListener(new AudioJackReader.OnTrackDataAvailableListener() {
+            @Override
+            public void onTrackDataAvailable(AudioJackReader audioJackReader, TrackData trackData) {
+                if ((trackData.getTrack1ErrorCode() != TrackData.TRACK_ERROR_SUCCESS)
+                        || (trackData.getTrack2ErrorCode() != TrackData.TRACK_ERROR_SUCCESS)) {
+
+            /* Show the track error. */
+                    Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (trackData instanceof AesTrackData) {
+
+                    AesTrackData aesTrackData = (AesTrackData) trackData;
+                    Toast.makeText(MainActivity.this, "AES : " + aesTrackData, Toast.LENGTH_SHORT).show();
+
+                } else if (trackData instanceof DukptTrackData) {
+
+                    DukptTrackData dukptTrackData = (DukptTrackData) trackData;
+                    Toast.makeText(MainActivity.this, "DUKPT : " + dukptTrackData, Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
         manager = getFragmentManager();
         fragment = new AuthentificationFragment();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -61,10 +106,13 @@ public class MainActivity extends AppCompatActivity implements
         transaction.commit();
     }
 
-    public void init(){
+    public void init() {
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        mReader = new AudioJackReader(mAudioManager);
+
         authentificationFragment = new AuthentificationFragment();
 
-        Toolbar toolbar =(Toolbar) findViewById(R.id.appbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
 
 
@@ -142,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-        if (fragment instanceof  AuthByNumber || fragment instanceof AuthBySwipe || fragment instanceof InformationClientFragment)
+        if (fragment instanceof AuthByNumber || fragment instanceof AuthBySwipe || fragment instanceof InformationClientFragment)
             toAuthentification();
         else
             super.onBackPressed();
@@ -219,6 +267,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+//        mReader.start();
         //Now lets connect to the API
         mGoogleApiClient.connect();
     }
@@ -226,6 +275,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onPause() {
         super.onPause();
+        mReader.stop();
         Log.v(this.getClass().getSimpleName(), "onPause()");
 
         //Disconnect from API onPause()
@@ -234,4 +284,89 @@ public class MainActivity extends AppCompatActivity implements
             mGoogleApiClient.disconnect();
         }
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+//        mReader.start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+       // mReader.stop();
+    }
+
+    public void resetReader() {
+        /* Reset the reader. */
+        mReader.reset();
+        Toast.makeText(this, "reader reset", Toast.LENGTH_SHORT).show();
+
+    /* Set the reset complete callback. */
+        /*mReader.setOnResetCompleteListener(
+                new AudioJackReader.OnResetCompleteListener() {
+
+                    @Override
+                    public void onResetComplete(AudioJackReader reader) {
+
+                    *//* TODO: Add your code here to process the notification. *//*
+                        Toast.makeText(MainActivity.this, "Reset with success", Toast.LENGTH_SHORT).show();
+
+                    }
+                });*/
+    }
+
+    public void sleepReader() {
+
+/* Enable the sleep mode. */
+        mReader.sleep();
+/* Set the result callback. */
+        mReader.setOnResultAvailableListener(new AudioJackReader.OnResultAvailableListener() {
+            @Override
+            public void onResultAvailable(AudioJackReader audioJackReader, Result result) {
+                Toast.makeText(MainActivity.this, "Sleep with success", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void setTimoutReader(final int time) {
+
+
+/* Set the sleep timeout to 10 seconds. */
+        mReader.setSleepTimeout(time);
+
+/* Set the result callback. */
+       /* mReader.setOnResultAvailableListener(
+                new AudioJackReader.OnResultAvailableListener() {
+
+                    @Override
+                    public void onResultAvailable(AudioJackReader reader, Result result) {
+        *//* TODO: Add your code here to process the notification. *//*
+                        Toast.makeText(MainActivity.this, "Timeout set to " + time + "sec", Toast.LENGTH_SHORT).show();
+
+
+                    }
+                });*/
+    }
+
+    public void getAudioJackStatus() {
+
+
+/* Get the status. */
+//        Toast.makeText(this, "The status of the audioJack" + mReader.getStatus(), Toast.LENGTH_SHORT).show();
+/* Set the status callback. */
+       /* mReader.setOnStatusAvailableListener(new AudioJackReader.OnStatusAvailableListener() {
+
+            @Override
+            public void onStatusAvailable(AudioJackReader reader, Status status) {
+                Toast.makeText(MainActivity.this, "Status of audio jack" + status, Toast.LENGTH_SHORT).show();
+
+        *//* TODO: Add your code here to process the status. *//*
+            }
+        });*/
+    }
+
+
+
+
 }

@@ -28,4 +28,6 @@
     <string name="authenticate_text">Authentifiez-vous</string>
     <string name="inactive">INACTIVE</string>
     <string name="authentication_text">Authentification</string>
+    <string name="requesting">Demande en cours</string>
+    <string name="wait">Patientez s\'il vous plait</string>
 </resources>

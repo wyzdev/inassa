@@ -10,4 +10,8 @@ public interface Communicator {
     public void toInformationClient();
     public void toAuthentification();
     public void back();
+    public void resetReader();
+    public void sleepReader();
+    public void setTimoutReader(int time);
+    public void getAudioJackStatus();
 }
