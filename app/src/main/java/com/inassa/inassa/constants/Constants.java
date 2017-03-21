@@ -19,8 +19,8 @@ public class Constants {
     public static final String KEY_LONGITUDE = "longitude";
     public static final String KEY_POSTAL_ADDRESS = "postal_address";
 
-    public static double LATITUDE = 18.537682;
-    public static double LONGITUDE = -72.322805;
+    public static double LATITUDE = -1;
+    public static double LONGITUDE = -1;
 
     public static void setLatitude(double latitude){
         LATITUDE = latitude;

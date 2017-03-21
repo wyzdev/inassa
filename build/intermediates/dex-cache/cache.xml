@@ -66,15 +66,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="/root/.android/build-cache/97c247ebe92aa66078a1fe3e531ebec4e9603491/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="6666dd525c3da197e7d07f4f23ef5fc7881a697b">
-        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_cfc77c5526ce1a61f8e24a5a8a8926f934259ace/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/root/.android/build-cache/0133b4aaccd3ad1886ee65be7f432bd0fe927095/output/jars/classes.jar"
         jumboMode="true"
         optimize="true"

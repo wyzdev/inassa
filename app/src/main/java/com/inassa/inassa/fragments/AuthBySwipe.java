@@ -155,8 +155,13 @@ public class AuthBySwipe extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.auth_by_swipe_imagebutton_check:
-                //saveInLog("13sd5a1s2fd1a65", "Junior", "SAINT-FELIX", "2017-02-21", 1, 18.537682, -72.322805, "2eme ruelle nazon");
-                getAddress();
+                if (Constants.LATITUDE == -1 && Constants.LONGITUDE == -1){
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String date = df.format(Calendar.getInstance().getTime());
+                    saveInLog("13sd5a1s2fd1a65", "Junior", "SAINT-FELIX", date, 1, Constants.LATITUDE, Constants.LONGITUDE, "");
+                }
+                else
+                    getAddress();
                 break;
 
             case R.id.auth_by_swipe_imagebutton_close:
@@ -180,7 +185,6 @@ public class AuthBySwipe extends Fragment implements View.OnClickListener{
     }
 
     public void saveInLog(final String global_number, final String first_name, final String last_name, final String date, final int status, final double latitude, final double longitude, final String postal_address) {
-        //Toast.makeText(getActivity(), telephone + "\n" + telephone_user +"\n"+ montant +"\n"+ pin +"\n"+ Constant.APP_ID+"\n"+Constant.DEST_GROSSIST_DETAILLANT, Toast.LENGTH_LONG).show();
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setTitle(getActivity().getString(R.string.requesting));
         progressDialog.setMessage(getActivity().getString(R.string.wait));
@@ -194,7 +198,7 @@ public class AuthBySwipe extends Fragment implements View.OnClickListener{
                         try {
                             JSONObject jso = new JSONObject(response);
                             Log.i("response", response);
-                            Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
                             if (jso.getString("message").equals("Saved")) {
                                 progressDialog.dismiss();
                                 Toast.makeText(getActivity(), "Commit with success", Toast.LENGTH_SHORT).show();
@@ -302,7 +306,7 @@ public class AuthBySwipe extends Fragment implements View.OnClickListener{
             if (pd.isShowing()){
                 pd.dismiss();
             }
-            Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
             try {
                 jsonfromurl = new JSONObject(result);
             } catch (JSONException e) {
@@ -317,8 +321,8 @@ public class AuthBySwipe extends Fragment implements View.OnClickListener{
                     DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String date = df.format(Calendar.getInstance().getTime());
                     Log.i("current datetime", date);
-                    Toast.makeText(getActivity(), "address : " + address + '\n' + "current datetime : " + date, Toast.LENGTH_SHORT).show();
-                    saveInLog("13sd5a1s2fd1a65", "Junior", "SAINT-FELIX", date, 0, Constants.LATITUDE, Constants.LONGITUDE, address);
+                    //Toast.makeText(getActivity(), "address : " + address + '\n' + "current datetime : " + date, Toast.LENGTH_SHORT).show();
+                    saveInLog("13sd5a1s2fd1a65", "John", "DOE", date, 0, Constants.LATITUDE, Constants.LONGITUDE, address);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

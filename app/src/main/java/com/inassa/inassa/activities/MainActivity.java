@@ -31,6 +31,7 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.inassa.inassa.R;
+import com.inassa.inassa.constants.Constants;
 import com.inassa.inassa.fragments.AuthByNumber;
 import com.inassa.inassa.fragments.AuthBySwipe;
 import com.inassa.inassa.fragments.AuthentificationFragment;
@@ -219,6 +220,8 @@ public class MainActivity extends AppCompatActivity implements
             currentLongitude = location.getLongitude();
 
             Toast.makeText(MainActivity.this, "Latitude: " + currentLatitude + "\n" + "Logitude : " + currentLongitude, Toast.LENGTH_LONG).show();
+            Constants.setLatitude(currentLatitude);
+            Constants.setLongitude(currentLongitude);
         }
     }
 
@@ -262,6 +265,8 @@ public class MainActivity extends AppCompatActivity implements
         currentLongitude = location.getLongitude();
 
         Toast.makeText(MainActivity.this, "Latitude changed to : " + currentLatitude + "\n" + "Logitude changed to : " + currentLongitude, Toast.LENGTH_LONG).show();
+        Constants.setLatitude(currentLatitude);
+        Constants.setLongitude(currentLongitude);
     }
 
     @Override
