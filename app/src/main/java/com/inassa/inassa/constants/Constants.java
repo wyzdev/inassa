@@ -7,6 +7,7 @@ package com.inassa.inassa.constants;
 public class Constants {
     public static final String SERVER = "http://192.168.0.129:8765/";
     //public static final String SERVER = "http://192.168.15.77:8765/";
+    //public static final String SERVER = "http://05dce38e.ngrok.io/";
 
     public static final String LOGIN_ADDRESS = SERVER + "users/login";
     public static final String ADD_ADDRESS = SERVER + "logs/add.json";

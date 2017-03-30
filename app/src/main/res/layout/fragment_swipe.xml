@@ -10,6 +10,18 @@
         android:id="@+id/appbar"/>
 
     <TextView
+        android:id="@+id/test_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:text="TextView"
+        android:layout_below="@+id/appbar"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/auth_by_swipe_textview_default_message"
+        android:layout_toEndOf="@+id/auth_by_swipe_textview_default_message" />
+
+    <TextView
         android:id="@+id/auth_by_swipe_textview_default_message"
         android:visibility="gone"
         android:textSize="28sp"
