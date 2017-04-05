@@ -819,31 +819,31 @@ public class AuthBySwipe extends Fragment implements View.OnClickListener{
     @Override
     public void onResume() {
         super.onResume();
-        mReader.start();
+        //mReader.start();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mReader.stop();
+        //mReader.stop();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        mReader.start();
+        //mReader.start();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        mReader.stop();
+        //mReader.stop();
     }
 
 
     public void resetReader() {
         /* Reset the reader. */
-        mReader.reset();
+        //mReader.reset();
         Toast.makeText(getActivity(), "reader reset", Toast.LENGTH_SHORT).show();
 
     /* Set the reset complete callback. */
@@ -863,7 +863,7 @@ public class AuthBySwipe extends Fragment implements View.OnClickListener{
     public void sleepReader() {
 
 /* Enable the sleep mode. */
-        mReader.sleep();
+        //mReader.sleep();
 /* Set the result callback. */
         mReader.setOnResultAvailableListener(new AudioJackReader.OnResultAvailableListener() {
             @Override

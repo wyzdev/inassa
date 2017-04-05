@@ -97,7 +97,7 @@
                             android:layout_height="wrap_content">
 
                             <AutoCompleteTextView
-                                android:id="@+id/email"
+                                android:id="@+id/username"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="@string/prompt_email"
@@ -126,16 +126,16 @@
                         </android.support.design.widget.TextInputLayout>
 
                         <android.support.v7.widget.AppCompatButton
-                            android:paddingLeft="64dp"
-                            android:paddingRight="64dp"
-                            android:layout_gravity="center_horizontal"
-                            android:id="@+id/email_sign_in_button"
+                            android:id="@+id/sign_in_button"
                             style="?android:textAppearanceSmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
                             android:layout_marginTop="16dp"
                             android:background="@drawable/ripple3"
                             android:elevation="24dp"
+                            android:paddingLeft="64dp"
+                            android:paddingRight="64dp"
                             android:text="@string/login"
                             android:textAlignment="center"
                             android:textColor="@color/cardview_light_background"
