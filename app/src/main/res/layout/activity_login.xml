@@ -12,13 +12,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="100">
-        <RelativeLayout
+        <View
             android:background="@drawable/app_gradient"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="50"/>
 
-        <RelativeLayout
+        <View
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -97,11 +97,11 @@
                             android:layout_height="wrap_content">
 
                             <AutoCompleteTextView
-                                android:id="@+id/username"
+                                android:id="@+id/login_username"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="@string/prompt_email"
-                                android:inputType="textEmailAddress"
+                                android:inputType="textAutoComplete"
                                 android:maxLines="1"
                                 android:singleLine="true" />
 
@@ -112,7 +112,7 @@
                             android:layout_height="wrap_content">
 
                             <EditText
-                                android:id="@+id/password"
+                                android:id="@+id/login_password"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="@string/prompt_password"
@@ -126,7 +126,7 @@
                         </android.support.design.widget.TextInputLayout>
 
                         <android.support.v7.widget.AppCompatButton
-                            android:id="@+id/sign_in_button"
+                            android:id="@+id/login_sign_in_button"
                             style="?android:textAppearanceSmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -147,7 +147,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/inassa_property"
+            android:text="@string/forgot_password"
             android:layout_below="@+id/card_view"
             android:layout_marginTop="24dp"
             android:layout_centerHorizontal="true"/>

@@ -5,7 +5,6 @@ package com.inassa.inassa.interfaces;
  */
 
 public interface Communicator {
-    public void toAuthBySwipe();
     public void toAuthByNumber();
     public void toInformationClient();
     public void toAuthentification();

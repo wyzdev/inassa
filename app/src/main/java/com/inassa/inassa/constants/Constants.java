@@ -5,11 +5,11 @@ package com.inassa.inassa.constants;
  */
 
 public class Constants {
-    public static final String SERVER = "http://192.168.0.129:8765/";
+    public static final String SERVER = "http://192.168.15.241:8765/";
     //public static final String SERVER = "http://192.168.15.77:8765/";
     //public static final String SERVER = "http://05dce38e.ngrok.io/";
 
-    public static final String LOGIN_ADDRESS = SERVER + "users/login";
+    public static final String LOGIN_ADDRESS = SERVER + "users/index.json";
     public static final String ADD_ADDRESS = SERVER + "logs/add.json";
 
     public static final String KEY_GLOBAL_NUMBER = "global_number";
@@ -20,6 +20,8 @@ public class Constants {
     public static final String KEY_LATITUDE = "latitude";
     public static final String KEY_LONGITUDE = "longitude";
     public static final String KEY_POSTAL_ADDRESS = "postal_address";
+    public static final String KEY_USERNAME = "username";
+    public static final String KEY_PASSWORD = "password";
 
     public static double LATITUDE = -1;
     public static double LONGITUDE = -1;
