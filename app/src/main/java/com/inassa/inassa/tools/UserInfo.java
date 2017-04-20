@@ -41,6 +41,7 @@ public class UserInfo {
     private final String KEY_ROLE = "role";
     private final String KEY_STATUS = "status";
     private final String KEY_FIRST_LOGIN = "first_login";
+    private final String KEY_CURRENT_DATE = "current_date";
 
 
     private Context context;
@@ -54,7 +55,7 @@ public class UserInfo {
         JSONObject user = null;
         String firstname = "", lastname = "", username = "", email = "", institution = "", role = "";
         boolean status = false, first_login = false;
-        int id = 0;
+        int id = 0, current_date = 0;
 
 
         try {
@@ -84,6 +85,19 @@ public class UserInfo {
         editor.putBoolean(KEY_FIRST_LOGIN, first_login);
         editor.apply();
 
+    }
+
+
+    public void setCurrentDate(int current_date) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE).edit();
+
+        editor.putInt(KEY_CURRENT_DATE, current_date);
+        editor.apply();
+    }
+
+    public int getCurrentDate() {
+        SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        return prefs.getInt(KEY_CURRENT_DATE, 0);
     }
 
     public void setLoggedin(boolean state) {

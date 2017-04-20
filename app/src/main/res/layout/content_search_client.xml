@@ -8,4 +8,8 @@
     tools:context="com.inassa.inassa.activities.SearchClientActivity"
     tools:showIn="@layout/activity_search_client">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/current_date"/>
 </android.support.constraint.ConstraintLayout>

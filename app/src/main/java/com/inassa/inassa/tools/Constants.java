@@ -7,6 +7,7 @@ package com.inassa.inassa.tools;
 public class Constants {
 //    public static final String SERVER = "http://192.168.15.241:8765/";
     public static final String SERVER = "http://192.168.0.138:8765/";
+//    public static final String SERVER = "http://192.168.15.77:8765/";
 
     public static final String SERVER_INASSA = "http://200.113.219.221:8180/RequestQuote/RequestLogin";
     public static final String API_INASSA_AUTH ="RequestQuote/RequestLogin";
@@ -14,6 +15,7 @@ public class Constants {
     public static final String LOGIN_ADDRESS = SERVER + "users/requestUser.json";
     public static final String ADD_ADDRESS = SERVER + "logs/add.json";
     public static final String FORGOT_PASSWORD_ADDRESS = SERVER + "users/forgotPassword.json";
+    public static final String CHANGE_PASSWORD_ADDRESS = SERVER + "users/changePasswordMedecin.json";
 
     public static final String KEY_GLOBAL_NUMBER = "global_number";
     public static final String KEY_FIRSTNAME = "first_name";

@@ -30,7 +30,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,10 +93,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         populateAutoComplete();
 
         userInfo = new UserInfo(this);
-        if (userInfo.getLoggedIn()){
-            startActivity(new Intent(this, SearchClientActivity.class));
-            finish();
-        }
 
         forgot_password = (TextView) findViewById(R.id.forgot_password);
         forgot_password.setOnClickListener(new OnClickListener() {
@@ -251,8 +250,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             JSONObject jso  = new JSONObject(response);
 
                             if (!jso.getBoolean("error")){
+                                DateFormat dateFormat = new SimpleDateFormat("dd");
+                                Date date = new Date();
+
                                 userInfo.setLoggedin(true);
                                 userInfo.setUserInfo(String.valueOf(jso.getJSONObject("user")));
+                                userInfo.setCurrentDate(Integer.parseInt(dateFormat.format(date)));
                                 startActivity(new Intent(LoginActivity.this, SearchClientActivity.class));
                                 finish();
                             }
@@ -357,8 +360,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onResume() {
-        super.onResume();
         mUsernameView.clearFocus();
+        if (userInfo.getLoggedIn()){
+            startActivity(new Intent(this, SearchClientActivity.class));
+            finish();
+        }
+        super.onResume();
     }
 }
 

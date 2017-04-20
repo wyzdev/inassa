@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -21,11 +22,17 @@ import com.inassa.inassa.R;
 import com.inassa.inassa.tools.Constants;
 import com.inassa.inassa.tools.UserInfo;
 
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.zip.Inflater;
 
 public class SearchClientActivity extends AppCompatActivity {
 
     UserInfo userInfo;
+    TextView textView_current_date;
+    int current_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +40,20 @@ public class SearchClientActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_client);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setLogo(R.drawable.inassa_white);
+        toolbar.setTitle("");
+        toolbar.setSubtitle("");
         setSupportActionBar(toolbar);
 
         userInfo = new UserInfo(this);
+        textView_current_date = (TextView) findViewById(R.id.current_date);
+
+        DateFormat dateFormat = new SimpleDateFormat("dd");
+        Date date = new Date();
+        current_date = Integer.parseInt(dateFormat.format(date));
+
+        textView_current_date.setText(userInfo.getUserFirstname()); //2016/11/16 12:08:43
+
+
 
 
     }
@@ -103,5 +121,21 @@ public class SearchClientActivity extends AppCompatActivity {
        /* RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);*/
 
+    }
+
+    @Override
+    protected void onResume() {
+
+        if (userInfo.getUserFirstLogin()){
+            startActivity(new Intent(SearchClientActivity.this, ChangePasswordActivity.class));
+            finish();
+        }
+
+        /*if (userInfo.getCurrentDate() != current_date){
+            userInfo.clear();
+            startActivity(new Intent(SearchClientActivity.this, LoginActivity.class));
+            finish();
+        }*/
+        super.onResume();
     }
 }

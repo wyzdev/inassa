@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
-    private static final int MY_SOCKET_TIMEOUT_MS = 10000;
+    private static final int MY_SOCKET_TIMEOUT_MS = 20000;
     EditText editText_username, editText_email;
     Button button_send;
 
@@ -124,41 +124,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                             //if (!jso.getBoolean("error") || response.contains("false")){
                             if (response.contains("false")){
-
-                                ///////////////////////////////////////////////////////////////////////////////////////
-                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ForgotPasswordActivity.this);
-
-// set title
-//                                alertDialogBuilder.setTitle(getString(R.string.password_reset_title));
-
-// set dialog message
-                                alertDialogBuilder
-                                        .setMessage(getString(R.string.password_reset_message) + email)
-                                        .setCancelable(false)
-                                        .setPositiveButton("OK",new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog,int id) {
-                                                // if this button is clicked, close
-                                                // current activity
-                                                //MainActivity.this.finish();
-                                                startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
-                                                finish();
-                                            }
-                                        });
-//                                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
-//                                            public void onClick(DialogInterface dialog,int id) {
-//                                                // if this button is clicked, just close
-//                                                // the dialog box and do nothing
-//                                                dialog.cancel();
-//                                            }
-//                                        });
-
-// create alert dialog
-                                AlertDialog alertDialog = alertDialogBuilder.create();
-
-// show it
-                                alertDialog.show();
-                                //////////////////////////////////////////////////////////////////////////////////////
-
+                                // show dialog message
+                                showDialogMessage(email).show();
                             }
                             else{
                                 Toast.makeText(ForgotPasswordActivity.this, getString(R.string.error_auth), Toast.LENGTH_SHORT).show();
@@ -206,5 +173,26 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         //super.onBackPressed();
         startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
         finish();
+    }
+
+    private AlertDialog showDialogMessage(String email){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ForgotPasswordActivity.this);
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(getString(R.string.password_reset_message) + email)
+                .setCancelable(false)
+                .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, close
+                        // current activity
+                        //ForgotPasswordActivity.this.finish();
+                        startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
+                        finish();
+                    }
+                });
+
+        // create alert dialog
+         return alertDialogBuilder.create();
     }
 }
