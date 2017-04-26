@@ -1,9 +1,9 @@
 package com.inassa.inassa.activities;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -11,7 +11,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -22,17 +25,22 @@ import com.inassa.inassa.R;
 import com.inassa.inassa.tools.Constants;
 import com.inassa.inassa.tools.UserInfo;
 
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.zip.Inflater;
 
 public class SearchClientActivity extends AppCompatActivity {
 
     UserInfo userInfo;
-    TextView textView_current_date;
     int current_date;
+
+    private DatePicker datePicker;
+    private Calendar calendar;
+    private EditText dateView;
+    private int year, month, day;
+    private LinearLayout linearLayout_datepicker;
+    private EditText editText_birthdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +53,22 @@ public class SearchClientActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         userInfo = new UserInfo(this);
-        textView_current_date = (TextView) findViewById(R.id.current_date);
+
+        editText_birthdate = (EditText) findViewById(R.id.search_client_edittext_birthdate_client);
+        editText_birthdate.setEnabled(false);
 
         DateFormat dateFormat = new SimpleDateFormat("dd");
         Date date = new Date();
         current_date = Integer.parseInt(dateFormat.format(date));
 
-        textView_current_date.setText(userInfo.getUserFirstname()); //2016/11/16 12:08:43
 
+        dateView = (EditText) findViewById(R.id.search_client_edittext_birthdate_client);
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
 
-
-
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        showDate(year, month+1, day);
     }
 
     @Override
@@ -131,11 +144,49 @@ public class SearchClientActivity extends AppCompatActivity {
             finish();
         }
 
-        /*if (userInfo.getCurrentDate() != current_date){
+        if (userInfo.getCurrentDate() != current_date){
             userInfo.clear();
+            userInfo.setLoggedin(false);
             startActivity(new Intent(SearchClientActivity.this, LoginActivity.class));
             finish();
-        }*/
+        }
         super.onResume();
+    }
+
+
+    @SuppressWarnings("deprecation")
+    public void setDate(View view) {
+        showDialog(999);
+        Toast.makeText(getApplicationContext(), "ca",
+                Toast.LENGTH_SHORT)
+                .show();
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        // TODO Auto-generated method stub
+        if (id == 999) {
+            return new DatePickerDialog(this,
+                    myDateListener, year, month, day);
+        }
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener myDateListener = new
+            DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker arg0,
+                                      int arg1, int arg2, int arg3) {
+                    // TODO Auto-generated method stub
+                    // arg1 = year
+                    // arg2 = month
+                    // arg3 = day
+                    showDate(arg1, arg2+1, arg3);
+                }
+            };
+
+    private void showDate(int year, int month, int day) {
+        dateView.setText(new StringBuilder().append(day).append("/")
+                .append(month).append("/").append(year));
     }
 }

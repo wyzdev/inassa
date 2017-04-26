@@ -106,7 +106,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="4e56b352169f17b1df30b6bc8167345613e57641">
+        sha1="d12cfa8034d0196342cf3a863e67875f441855d4">
         <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_f1f1ab8b465c2b7e303f45a00d561c2a2207e53b/classes.dex" />
     </item>
     <item

@@ -5,6 +5,8 @@ package com.inassa.inassa.tools;
  */
 
 public class Constants {
+
+
 //    public static final String SERVER = "http://192.168.15.241:8765/";
     public static final String SERVER = "http://192.168.0.138:8765/";
 //    public static final String SERVER = "http://192.168.15.77:8765/";
@@ -28,18 +30,11 @@ public class Constants {
     public static final String KEY_USERNAME = "username";
     public static final String KEY_EMAIL = "email";
     public static final String KEY_PASSWORD = "password";
+    public static final String KEY_TOKEN = "token";
 
     public static final String API_INASSA_AUTH_USERNAME = "jotest@test.com";
     public static final String API_INASSA_AUTH_PASSWORD = "P@$$w0rd";
 
-    public static double LATITUDE = -1;
-    public static double LONGITUDE = -1;
-
-    public static void setLatitude(double latitude){
-        LATITUDE = latitude;
-    }
-    public static void setLongitude(double longitude){
-        LONGITUDE = longitude;
-    }
+    public static final String TOKEN = "1E:DF:D8:32:09:92:72:AF:FA:32:12:71:D6:B5:E4:70:DB:F2:7F:48";
 
 }

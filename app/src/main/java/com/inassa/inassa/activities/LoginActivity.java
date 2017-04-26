@@ -1,44 +1,21 @@
 package com.inassa.inassa.activities;
 
-import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -52,53 +29,45 @@ import com.inassa.inassa.tools.UserInfo;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static android.Manifest.permission.READ_CONTACTS;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * A login screen that offers login via username/password.
+ * Un ecran de login qui offre une authentification via nom d'utilisateur/mot de passe.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends AppCompatActivity {
 
-    /**
-     * Id to identity READ_CONTACTS permission request.
-     */
-    private static final int REQUEST_READ_CONTACTS = 0;
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-//    private UserLoginTask mAuthTask = null;
-
-    // UI references.
+    // References du UI.
     private AutoCompleteTextView mUsernameView;
     private EditText mPasswordView;
     private TextView forgot_password;
-    private View mProgressView;
-    private View mLoginFormView;
     UserInfo userInfo;
 
+
+    /**
+     * La methode qui cree le rendu de la vue du formulaire de Login
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        // Set up the login form.
-        mUsernameView = (AutoCompleteTextView) findViewById(R.id.login_username);
-        populateAutoComplete();
 
         userInfo = new UserInfo(this);
+
+        // Mis en place du formulaire
+        mUsernameView = (AutoCompleteTextView) findViewById(R.id.login_username);
+
 
         forgot_password = (TextView) findViewById(R.id.forgot_password);
         forgot_password.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+                finish();
 
             }
         });
@@ -122,76 +91,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-//        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
-    }
-
-    private void populateAutoComplete() {
-        if (!mayRequestContacts()) {
-            return;
-        }
-
-        getLoaderManager().initLoader(0, null, this);
-    }
-
-    private boolean mayRequestContacts() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true;
-        }
-        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(mUsernameView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
-                        @Override
-                        @TargetApi(Build.VERSION_CODES.M)
-                        public void onClick(View v) {
-                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-                        }
-                    });
-        } else {
-            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-        }
-        return false;
     }
 
     /**
-     * Callback received when a permissions request has been completed.
+     * Une methode qui permet de faire la verification des saisis de l'utilisateur
      */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_READ_CONTACTS) {
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                populateAutoComplete();
-            }
-        }
-    }
-
-
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid username, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
-    private void attemptLogin() {
-       /* if (mAuthTask != null) {
-            return;
-        }*/
-
-        // Reset errors.
+    public void attemptLogin() {
+        // Reinitialiser les Errors.
         mUsernameView.setError(null);
         mPasswordView.setError(null);
 
-        // Store values at the time of the login attempt.
+        // Enregistrer les valeurs saisis dans des String
         String username = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
+        // Verifie que le mot de passe est valide, si l'utilisateur en a saisi un
         if(TextUtils.isEmpty(password)) {
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
@@ -202,7 +119,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             cancel = true;
         }
 
-        // Check for a valid username.
+        // Verifie que l'utilisateur a saisi un nom d'utilisateur.
         if (TextUtils.isEmpty(username)) {
             mUsernameView.setError(getString(R.string.error_field_required));
             focusView = mUsernameView;
@@ -214,23 +131,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            //showProgress(true);
-
             loginUser( mUsernameView.getText().toString().trim(), mPasswordView.getText().toString().trim());
-
-//            startActivity(new Intent(LoginActivity.this, SearchClientActivity.class));
-//            finish();
 
         }
     }
 
 
+    /**
+     * La methode qui permet de faire le l'authentification si l'utilisateur existe.
+     * @param username
+     * @param password
+     */
     private void loginUser(final String username, final String password) {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Loging in ...");
@@ -273,7 +186,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
                         error.printStackTrace();
-                        Toast.makeText(LoginActivity.this, "Please check your internet connection", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "S'il vous plait, verifier votre connection internet.", Toast.LENGTH_LONG).show();
                     }
                 }) {
             @Override
@@ -281,7 +194,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Map<String, String> params = new HashMap<String, String>();
                 params.put(Constants.KEY_USERNAME, username);
                 params.put(Constants.KEY_PASSWORD, password);
-//                params.put(Constants.KEY_TOKEN, FirebaseInstanceId.getInstance().getToken());
+                params.put(Constants.KEY_TOKEN, Constants.TOKEN);
                 return params;
             }
 
@@ -292,72 +205,29 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
+    /**
+     * Methode qui permet de verifier que le nom d'utilisateur saisi est valide
+     * @param username
+     * @return boolean
+     */
     private boolean isUsernameValid(String username) {
-        //TODO: Replace this with your own logic
 //        return username.contains("_");
         return true;
     }
 
+    /**
+     * Methode qui permet de verifier que le mot de passe saisi est valide.
+     * @param password
+     * @return boolean
+     */
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return new CursorLoader(this,
-                // Retrieve data rows for the device user's 'profile' contact.
-                Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
-
-                // Select only username addresses.
-                ContactsContract.Contacts.Data.MIMETYPE +
-                        " = ?", new String[]{ContactsContract.CommonDataKinds.Email
-                .CONTENT_ITEM_TYPE},
-
-                // Show primary username addresses first. Note that there won't be
-                // a primary username address if the user hasn't specified one.
-                ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        List<String> usernames = new ArrayList<>();
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            usernames.add(cursor.getString(ProfileQuery.ADDRESS));
-            cursor.moveToNext();
-        }
-
-        addEmailsToAutoComplete(usernames);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> cursorLoader) {
-
-    }
-
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(LoginActivity.this,
-                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
-        mUsernameView.setAdapter(adapter);
-    }
-
-
-    private interface ProfileQuery {
-        String[] PROJECTION = {
-                ContactsContract.CommonDataKinds.Email.ADDRESS,
-                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-        };
-
-        int ADDRESS = 0;
-        int IS_PRIMARY = 1;
-    }
-
+    /**
+     * Une methode qui permet de renvoyer l'utilisateur a la vue SearchClient s'il
+     * s'etait deja authentifier ave succes.
+     */
     @Override
     protected void onResume() {
         mUsernameView.clearFocus();
