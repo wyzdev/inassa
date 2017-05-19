@@ -45,6 +45,10 @@
         <activity
             android:name=".activities.ForgotPasswordActivity"
             android:label="@string/title_activity_forgot_password"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.InfoClientActivity"
+            android:label="@string/title_activity_info_client"
             android:theme="@style/AppTheme"></activity>
     </application>
 

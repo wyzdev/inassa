@@ -9,65 +9,49 @@
     tools:showIn="@layout/activity_search_client">
     
     <LinearLayout
+        android:layout_centerInParent="true"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="96dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-        <TextView
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/search_client_text"/>
-
+        android:orientation="vertical">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
+            android:layout_height="wrap_content">
 
             <EditText
-                android:background="@drawable/bg_edittext"
-                android:padding="18dp"
-                android:id="@+id/search_client_edittext_lastname"
+                android:id="@+id/search_lastname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/lastname_client_hint"
+                android:imeActionId="@+id/login"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
                 android:inputType="text"
                 android:maxLines="1"
                 android:singleLine="true" />
 
         </android.support.design.widget.TextInputLayout>
-
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
+            android:layout_height="wrap_content">
 
-            <EditText
-                android:background="@drawable/bg_edittext"
-                android:padding="18dp"
-                android:id="@+id/search_client_edittext_firstname"
+            <AutoCompleteTextView
+                android:id="@+id/search_firstname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/firstname_client_hint"
-                android:inputType="text"
+                android:inputType="textAutoComplete"
                 android:maxLines="1"
                 android:singleLine="true" />
 
         </android.support.design.widget.TextInputLayout>
 
 
+
         <LinearLayout
-            android:onClick="setDate"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:layout_width="match_parent"
@@ -81,15 +65,18 @@
                 android:layout_weight="0.7">
 
                 <EditText
-                    android:background="@drawable/bg_edittext"
-                    android:padding="18dp"
                     android:id="@+id/search_client_edittext_birthdate_client"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/birthdate_hint"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+
+                    android:imeActionId="@+id/login"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -100,6 +87,7 @@
                 android:layout_height="wrap_content"/>
 
             <android.support.v7.widget.AppCompatImageButton
+                android:onClick="setDate"
                 android:paddingTop="8dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.3"
@@ -112,54 +100,24 @@
         </LinearLayout>
 
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-        <android.support.v7.widget.AppCompatImageButton
-            android:id="@+id/search_client_imagebutton_close"
-            android:background="@drawable/ripple2"
-            android:layout_gravity="center"
-            android:layout_weight="0.32"
+        <android.support.v7.widget.AppCompatButton
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_close_white_32dp"/>
-
-        <View
-            android:layout_height="match_parent"
-            android:layout_width="1dp"
-            android:background="@color/white"/>
-
-        <android.support.v7.widget.AppCompatImageButton
-            android:id="@+id/search_client_imagebutton_refresh"
-            android:background="@drawable/ripple2"
-            android:layout_gravity="center"
-            android:layout_weight="0.32"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_refresh_white_18dp"/>
+            android:layout_height="wrap_content"
+            android:text="@string/search_client_text"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="16dp"
 
 
-        <View
-            android:layout_height="match_parent"
-            android:layout_width="1dp"
-            android:background="@color/white"/>
-
-        <android.support.v7.widget.AppCompatImageButton
-            android:id="@+id/search_client_imagebutton_check"
-            android:background="@drawable/ripple2"
-            android:layout_gravity="center"
-            android:layout_weight="0.32"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_check_white_18dp"/>
-
+            android:id="@+id/search_button"
+            style="?android:textAppearanceSmall"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ripple3"
+            android:elevation="24dp"
+            android:paddingLeft="64dp"
+            android:paddingRight="64dp"
+            android:textAlignment="center"
+            android:textColor="@color/cardview_light_background"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

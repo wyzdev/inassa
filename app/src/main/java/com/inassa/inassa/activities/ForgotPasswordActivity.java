@@ -39,7 +39,7 @@ import java.util.Map;
 public class ForgotPasswordActivity extends AppCompatActivity {
 
     // References du UI
-    private static final int MY_SOCKET_TIMEOUT_MS = 20000;
+    private static final int MY_SOCKET_TIMEOUT_MS = 30000;
     EditText editText_username, editText_email;
     Button button_send;
 
