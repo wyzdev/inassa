@@ -24,7 +24,9 @@ public class Constants {
     public static final String KEY_FIRSTNAME = "first_name";
     public static final String KEY_LASTNAME = "last_name";
     public static final String KEY_DATE = "date";
+    public static final String KEY_DOB = "dob";
     public static final String KEY_STATUS = "status";
+    public static final String KEY_INSTITUTION = "institution";
     public static final String KEY_LATITUDE = "latitude";
     public static final String KEY_LONGITUDE = "longitude";
     public static final String KEY_POSTAL_ADDRESS = "postal_address";

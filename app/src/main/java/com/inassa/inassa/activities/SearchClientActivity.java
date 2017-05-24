@@ -26,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.inassa.inassa.R;
+import com.inassa.inassa.tools.Constants;
 import com.inassa.inassa.tools.UserInfo;
 
 import org.json.JSONArray;
@@ -33,9 +34,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class SearchClientActivity extends AppCompatActivity {
 
@@ -53,8 +58,8 @@ public class SearchClientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_client);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setLogo(R.drawable.inassa_white);
-        toolbar.setTitle("");
+//        toolbar.setLogo(R.drawable.inassa_white);
+        toolbar.setTitle("Rechercher un client");
         toolbar.setSubtitle("");
         setSupportActionBar(toolbar);
 
@@ -62,12 +67,6 @@ public class SearchClientActivity extends AppCompatActivity {
 
         editText_birthdate = (EditText) findViewById(R.id.search_client_edittext_birthdate_client);
         editText_birthdate.setEnabled(false);
-        editText_birthdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setDate(view);
-            }
-        });
 
         DateFormat dateFormat = new SimpleDateFormat("dd");
         Date date = new Date();
@@ -78,7 +77,6 @@ public class SearchClientActivity extends AppCompatActivity {
 
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        showDate(year, month+1, day);
 
         editText_firstname = (EditText) findViewById(R.id.search_firstname);
         editText_lastname = (EditText) findViewById(R.id.search_lastname);
@@ -87,7 +85,7 @@ public class SearchClientActivity extends AppCompatActivity {
         button_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!editText_firstname.getText().toString().isEmpty() && !editText_lastname.getText().toString().isEmpty())
+                if (!editText_firstname.getText().toString().isEmpty() && !editText_lastname.getText().toString().isEmpty() && !editText_birthdate.getText().toString().isEmpty())
                     sendRaw(editText_firstname.getText().toString().toUpperCase(), editText_lastname.getText().toString().toUpperCase(), editText_birthdate.getText().toString());
             }
         });
@@ -137,7 +135,7 @@ public class SearchClientActivity extends AppCompatActivity {
                             obj = new JSONObject(array.get(0).toString());
                             String key = obj.getString("key");
 
-                            getInfoUser(key, prenom, nom, dob);
+                            getInfoClient(key, prenom, nom, dob);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -171,7 +169,7 @@ public class SearchClientActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    public void getInfoUser(final String key, final String prenom, final String nom, final String dob){
+    public void getInfoClient(final String key, final String prenom, final String nom, final String dob){
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Recherche en cours ...");
         progressDialog.setMessage("Patientez s'il vous plait");
@@ -183,10 +181,11 @@ public class SearchClientActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.i("response_login", response);
+                        Log.i("birthday", dob);
                         progressDialog.dismiss();
-                        Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
-                        intent.putExtra("info_client", response);
-                        startActivity(intent);
+
+                        saveInLogs(response);
+
                         /*try {
                             JSONArray array = new JSONArray(response);
                             JSONObject obj = new JSONObject(array.get(0).toString());
@@ -231,6 +230,102 @@ public class SearchClientActivity extends AppCompatActivity {
                 MY_SOCKET_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    private void saveInLogs(final String info_client) {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Enregistrement ...");
+        progressDialog.setMessage("Patientez s'il vous plait");
+        progressDialog.show();
+
+        final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        final Date date = new Date();
+
+        JSONObject obj;
+        String firstname = "";
+        String lastname = "";
+        boolean status = false;
+        String dob = "";
+        DateFormat originalFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+        DateFormat targetFormat = new SimpleDateFormat("yyyy-MM-dd");
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        try {
+            obj = new JSONObject(info_client);
+            if (obj.getBoolean("success") && obj.getJSONArray("clients").length() > 0){
+
+                obj = (JSONObject) obj.getJSONArray("clients").get(0);
+                firstname = editText_firstname.getText().toString();
+                lastname = editText_lastname.getText().toString();
+                status = obj.getBoolean("status");
+                Date birthdate = originalFormat.parse(obj.getString("dob"));
+                dob = targetFormat.format(birthdate);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+
+        final String finalFirstname = firstname;
+        final String finalLastname = lastname;
+        final boolean finalStatus = status;
+        final String finalDob = dob;
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.ADD_ADDRESS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i("response_login", response);
+
+
+                        progressDialog.dismiss();
+                        try {
+                            JSONObject jso  = new JSONObject(response);
+
+                            if (!jso.getBoolean("error")){
+                                Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
+                                intent.putExtra("info_client", info_client);
+                                startActivity(intent);
+                                editText_birthdate.setText("");
+                                editText_firstname.setText("");
+                                editText_lastname.setText("");
+
+                                editText_lastname.requestFocus();
+                            }
+                            else{
+                                Toast.makeText(SearchClientActivity.this, "error", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        error.printStackTrace();
+                        Toast.makeText(SearchClientActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put(Constants.KEY_FIRSTNAME, finalFirstname.toUpperCase());
+                params.put(Constants.KEY_LASTNAME, finalLastname.toUpperCase());
+                params.put(Constants.KEY_STATUS, String.valueOf((finalStatus) ? 1 : 0));
+                params.put(Constants.KEY_DATE, dateFormat.format(date));
+                params.put(Constants.KEY_DOB, finalDob);
+                params.put(Constants.KEY_INSTITUTION, userInfo.getUserInstitution());
+                params.put(Constants.KEY_TOKEN, Constants.TOKEN);
+                return params;
+            }
+
+        };
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);

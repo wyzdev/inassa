@@ -49,7 +49,10 @@
         <activity
             android:name=".activities.InfoClientActivity"
             android:label="@string/title_activity_info_client"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme">
+
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="com.inassa.inassa.activities.ForgotPasswordActivity"/>
+        </activity>
     </application>
 
 </manifest>
