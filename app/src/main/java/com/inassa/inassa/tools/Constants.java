@@ -10,7 +10,8 @@ public class Constants {
 //    public static final String SERVER = "http://192.168.15.241:8765/";
 //    public static final String SERVER = "http://192.168.0.138:8765/";
 //    public static final String SERVER = "http://192.168.15.77:8765/";
-    public static final String SERVER = "http://192.168.15.254:8765/";
+//    public static final String SERVER = "http://192.168.15.254:8765/";
+    public static final String SERVER = "http://wyzdev.net/";
 
     public static final String SERVER_INASSA = "http://200.113.219.221:8180/RequestQuote/RequestLogin";
     public static final String API_INASSA_AUTH ="RequestQuote/RequestLogin";
