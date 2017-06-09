@@ -8,15 +8,15 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="by_card">Par carte client</string>
-    <string name="by_client_number">Par numero client</string>
-    <string name="number_client_hint">Numero client</string>
+    <string name="by_client_number">Par numéro client</string>
+    <string name="number_client_hint">Numéro client</string>
     <string name="birthdate_hint">Date de naissance</string>
     <string name="validate">Valider</string>
     <string name="card_text">CARTE</string>
     <string name="sample_card_number">1A22kfjh43l2jehw</string>
     <string name="lastname_text">NOM</string>
     <string name="sample_lastname">DOE</string>
-    <string name="firstname_text">PRENOM</string>
+    <string name="firstname_text">PRÉNOM</string>
     <string name="sample_firstname">John</string>
     <string name="active">ACTIVE</string>
     <string name="swipe">Swipe</string>
@@ -54,13 +54,13 @@
     <string name="change_password">Changez de mot de passe</string>
     <string name="error_auth">Erreur d\'authentification</string>
     <string name="title_activity_search_client">SearchClientActivity</string>
-    <string name="logout">Deconnexion</string>
+    <string name="logout">Déconnexion</string>
     <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
     <string name="send">Envoyer</string>
-    <string name="forgot_password_description">Votre nom d\'utilisateur permettra de vous indentifier et votre e-mail de vous envoyer votre nouveau mot de passe.\n
+    <string name="forgot_password_description">Votre e-mail permettra de vous indentifier et de vous envoyer votre nouveau mot de passe.\n
     Vous pourrez changer votre mot de passe en vous reconnectant.</string>
-    <string name="password_reset_title">Mot de passe reinitialiser avec succes</string>
-    <string name="password_reset_message">Votre nouveau mot de passe a ete envoye a cette adresse.</string>
+    <string name="password_reset_title">Mot de passe réinitialiser avec succès</string>
+    <string name="password_reset_message">Votre nouveau mot de passe a été envoyé à l\'adresse : </string>
     <string name="change_password_description">Vous devez saisir votre nouveau mot de passe deux (2) fois.</string>
     <string name="error_password_not_match">Les mots de passe ne correspondent pas</string>
 
@@ -71,7 +71,7 @@
     <string name="date_button_set">Set Date</string>
     <string name="date_view_set">The Date is: </string>
     <string name="date_selected"></string>
-    <string name="firstname_client_hint">Prenom du client</string>
+    <string name="firstname_client_hint">Prénom du client</string>
     <string name="search_client_text">Recherchez un client</string>
     <string name="title_activity_info_client">InfoClientActivity</string>
     <string name="go_to_login"><![CDATA[< Login]]></string>

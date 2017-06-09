@@ -37,7 +37,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     // References du UI
     private static final int MY_SOCKET_TIMEOUT_MS = 30000;
-    EditText editText_username, editText_email;
+    EditText editText_email;
     Button button_send;
 
     /**
@@ -55,7 +55,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         editText_email = (EditText) findViewById(R.id.forgot_password_email);
-        editText_username = (EditText) findViewById(R.id.forgot_password_username);
 
         button_send = (Button) findViewById(R.id.forgot_password_send_button);
         button_send.setOnClickListener(new View.OnClickListener() {
@@ -73,11 +72,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     public void attemptChangeemail() {
 
         // Reinitialiser les Errors.
-        editText_username.setError(null);
         editText_email.setError(null);
 
         // Enregistre les valeurs saisis par l'utilisateur dans des String
-        String username = editText_username.getText().toString();
         String email = editText_email.getText().toString();
 
         boolean cancel = false;
@@ -94,17 +91,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             cancel = true;
         }
 
-        // Verifie si un nom d'utilisateur a ete saisi
-        if (TextUtils.isEmpty(username)) {
-            editText_username.setError(getString(R.string.error_field_required));
-            focusView = editText_username;
-            cancel = true;
-        }
-
         if (cancel) {
             focusView.requestFocus();
         } else {
-            resetUser(username.trim(), email.trim());
+            resetUser(email.trim());
 
 
         }
@@ -112,10 +102,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     /**
      * Une methode qui permet de reinitialiser le mot de passe de l'utilisateur.
-     * @param username
      * @param email
      */
-    private void resetUser(final String username, final String email) {
+    private void resetUser(final String email) {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Reinitialisation du mot de passe ...");
         progressDialog.setMessage("Attendez s'il vous plait");
@@ -150,7 +139,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put(Constants.KEY_USERNAME, username);
                 params.put(Constants.KEY_EMAIL, email);
                 params.put(Constants.KEY_TOKEN, Constants.TOKEN);
                 return params;
@@ -197,7 +185,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         // preparer le message du dialog
         alertDialogBuilder
-                .setMessage(getString(R.string.password_reset_message) + email)
+                .setMessage(getString(R.string.password_reset_message) +' ' + email)
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

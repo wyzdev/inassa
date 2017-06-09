@@ -138,7 +138,8 @@ public class LoginActivity extends AppCompatActivity {
         if (cancel) {
             focusView.requestFocus();
         } else {
-            loginUser( mUsernameView.getText().toString().trim(), mPasswordView.getText().toString().trim());
+            loginUser( mUsernameView.getText().toString().trim(), mPasswordView.getText().toString()
+                    .trim());
 
         }
     }
@@ -174,11 +175,13 @@ public class LoginActivity extends AppCompatActivity {
                                 userInfo.setLoggedin(true);
                                 userInfo.setUserInfo(String.valueOf(jso.getJSONObject("user")));
                                 userInfo.setCurrentDate(Integer.parseInt(dateFormat.format(date)));
-                                startActivity(new Intent(LoginActivity.this, SearchClientActivity.class));
+                                startActivity(new Intent(LoginActivity.this, SearchClientActivity
+                                        .class));
                                 finish();
                             }
                             else{
-                                Toast.makeText(LoginActivity.this, getString(R.string.error_auth), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, getString(R.string.error_auth), Toast
+                                        .LENGTH_SHORT).show();
                             }
 
                         } catch (JSONException e) {
@@ -191,7 +194,9 @@ public class LoginActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
                         error.printStackTrace();
-                        Toast.makeText(LoginActivity.this, "S'il vous plait, verifier votre connection internet.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this,
+                                "S'il vous plait, verifier votre connection internet." + error
+                                        .toString(), Toast.LENGTH_LONG).show();
                     }
                 }) {
             @Override

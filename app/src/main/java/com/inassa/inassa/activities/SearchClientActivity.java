@@ -58,7 +58,6 @@ public class SearchClientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_client);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        toolbar.setLogo(R.drawable.inassa_white);
         toolbar.setTitle("Rechercher un client");
         toolbar.setSubtitle("");
         setSupportActionBar(toolbar);
@@ -126,7 +125,7 @@ public class SearchClientActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.i("response_login", response);
                         progressDialog.dismiss();
-                        Toast.makeText(SearchClientActivity.this, "Susccess", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(SearchClientActivity.this, "Susccess", Toast.LENGTH_SHORT).show();
 
                         try {
                             JSONArray array = new JSONArray(response);
@@ -352,9 +351,7 @@ public class SearchClientActivity extends AppCompatActivity {
     @SuppressWarnings("deprecation")
     public void setDate(View view) {
         showDialog(999);
-        Toast.makeText(getApplicationContext(), "ca",
-                Toast.LENGTH_SHORT)
-                .show();
+//        Toast.makeText(getApplicationContext(), "ca", Toast.LENGTH_SHORT).show();
     }
 
     @Override
