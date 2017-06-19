@@ -6,12 +6,8 @@ package com.inassa.inassa.tools;
 
 public class Constants {
 
-
-//    public static final String SERVER = "http://192.168.15.241:8765/";
-//    public static final String SERVER = "http://192.168.0.138:8765/";
-//    public static final String SERVER = "http://192.168.15.77:8765/";
-//    public static final String SERVER = "http://192.168.15.254:8765/";
-    public static final String SERVER = "http://192.168.1.30/inassa_web/";
+    public static final String SERVER = "http://192.168.1.26/inassa_web/";
+//    public static final String SERVER = "http://nassagroup.com/app/";
 
     public static final String SERVER_INASSA = "http://200.113.219.221:8180/RequestQuote/RequestLogin";
     public static final String API_INASSA_AUTH ="RequestQuote/RequestLogin";
@@ -24,6 +20,7 @@ public class Constants {
     public static final String KEY_GLOBAL_NUMBER = "global_number";
     public static final String KEY_FIRSTNAME = "first_name";
     public static final String KEY_LASTNAME = "last_name";
+    public static final String KEY_DOCTOR = "doctor_name";
     public static final String KEY_DATE = "date";
     public static final String KEY_DOB = "dob";
     public static final String KEY_STATUS = "status";

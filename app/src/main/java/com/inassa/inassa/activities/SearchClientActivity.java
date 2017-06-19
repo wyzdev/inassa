@@ -146,7 +146,7 @@ public class SearchClientActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         error.printStackTrace();
                         Log.i("error_response", error.toString());
-                        Toast.makeText(SearchClientActivity.this, "ERroR", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SearchClientActivity.this, "ERroR " + error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }) {
 
@@ -316,6 +316,7 @@ public class SearchClientActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put(Constants.KEY_FIRSTNAME, finalFirstname.toUpperCase());
                 params.put(Constants.KEY_LASTNAME, finalLastname.toUpperCase());
+                params.put(Constants.KEY_DOCTOR, userInfo.getUserFirstname() + " " + userInfo.getUserLastname());
                 params.put(Constants.KEY_STATUS, String.valueOf((finalStatus) ? 1 : 0));
                 params.put(Constants.KEY_DATE, dateFormat.format(date));
                 params.put(Constants.KEY_DOB, finalDob);
