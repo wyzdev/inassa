@@ -18,34 +18,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+/**
+ * A screen that display the client's information
+ */
 public class InfoClientActivity extends AppCompatActivity {
 
     String info_client;
     JSONObject obj;
     TextView textView_client_firstname, textView_client_lastname, textView_client_global_name_number, textView_client_status;
 
-    /*{
-         "success": true,
-         "clients": [
-           {
-             "global_name_number": 116246,
-             "first_name": "S�bastien",
-             "last_name": "M�rov�-Pierre",
-             "dob": "09/18/1988",
-             "address": "10, Rue Ciraud\nBourdon\nPort-au-Prince\nHaiti",
-             "policy_number": 2901,
-             "company": "Dupuy & M�rov�-Pierre",
-             "status": true
-           }
-         ]
-       }
-    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_client);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        toolbar.setLogo(R.drawable.inassa_white);
         toolbar.setTitle("Information du client");
         toolbar.setSubtitle("");
         setSupportActionBar(toolbar);
@@ -85,6 +71,11 @@ public class InfoClientActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Allows the user to go to the parent activity
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

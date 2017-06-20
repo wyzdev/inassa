@@ -42,13 +42,15 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * A form that allows the user to search a client
+ */
 public class SearchClientActivity extends AppCompatActivity {
 
     private static final int MY_SOCKET_TIMEOUT_MS = 30000;
     UserInfo userInfo;
     int current_date;
 
-    private DatePicker datePicker;
     private Calendar calendar;
     private int year, month, day;
     private EditText editText_birthdate, editText_firstname, editText_lastname;
@@ -85,11 +87,16 @@ public class SearchClientActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!editText_firstname.getText().toString().isEmpty() && !editText_lastname.getText().toString().isEmpty() && !editText_birthdate.getText().toString().isEmpty())
-                    sendRaw(editText_firstname.getText().toString().toUpperCase(), editText_lastname.getText().toString().toUpperCase(), editText_birthdate.getText().toString());
+                    authAPI(editText_firstname.getText().toString().toUpperCase(), editText_lastname.getText().toString().toUpperCase(), editText_birthdate.getText().toString());
             }
         });
     }
 
+    /**
+     * Method that creates an option menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -97,6 +104,11 @@ public class SearchClientActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Method that allows the user to choose an item in the opion menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -112,14 +124,20 @@ public class SearchClientActivity extends AppCompatActivity {
     }
 
 
-    public void sendRaw(final String prenom, final String nom, final String dob){
+    /**
+     * Method that authenticates the application to INASSA's API
+     * @param prenom
+     * @param nom
+     * @param dob
+     */
+    public void authAPI(final String prenom, final String nom, final String dob){
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Authentification ...");
         progressDialog.setMessage("Patientez s'il vous plait");
         progressDialog.show();
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://200.113.219.221:8180/RequestQuote/RequestLogin",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.SERVER_INASSA + Constants.API_INASSA_AUTH,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -152,7 +170,7 @@ public class SearchClientActivity extends AppCompatActivity {
 
             @Override
             public byte[] getBody() throws AuthFailureError {
-                String str = "{\"Login\":{\"username\":\"jotest@test.com\",\"password\":\"P@$$w0rd\"}}";
+                String str = "{\"Login\":{\"username\":\"" + Constants.API_INASSA_AUTH_USERNAME + "\",\"password\":\"" + Constants.API_INASSA_AUTH_PASSWORD + "\"}}";
                 return str.getBytes();
             }
 
@@ -168,6 +186,13 @@ public class SearchClientActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
+    /**
+     * Method that receive the client's information
+     * @param key
+     * @param prenom
+     * @param nom
+     * @param dob
+     */
     public void getInfoClient(final String key, final String prenom, final String nom, final String dob){
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Recherche en cours ...");
@@ -175,7 +200,7 @@ public class SearchClientActivity extends AppCompatActivity {
         progressDialog.show();
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://200.113.219.221:8180/RequestQuote/epic_mwClientSearch",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.SERVER_INASSA + Constants.INASSA_API_SEARCH,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -184,18 +209,6 @@ public class SearchClientActivity extends AppCompatActivity {
                         progressDialog.dismiss();
 
                         saveInLogs(response);
-
-                        /*try {
-                            JSONArray array = new JSONArray(response);
-                            JSONObject obj = new JSONObject(array.get(0).toString());
-                            array = new JSONArray(obj.getJSONArray("Response").toString());
-                            obj = new JSONObject(array.get(0).toString());
-                            String key = obj.getString("key");
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }*/
                     }
                 },
                 new Response.ErrorListener() {
@@ -234,6 +247,10 @@ public class SearchClientActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
+    /**
+     * Method that saves the client's information and doctor's fullname and institution in database
+     * @param info_client
+     */
     private void saveInLogs(final String info_client) {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Enregistrement ...");
@@ -352,7 +369,6 @@ public class SearchClientActivity extends AppCompatActivity {
     @SuppressWarnings("deprecation")
     public void setDate(View view) {
         showDialog(999);
-//        Toast.makeText(getApplicationContext(), "ca", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -34,7 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Un ecran qui offre la fonction de changer son mot de passe
+ * A screen that offers the changing its password function
  */
 public class ChangePasswordActivity extends AppCompatActivity {
 
@@ -43,7 +43,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     UserInfo userInfo;
 
     /**
-     * Methode ou se fera le set up du formulaire
+     * Method that set up the form
      * @param savedInstanceState
      */
     @Override
@@ -80,9 +80,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     /**
-     * AttempChangePassword permet de changer le mot de passe de l'utilisateur.
-     * Si les champs restent vide, la chaine de caractere pour le mot de passe est trop courte, etc
-     *  un message d'erreur s'affichera.
+     * AttempChangePassword allows to changes the user's password
+     * if field is empty, string too short, etc
+     *  An error message will display
      */
     public void attempChangePassword() {
 
@@ -127,7 +127,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     /**
-     * Une methode qui permet de verifier si un e-mail est correct.
+     * Method that checks if an e-mail is correct
      *
      * @param email
      * @return boolean
@@ -138,8 +138,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     /**
-     * Une methode qui permet de verifier si un mot de passe est fort ou pase.
-     * Si le mot de passe n'est pas fort, un message d'erreur s'affichera.
+     * Method that checks if a password is strong or not
+     * If the password is not strong enough, an error message will diplay
      *
      * @param password
      * @return boolean
@@ -150,7 +150,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     /**
-     * Une methode qui permet de changer le mot de passe de l'utilisateur dans la base de donnees.
+     * Method that save the user's password in online database.
+     *
      * @param username
      * @param password
      */

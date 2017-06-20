@@ -30,8 +30,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Une classe qui permet de faire la reinitialisation du mot de passe du client
- * et de le lui envoyer par e-mail.
+ * A class that allows the user to reset its password
+ * and to send it to him via e-mail
  */
 public class ForgotPasswordActivity extends AppCompatActivity {
 
@@ -41,7 +41,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     Button button_send;
 
     /**
-     *Methode ou se fera le set up du formulaire
+     *  Method that sets up the form
      * @param savedInstanceState
      */
     @Override
@@ -66,8 +66,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     /**
-     * Une methode qui permet de verifier que les entres au clavier
-     * de l'utilisateur sont corrects.
+     * Method that checks if the user's input
+     * are correct.
      */
     public void attemptChangeemail() {
 
@@ -101,7 +101,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     /**
-     * Une methode qui permet de reinitialiser le mot de passe de l'utilisateur.
+     * Method that allows to reset the user's password.
      * @param email
      */
     private void resetUser(final String email) {
@@ -156,8 +156,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     /**
-     * Une methode qui permet de verifier que l'e-mail saisi est correcte.
-     * Si l'utilisateur en a saisi.
+     * Method that checks if the e-mail input is correct.
      * @param email
      * @return boolean
      */
@@ -166,7 +165,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     /**
-     * Une methode qui permet de retourner au formulaire de login quand on presse le boutton de retour.
+     * Method that allows the user to go back to the login form
      */
     @Override
     public void onBackPressed() {
@@ -175,8 +174,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     /**
-     * Une methode qui permet d'afficher un dialog avec la confirmation d'envoie du nouveau
-     * mot de passe a l'adresse que l'utilisateur a saisi
+     * Method that creates a message dialog to confirm that the e-mail that contents the new password
+     * is sent
      * @param email
      * @return AlertDialog
      */

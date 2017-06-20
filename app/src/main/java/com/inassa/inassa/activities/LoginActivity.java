@@ -1,6 +1,7 @@
 package com.inassa.inassa.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -38,7 +39,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Un ecran de login qui offre une authentification via nom d'utilisateur/mot de passe.
+ * A login screen that offers an authentication via username/password
  */
 public class LoginActivity extends AppCompatActivity {
 
@@ -50,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     /**
-     * La methode qui cree le rendu de la vue du formulaire de Login
+     * Method tha renders the login form
      * @param savedInstanceState
      */
     @Override
@@ -99,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Une methode qui permet de faire la verification des saisis de l'utilisateur
+     * Method that checks the user's inputs
      */
     public void attemptLogin() {
         // Reinitialiser les Errors.
@@ -146,14 +147,14 @@ public class LoginActivity extends AppCompatActivity {
 
 
     /**
-     * La methode qui permet de faire le l'authentification si l'utilisateur existe.
+     * Method that allows the user's authentication if the user exists
      * @param username
      * @param password
      */
     private void loginUser(final String username, final String password) {
         final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Loging in ...");
-        progressDialog.setMessage("Please wait");
+        progressDialog.setTitle("Connexion ...");
+        progressDialog.setMessage("Attendez s'il vous plait");
         progressDialog.show();
 
 
@@ -216,7 +217,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     /**
-     * Methode qui permet de verifier que le nom d'utilisateur saisi est valide
+     * Method that checks the user's username and password is valid
      * @param username
      * @return boolean
      */
@@ -226,7 +227,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Methode qui permet de verifier que le mot de passe saisi est valide.
+     * Method that checks if the password is valid
      * @param password
      * @return boolean
      */
@@ -235,8 +236,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Une methode qui permet de renvoyer l'utilisateur a la vue SearchClient s'il
-     * s'etait deja authentifier ave succes.
+     * Method that redirects the user to SEARCHCLIENT view if the user is already logged in.
      */
     @Override
     protected void onResume() {
@@ -246,6 +246,13 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
         super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+//        finish();
+//        startActivity(new Intent(LoginActivity.this, LoginActivity.class));
+        super.onPause();
     }
 }
 
