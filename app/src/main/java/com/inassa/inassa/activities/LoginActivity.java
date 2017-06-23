@@ -39,7 +39,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A login screen that offers an authentication via username/password
+ * A screen that allows the authentication via username/password
  */
 public class LoginActivity extends AppCompatActivity {
 

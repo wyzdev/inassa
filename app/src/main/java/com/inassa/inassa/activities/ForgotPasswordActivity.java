@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A class that allows the user to reset its password
+ * A screen that allows the user to reset its password
  * and to send it to the user's e-mail
  */
 public class ForgotPasswordActivity extends AppCompatActivity {

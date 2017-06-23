@@ -43,7 +43,7 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * A form that allows the user to search a client
+ * A screen that allows the user to search a client
  */
 public class SearchClientActivity extends AppCompatActivity {
 
