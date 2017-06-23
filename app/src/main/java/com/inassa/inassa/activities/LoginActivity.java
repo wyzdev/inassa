@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Method that checks the user's inputs
+     * Method that checks the user's inputs are correct
      */
     public void attemptLogin() {
         // Reinitialiser les Errors.
@@ -147,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     /**
-     * Method that allows the user's authentication if the user exists
+     * Method that allows the user to authenticate
      * @param username
      * @param password
      */
@@ -217,7 +217,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     /**
-     * Method that checks the user's username and password is valid
+     * Method that checks the user's username is valid
      * @param username
      * @return boolean
      */
@@ -227,7 +227,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Method that checks if the password is valid
+     * Method that checks if the user's password is valid
      * @param password
      * @return boolean
      */

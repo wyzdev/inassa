@@ -34,7 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A screen that offers the changing its password function
+ * A screen that allows the user to change his / her passwrord
  */
 public class ChangePasswordActivity extends AppCompatActivity {
 
@@ -43,7 +43,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     UserInfo userInfo;
 
     /**
-     * Method that set up the form
+     * Method that sets up the form
      * @param savedInstanceState
      */
     @Override
@@ -80,9 +80,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     /**
-     * AttempChangePassword allows to changes the user's password
-     * if field is empty, string too short, etc
-     *  An error message will display
+     * Method that allows to change the user's password.
+     * If the field is empty, string too short, etc
+     *  an error message will display
      */
     public void attempChangePassword() {
 
@@ -138,8 +138,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     /**
-     * Method that checks if a password is strong or not
-     * If the password is not strong enough, an error message will diplay
+     * Method that checks if a password is strong or not.
+     * If the password is not strong enough, an error message will display
      *
      * @param password
      * @return boolean
@@ -150,7 +150,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     /**
-     * Method that save the user's password in online database.
+     * Method that saves the user's new password in online database.
      *
      * @param username
      * @param password

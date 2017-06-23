@@ -31,7 +31,7 @@ import java.util.Map;
 
 /**
  * A class that allows the user to reset its password
- * and to send it to him via e-mail
+ * and to send it to the user's e-mail
  */
 public class ForgotPasswordActivity extends AppCompatActivity {
 
@@ -66,7 +66,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     /**
-     * Method that checks if the user's input
+     * Method that checks if the user's inputs
      * are correct.
      */
     public void attemptChangeemail() {
@@ -101,7 +101,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     /**
-     * Method that allows to reset the user's password.
+     * Method that resets the user's password.
      * @param email
      */
     private void resetUser(final String email) {
@@ -156,7 +156,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     /**
-     * Method that checks if the e-mail input is correct.
+     * Method that checks if an e-mail is correct.
      * @param email
      * @return boolean
      */
@@ -175,7 +175,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     /**
      * Method that creates a message dialog to confirm that the e-mail that contents the new password
-     * is sent
+     * is sent.
      * @param email
      * @return AlertDialog
      */
@@ -200,7 +200,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     public void go_to_login(View view){
-        startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
-        finish();
+        onBackPressed();
     }
 }

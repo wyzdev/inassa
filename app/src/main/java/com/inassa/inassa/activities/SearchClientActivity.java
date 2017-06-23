@@ -95,7 +95,7 @@ public class SearchClientActivity extends AppCompatActivity {
     /**
      * Method that creates an option menu
      * @param menu
-     * @return
+     * @return boolean
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -105,9 +105,9 @@ public class SearchClientActivity extends AppCompatActivity {
     }
 
     /**
-     * Method that allows the user to choose an item in the opion menu
+     * Method that allows the user to choose an item in the option menu
      * @param item
-     * @return
+     * @return boolean
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -125,7 +125,7 @@ public class SearchClientActivity extends AppCompatActivity {
 
 
     /**
-     * Method that authenticates the application to INASSA's API
+     * Method that authenticates the application to the API of INASSA
      * @param prenom
      * @param nom
      * @param dob
@@ -187,7 +187,7 @@ public class SearchClientActivity extends AppCompatActivity {
     }
 
     /**
-     * Method that receive the client's information
+     * Method that retrieves the client's information
      * @param key
      * @param prenom
      * @param nom
@@ -248,7 +248,8 @@ public class SearchClientActivity extends AppCompatActivity {
     }
 
     /**
-     * Method that saves the client's information and doctor's fullname and institution in database
+     * Method that saves the client's information retrieved and doctor's full name
+     * and institution in online database.
      * @param info_client
      */
     private void saveInLogs(final String info_client) {
@@ -348,6 +349,9 @@ public class SearchClientActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
+    /**
+     * Method that logs the user out when the day is changed
+     */
     @Override
     protected void onResume() {
 

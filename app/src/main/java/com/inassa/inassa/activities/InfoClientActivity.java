@@ -19,7 +19,7 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 /**
- * A screen that display the client's information
+ * A screen that displays the client's information
  */
 public class InfoClientActivity extends AppCompatActivity {
 
@@ -72,9 +72,9 @@ public class InfoClientActivity extends AppCompatActivity {
     }
 
     /**
-     * Allows the user to go to the parent activity
+     * Method that allows the user to go to the parent activity
      * @param item
-     * @return
+     * @return MenuItem
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

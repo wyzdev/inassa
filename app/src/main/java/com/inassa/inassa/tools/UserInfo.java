@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Class that manage the user's information in the application
+ * Class that manages the user's information in the application
  */
 
 public class UserInfo {
@@ -92,7 +92,7 @@ public class UserInfo {
 
     /**
      * Method that gets the current date
-     * @return
+     * @return String
      */
     public int getCurrentDate() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
@@ -112,7 +112,7 @@ public class UserInfo {
 
     /**
      * Method that gets the the state of the login
-     * @return
+     * @return boolean
      */
     public boolean getLoggedIn() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
@@ -121,7 +121,7 @@ public class UserInfo {
 
     /**
      * Method that gets the user's ID
-     * @return
+     * @return int
      */
     public int getUserId() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
@@ -130,7 +130,7 @@ public class UserInfo {
 
     /**
      * Method that gets the user's firstname
-     * @return
+     * @return String
      */
     public String getUserFirstname() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
@@ -139,7 +139,7 @@ public class UserInfo {
 
     /**
      * Method that gets the user's lastname
-     * @return
+     * @return String
      */
     public String getUserLastname() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
@@ -148,7 +148,7 @@ public class UserInfo {
 
     /**
      * Method that gets the user's username
-     * @return
+     * @return String
      */
     public String getUserUsername() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
@@ -157,7 +157,7 @@ public class UserInfo {
 
     /**
      * Method that gets the user's e-mail
-     * @return
+     * @return String
      */
     public String getUserEmail() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
@@ -166,7 +166,7 @@ public class UserInfo {
 
     /**
      * Method that gets the user's institution
-     * @return
+     * @return String
      */
     public String getUserInstitution() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
@@ -175,7 +175,7 @@ public class UserInfo {
 
     /**
      * Method that gets the user's role
-     * @return
+     * @return String
      */
     public String getUserRole() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
@@ -184,7 +184,7 @@ public class UserInfo {
 
     /**
      * Method that gets the user's status
-     * @return
+     * @return boolean
      */
     public boolean getUserStatus() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
@@ -193,7 +193,7 @@ public class UserInfo {
 
     /**
      * Method that gets if it's the user's first login
-     * @return
+     * @return boolean
      */
     public boolean getUserFirstLogin() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
