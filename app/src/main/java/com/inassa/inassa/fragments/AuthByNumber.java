@@ -7,6 +7,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -28,6 +31,9 @@ public class AuthByNumber extends Fragment implements View.OnClickListener {
     ImageButton imageButton_check, imageButton_close, imageButton_refresh;
     ImageView imageView_back;
 
+    public static final int MENU_ADD = Menu.FIRST;
+    public static final int MENU_DELETE = Menu.FIRST + 1;
+
 
     private Calendar calendar;
 
@@ -48,6 +54,7 @@ public class AuthByNumber extends Fragment implements View.OnClickListener {
         imageButton_check = (ImageButton) view.findViewById(R.id.auth_by_number_imagebutton_check);
         imageButton_calendar = (ImageButton) view.findViewById(R.id.auth_by_number_imagebutton_calendar);
 
+        imageView_back.setVisibility(View.GONE);
         editText_birthdate.setEnabled(false);
 
         imageButton_check.setOnClickListener(this);
@@ -88,7 +95,6 @@ public class AuthByNumber extends Fragment implements View.OnClickListener {
                 break;
         }
     }
-
 
     private void showDatePicker() {
         DatePickerFragment date = new DatePickerFragment();

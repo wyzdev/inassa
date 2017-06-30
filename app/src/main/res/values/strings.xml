@@ -33,16 +33,14 @@
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_username">Nom d\'utilisateur</string>
-    <string name="prompt_email">E-mail</string>
+    <string name="prompt_email">Nom d\'utilisateur</string>
     <string name="prompt_password">Mot de passe</string>
     <string name="action_sign_in">Sign in ou s\'enregistrer</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_username">Ce nom d\'utilisateur n\'est pas valide</string>
-    <string name="error_invalid_email">Cet e-mail n\'est pas valide</string>
+    <string name="error_invalid_email">Ce nom d\'utilisateur n\'est pas valide</string>
     <string name="error_invalid_password">Ce mot de passe est trop court</string>
     <string name="error_incorrect_password">Ce mot de passe est incorrect</string>
-    <string name="error_field_required">Ce champs est obligatoire</string>
+    <string name="error_field_required">Ce champs est requis</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
@@ -53,15 +51,6 @@
     <string name="prompt_new_password">Nouveau mot de passe</string>
     <string name="change_password">Changer de mot de passe</string>
     <string name="error_auth">Erreur d\'authentification</string>
-    <string name="title_activity_search_client">SearchClientActivity</string>
-    <string name="logout">Deconnexion</string>
-    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
-    <string name="send">Envoyer</string>
-    <string name="forgot_password_description">Votre nom d\'utilisateur permettra de vous indentifier et votre e-mail de vous envoyer votre nouveau mot de passe.\n
-    Vous pourrez changer votre mot de passe en vous reconnectant.</string>
-    <string name="password_reset_title">Mot de passe reinitialiser avec succes</string>
-    <string name="password_reset_message">Votre nouveau mot de passe a ete envoye a cette adresse.</string>
-    <string name="change_password_description">Vous devrez saisir votre e-mail et votre mot de passe deux (2) fois.</string>
-    <string name="error_password_not_match">Les mots de passe ne correspondent pas</string>
+    <string name="logout">Déconnexion</string>
 
 </resources>

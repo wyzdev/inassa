@@ -6,6 +6,10 @@ import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.inassa.inassa.R;
 import com.inassa.inassa.fragments.AuthByNumber;
@@ -21,9 +25,10 @@ public class MainActivity extends AppCompatActivity implements Communicator {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       /* this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().hide();*/
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.appbar);
+        setSupportActionBar(toolbar);
 
         init();
 
@@ -38,9 +43,28 @@ public class MainActivity extends AppCompatActivity implements Communicator {
     public void init() {
 
         AuthByNumber = new AuthByNumber();
+    }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.appbar);
-        setSupportActionBar(toolbar);
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (fragment instanceof AuthByNumber){
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.login_menu, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.logout:
+                Toast.makeText(MainActivity.this, "Déconnexion", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
