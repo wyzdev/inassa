@@ -4,14 +4,14 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,28 +26,36 @@ import com.android.volley.toolbox.Volley;
 import com.inassa.inassa.R;
 import com.inassa.inassa.tools.Constants;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A screen that allows the user to reset its password
+ * and to send it to the user's e-mail
+ */
 public class ForgotPasswordActivity extends AppCompatActivity {
 
-    private static final int MY_SOCKET_TIMEOUT_MS = 20000;
-    EditText editText_username, editText_email;
+    // References du UI
+    private static final int MY_SOCKET_TIMEOUT_MS = 30000;
+    EditText editText_email;
     Button button_send;
 
+    /**
+     *  Method that sets up the form
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_forgot_password);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         editText_email = (EditText) findViewById(R.id.forgot_password_email);
-        editText_username = (EditText) findViewById(R.id.forgot_password_username);
-        
+
         button_send = (Button) findViewById(R.id.forgot_password_send_button);
         button_send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,54 +64,47 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
     }
-    
-    public void attemptChangeemail(){
 
-        // Reset errors.
-        editText_username.setError(null);
+    /**
+     * Method that checks if the user's inputs
+     * are correct.
+     */
+    public void attemptChangeemail() {
+
+        // Reinitialiser les Errors.
         editText_email.setError(null);
 
-        // Store values at the time of the login attempt.
-        String username = editText_username.getText().toString();
+        // Enregistre les valeurs saisis par l'utilisateur dans des String
         String email = editText_email.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid email, if the user entered one.
-        if(TextUtils.isEmpty(email)) {
+        // verifie si l'email saisis est valide
+        if (TextUtils.isEmpty(email)) {
             editText_email.setError(getString(R.string.error_field_required));
             focusView = editText_email;
             cancel = true;
-        }else if (!TextUtils.isEmpty(email) && !isEmailValid(email)) {
+        } else if (!TextUtils.isEmpty(email) && !isEmailValid(email)) {
             editText_email.setError(getString(R.string.error_invalid_email));
             focusView = editText_email;
             cancel = true;
         }
 
-        // Check for a valid username.
-        if (TextUtils.isEmpty(username)) {
-            editText_username.setError(getString(R.string.error_field_required));
-            focusView = editText_username;
-            cancel = true;
-        }
-
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            //showProgress(true);
-
-            resetUser(username.trim(), email.trim());
+            resetUser(email.trim());
 
 
         }
     }
 
-    private void resetUser(final String username, final String email) {
+    /**
+     * Method that resets the user's password.
+     * @param email
+     */
+    private void resetUser(final String email) {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Reinitialisation du mot de passe ...");
         progressDialog.setMessage("Attendez s'il vous plait");
@@ -118,22 +119,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
 
                         progressDialog.dismiss();
-//                        try {
-//                            JSONObject jso  = new JSONObject(response);
-//                            jso = new JSONObject(String.valueOf(jso.getJSONObject("mail")));
-
-                            //if (!jso.getBoolean("error") || response.contains("false")){
-                            if (response.contains("false")){
-                                // show dialog message
-                                showDialogMessage(email).show();
-                            }
-                            else{
-                                Toast.makeText(ForgotPasswordActivity.this, getString(R.string.error_auth), Toast.LENGTH_SHORT).show();
-                            }
-
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
+                        if (response.contains("false")) {
+                            // show dialog message
+                            showDialogMessage(email).show();
+                        } else {
+                            Toast.makeText(ForgotPasswordActivity.this, getString(R.string.error_auth), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -148,8 +139,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put(Constants.KEY_USERNAME, username);
                 params.put(Constants.KEY_EMAIL, email);
+                params.put(Constants.KEY_TOKEN, Constants.TOKEN);
                 return params;
             }
 
@@ -164,35 +155,51 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
+    /**
+     * Method that checks if an e-mail is correct.
+     * @param email
+     * @return boolean
+     */
     private boolean isEmailValid(String email) {
         return email.contains("@");
     }
 
+    /**
+     * Method that allows the user to go back to the login form
+     */
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
         startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
         finish();
     }
 
-    private AlertDialog showDialogMessage(String email){
+    /**
+     * Method that creates a message dialog to confirm that the e-mail that contents the new password
+     * is sent.
+     * @param email
+     * @return AlertDialog
+     */
+    private AlertDialog showDialogMessage(String email) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ForgotPasswordActivity.this);
 
-        // set dialog message
+        // preparer le message du dialog
         alertDialogBuilder
-                .setMessage(getString(R.string.password_reset_message) + email)
+                .setMessage(getString(R.string.password_reset_message) +' ' + email)
                 .setCancelable(false)
-                .setPositiveButton("OK",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                        // if this button is clicked, close
-                        // current activity
-                        //ForgotPasswordActivity.this.finish();
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Si on clique sur ce boutton, ferme
+                        // l'activite actuel
                         startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
                         finish();
                     }
                 });
 
-        // create alert dialog
-         return alertDialogBuilder.create();
+        // cree un alert dialog
+        return alertDialogBuilder.create();
+    }
+
+    public void go_to_login(View view){
+        onBackPressed();
     }
 }

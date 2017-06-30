@@ -8,15 +8,15 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="by_card">Par carte client</string>
-    <string name="by_client_number">Par numero client</string>
-    <string name="number_client_hint">Numero client</string>
+    <string name="by_client_number">Par numéro client</string>
+    <string name="number_client_hint">Numéro client</string>
     <string name="birthdate_hint">Date de naissance</string>
     <string name="validate">Valider</string>
     <string name="card_text">CARTE</string>
     <string name="sample_card_number">1A22kfjh43l2jehw</string>
     <string name="lastname_text">NOM</string>
     <string name="sample_lastname">DOE</string>
-    <string name="firstname_text">PRENOM</string>
+    <string name="firstname_text">PRÉNOM</string>
     <string name="sample_firstname">John</string>
     <string name="active">ACTIVE</string>
     <string name="swipe">Swipe</string>
@@ -33,14 +33,16 @@
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Nom d\'utilisateur</string>
+    <string name="prompt_username">Nom d\'utilisateur</string>
+    <string name="prompt_email">E-mail</string>
     <string name="prompt_password">Mot de passe</string>
     <string name="action_sign_in">Sign in ou s\'enregistrer</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">Ce nom d\'utilisateur n\'est pas valide</string>
+    <string name="error_invalid_username">Ce nom d\'utilisateur n\'est pas valide</string>
+    <string name="error_invalid_email">Cet e-mail n\'est pas valide</string>
     <string name="error_invalid_password">Ce mot de passe est trop court</string>
     <string name="error_incorrect_password">Ce mot de passe est incorrect</string>
-    <string name="error_field_required">Ce champs est requis</string>
+    <string name="error_field_required">Ce champs est obligatoire</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
@@ -49,8 +51,28 @@
     <string name="prompt_password_confirmation">Confirmer le mot de passe</string>
     <string name="prompt_email_address">E-mail</string>
     <string name="prompt_new_password">Nouveau mot de passe</string>
-    <string name="change_password">Changer de mot de passe</string>
+    <string name="change_password">Changez de mot de passe</string>
     <string name="error_auth">Erreur d\'authentification</string>
+    <string name="title_activity_search_client">SearchClientActivity</string>
     <string name="logout">Déconnexion</string>
+    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+    <string name="send">Envoyer</string>
+    <string name="forgot_password_description">Votre e-mail permettra de vous indentifier et de vous envoyer votre nouveau mot de passe.\n
+    Vous pourrez changer votre mot de passe en vous reconnectant.</string>
+    <string name="password_reset_title">Mot de passe réinitialiser avec succès</string>
+    <string name="password_reset_message">Votre nouveau mot de passe a été envoyé à l\'adresse : </string>
+    <string name="change_password_description">Vous devez saisir votre nouveau mot de passe deux (2) fois.</string>
+    <string name="error_password_not_match">Les mots de passe ne correspondent pas</string>
 
+
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="date_label_set">Press the button to set the date</string>
+    <string name="date_button_set">Set Date</string>
+    <string name="date_view_set">The Date is: </string>
+    <string name="date_selected"></string>
+    <string name="firstname_client_hint">Prénom du client</string>
+    <string name="search_client_text">Recherchez un client</string>
+    <string name="title_activity_info_client">InfoClientActivity</string>
+    <string name="go_to_login"><![CDATA[< Login]]></string>
 </resources>

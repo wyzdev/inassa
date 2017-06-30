@@ -1,15 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.inassa.inassa.activities.SearchClientActivity"
-    tools:showIn="@layout/activity_search_client">
+    tools:showIn="@layout/activity_search_client"
+    android:background="@color/white">
 
-    <TextView
+    <ImageView
+        android:scaleType="fitCenter"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/inassa_logo3"
+        android:layout_above="@+id/card_content"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_content"
+        android:layout_margin="16dp"
+        android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/current_date"/>
-</android.support.constraint.ConstraintLayout>
+        app:cardCornerRadius="8dp">
+
+        <LinearLayout
+            android:layout_margin="16dp"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/search_lastname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/lastname_client_hint"
+                    android:imeActionId="@+id/login"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/search_firstname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/firstname_client_hint"
+                    android:inputType="textAutoComplete"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7">
+
+                    <EditText
+                        android:id="@+id/search_client_edittext_birthdate_client"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/birthdate_hint"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true"
+
+                        android:imeActionId="@+id/login"
+                        android:imeActionLabel="@string/action_sign_in_short"
+                        android:imeOptions="actionUnspecified"
+                        />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <EditText
+                    android:background="@drawable/bg_edittext"
+                    android:padding="18dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:onClick="setDate"
+                    android:paddingTop="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.3"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_calendar"
+                    android:scaleType="fitCenter"
+                    android:id="@+id/search_client_imagebutton_calendar" />
+            </LinearLayout>
+
+
+            <android.support.v7.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_client_text"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+
+
+                android:id="@+id/search_button"
+                style="?android:textAppearanceSmall"
+                android:background="@drawable/ripple3"
+                android:elevation="24dp"
+                android:paddingLeft="64dp"
+                android:paddingRight="64dp"
+                android:textAlignment="center"
+                android:textColor="@color/cardview_light_background"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</RelativeLayout>

@@ -13,23 +13,10 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by root on 4/18/17.
+ * Class that manages the user's information in the application
  */
 
 public class UserInfo {
-/*"user": {
-    "id": 1,
-    "first_name": "Hollyn",
-    "last_name": "DERISSE",
-    "username": "hollyn_derisse",
-    "institution": "INASSA",
-    "email": "hollynderisse93@gmail.com",
-    "role": "admin",
-    "status": true,
-    "first_login": false,
-    "created": "2017-03-20T00:00:00+00:00",
-    "modified": "2017-04-18T16:26:31+00:00"
-  }*/
     private final String PREFERENCE_NAME = "session";
     private final String KEY_ID = "id";
     private final String KEY_LOGIN = "login";
@@ -50,6 +37,10 @@ public class UserInfo {
         this.context = context;
     }
 
+    /**
+     * Method that sets the user's information
+     * @param value
+     */
     public void setUserInfo(String value) {
 
         JSONObject user = null;
@@ -88,6 +79,10 @@ public class UserInfo {
     }
 
 
+    /**
+     * Method that sets the current date
+     * @param current_date
+     */
     public void setCurrentDate(int current_date) {
         SharedPreferences.Editor editor = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE).edit();
 
@@ -95,11 +90,19 @@ public class UserInfo {
         editor.apply();
     }
 
+    /**
+     * Method that gets the current date
+     * @return String
+     */
     public int getCurrentDate() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         return prefs.getInt(KEY_CURRENT_DATE, 0);
     }
 
+    /**
+     * Method that sets the state of the login
+     * @param state
+     */
     public void setLoggedin(boolean state) {
         SharedPreferences.Editor editor = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE).edit();
 
@@ -107,110 +110,188 @@ public class UserInfo {
         editor.apply();
     }
 
+    /**
+     * Method that gets the the state of the login
+     * @return boolean
+     */
     public boolean getLoggedIn() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         return prefs.getBoolean(KEY_LOGIN, false);
     }
 
+    /**
+     * Method that gets the user's ID
+     * @return int
+     */
     public int getUserId() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         return prefs.getInt(KEY_ID, 0);
     }
 
+    /**
+     * Method that gets the user's firstname
+     * @return String
+     */
     public String getUserFirstname() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         return prefs.getString(KEY_FIRSTNAME, "");
     }
 
+    /**
+     * Method that gets the user's lastname
+     * @return String
+     */
     public String getUserLastname() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         return prefs.getString(KEY_LASTNAME, "");
     }
 
+    /**
+     * Method that gets the user's username
+     * @return String
+     */
     public String getUserUsername() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         return prefs.getString(KEY_USERNAME, "");
     }
 
+    /**
+     * Method that gets the user's e-mail
+     * @return String
+     */
     public String getUserEmail() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         return prefs.getString(KEY_EMAIL, "");
     }
 
+    /**
+     * Method that gets the user's institution
+     * @return String
+     */
     public String getUserInstitution() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         return prefs.getString(KEY_INSTITUTION, "");
     }
 
+    /**
+     * Method that gets the user's role
+     * @return String
+     */
     public String getUserRole() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         return prefs.getString(KEY_INSTITUTION, "");
     }
 
+    /**
+     * Method that gets the user's status
+     * @return boolean
+     */
     public boolean getUserStatus() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         return prefs.getBoolean(KEY_STATUS, false);
     }
 
-
+    /**
+     * Method that gets if it's the user's first login
+     * @return boolean
+     */
     public boolean getUserFirstLogin() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         return prefs.getBoolean(KEY_FIRST_LOGIN, false);
     }
 
+    /**
+     * Method that clears the shared preferences
+     */
     public void clear() {
         SharedPreferences.Editor editor = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE).edit();
         editor.clear();
     }
 
+    /**
+     * Method that sets the user's ID
+     * @param id
+     */
     public void setUserId(int id) {
         SharedPreferences.Editor editor = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE).edit();
         editor.putInt(KEY_ID, id);
         editor.apply();
     }
 
+    /**
+     * Method that sets the user's firstname
+     * @param firstname
+     */
     public void setUserFirstname(String firstname) {
         SharedPreferences.Editor editor = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE).edit();
         editor.putString(KEY_FIRSTNAME, firstname);
         editor.apply();
     }
 
+    /**
+     * Method that sets the user's lastname
+     * @param lastname
+     */
     public void setUserLastname(String lastname) {
         SharedPreferences.Editor editor = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE).edit();
         editor.putString(KEY_LASTNAME, lastname);
         editor.apply();
     }
 
+    /**
+     * Method that sets the user's username
+     * @param username
+     */
     public void setUserUsername(String username) {
         SharedPreferences.Editor editor = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE).edit();
         editor.putString(KEY_USERNAME, username);
         editor.apply();
     }
 
+    /**
+     * Method that sets the user's e-mail
+     * @param email
+     */
     public void setUserEmail(String email) {
         SharedPreferences.Editor editor = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE).edit();
         editor.putString(KEY_EMAIL, email);
         editor.apply();
     }
 
+    /**
+     * Method that sets the user's institution
+     * @param institution
+     */
     public void setUserInstitution(String institution) {
         SharedPreferences.Editor editor = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE).edit();
         editor.putString(KEY_INSTITUTION, institution);
         editor.apply();
     }
 
+    /**
+     * Method that sets the user's role
+     * @param role
+     */
     public void setUserRole(String role) {
         SharedPreferences.Editor editor = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE).edit();
         editor.putString(KEY_ROLE, role);
         editor.apply();
     }
 
+    /**
+     * Method that sets the user's status
+     * @param status
+     */
     public void setUserStatus(boolean status) {
         SharedPreferences.Editor editor = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE).edit();
         editor.putBoolean(KEY_STATUS, status);
         editor.apply();
     }
 
+    /**
+     * Method that sets if it's the user's first login
+     * @param first_login
+     */
     public void setUserFirstLogin(boolean first_login) {
         SharedPreferences.Editor editor = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE).edit();
         editor.putBoolean(KEY_FIRST_LOGIN, first_login);
