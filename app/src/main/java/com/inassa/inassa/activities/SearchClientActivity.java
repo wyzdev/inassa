@@ -118,6 +118,9 @@ public class SearchClientActivity extends AppCompatActivity {
                 startActivity(new Intent(SearchClientActivity.this, LoginActivity.class));
                 finish();
                 return true;
+            case R.id.change_password:
+                startActivity(new Intent(SearchClientActivity.this, ChangePasswordActivity.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -313,7 +316,7 @@ public class SearchClientActivity extends AppCompatActivity {
                                 editText_lastname.requestFocus();
                             }
                             else{
-                                Toast.makeText(SearchClientActivity.this, "error", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SearchClientActivity.this, "Client inconnu.", Toast.LENGTH_SHORT).show();
                             }
 
                         } catch (JSONException e) {

@@ -18,7 +18,7 @@
     <string name="sample_lastname">DOE</string>
     <string name="firstname_text">PRÉNOM</string>
     <string name="sample_firstname">John</string>
-    <string name="active">ACTIVE</string>
+    <string name="active">ACTIF</string>
     <string name="swipe">Swipe</string>
     <string name="swipe_bad_card">Swipe mauvaise carte</string>
     <string name="swipe_good_card">Swipe bonne carte</string>
@@ -26,7 +26,7 @@
     <string name="bad_card_or_bad_prenom">Identifiant incorrect ...</string>
     <string name="lastname_client_hint">Nom de famille du client</string>
     <string name="authenticate_text">Authentifiez-vous</string>
-    <string name="inactive">INACTIVE</string>
+    <string name="inactive">INACTIF</string>
     <string name="authentication_text">Authentification</string>
     <string name="requesting">Demande en cours</string>
     <string name="wait">Patientez s\'il vous plait</string>

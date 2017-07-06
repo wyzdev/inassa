@@ -6,7 +6,7 @@ package com.inassa.inassa.tools;
 
 public class Constants {
 
-    public static final String SERVER = "http://192.168.1.26/inassa_web/";
+    public static final String SERVER = "http://wyzdev.net/inassa/";
 //    public static final String SERVER = "http://nassagroup.com/app/";
 
     public static final String SERVER_INASSA = "http://200.113.219.221:8180/";
