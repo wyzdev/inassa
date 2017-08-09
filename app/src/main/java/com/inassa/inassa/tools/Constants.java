@@ -6,8 +6,8 @@ package com.inassa.inassa.tools;
 
 public class Constants {
 
-//    public static final String SERVER = "http://wyzdev.net/inassa/";
-    public static final String SERVER = "http://nassagroup.com/app/";
+    public static final String SERVER = "http://wyzdev.net/inassa/";
+//    public static final String SERVER = "http://nassagroup.com/app/";
 
     public static final String SERVER_INASSA = "http://200.113.219.221:8180/";
     public static final String API_INASSA_AUTH ="RequestQuote/RequestLogin";

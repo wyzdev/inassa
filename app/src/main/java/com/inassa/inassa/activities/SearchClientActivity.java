@@ -121,6 +121,8 @@ public class SearchClientActivity extends AppCompatActivity {
             case R.id.change_password:
                 startActivity(new Intent(SearchClientActivity.this, ChangePasswordActivity.class));
                 return true;
+            case R.id.user_guide:
+                startActivity(new Intent(SearchClientActivity.this, UserGuide.class));
             default:
                 return super.onOptionsItemSelected(item);
         }

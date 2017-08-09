@@ -75,4 +75,14 @@
     <string name="search_client_text">Recherchez un client</string>
     <string name="title_activity_info_client">InfoClientActivity</string>
     <string name="go_to_login"><![CDATA[< Login]]></string>
+    <string name="user_guide">Manuel d\'utilisateur</string>
+    <string name="title_activity_user_guide">UserGuide</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="inassa_html">rechercher_un_client.html</string>
+    <string name="no_such_page">There is no such page&#8230;</string>
+    <string name="first_login">Première connexion</string>
 </resources>
