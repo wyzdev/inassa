@@ -37,7 +37,7 @@ public class UserGuide extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //mwebview.getSettings().setJavaScriptEnabled(true);
+        mwebview.getSettings().setJavaScriptEnabled(true);
         mwebview.getSettings().setAppCacheEnabled(true);
         mwebview.getSettings().setDomStorageEnabled(true);
 
