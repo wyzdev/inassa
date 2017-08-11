@@ -308,6 +308,7 @@ public class SearchClientActivity extends AppCompatActivity {
                             JSONObject jso  = new JSONObject(response);
 
                             if (!jso.getBoolean("error")){
+                                Log.i("info_2", info_client);
                                 Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
                                 intent.putExtra("info_client", info_client);
                                 startActivity(intent);

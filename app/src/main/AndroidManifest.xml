@@ -52,6 +52,10 @@
         <activity
             android:name=".activities.UserGuide"
             android:label="@string/title_activity_user_guide"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.ListClient"
+            android:label="@string/title_activity_list_client"
             android:theme="@style/AppTheme"></activity>
     </application>
 

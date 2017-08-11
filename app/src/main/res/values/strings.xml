@@ -76,7 +76,7 @@
     <string name="title_activity_info_client">InfoClientActivity</string>
     <string name="go_to_login"><![CDATA[< Login]]></string>
     <string name="user_guide">Manuel d\'utilisateur</string>
-    <string name="title_activity_user_guide">UserGuide</string>
+    <string name="title_activity_user_guide">Manuel d\'utilisateur</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -85,4 +85,8 @@
     <string name="inassa_html">rechercher_un_client.html</string>
     <string name="no_such_page">There is no such page&#8230;</string>
     <string name="first_login">Première connexion</string>
+    <string name="prompt_postal_address">Adresse</string>
+    <string name="policy_number_text">Numéro de police</string>
+    <string name="company_text">Compagnie</string>
+    <string name="title_activity_list_client">Liste des clients</string>
 </resources>

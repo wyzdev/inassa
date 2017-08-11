@@ -25,7 +25,6 @@ public class UserGuide extends AppCompatActivity
         setContentView(R.layout.activity_user_guide);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Manuel d'utilisateur");
 
         mwebview = (WebView) findViewById(R.id.webview);
 
