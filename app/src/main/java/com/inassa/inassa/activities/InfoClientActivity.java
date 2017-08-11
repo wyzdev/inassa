@@ -57,7 +57,7 @@ public class InfoClientActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         info_client = getIntent().getStringExtra("info_client");
-
+        Log.i("info_1", info_client);
 
         textView_client_firstname = (TextView) findViewById(R.id.info_client_firstname);
         textView_client_lastname = (TextView) findViewById(R.id.info_client_lastname);

@@ -33,6 +33,7 @@ public class ListClient extends AppCompatActivity {
     private final String COMPANY = "company";
     private final String GLOBAL_NAME_NUMBER = "global_name_number";
     private final String CLIENTS = "clients";
+    private final String STATUS = "status";
     JSONObject obj;
 
     @Override
@@ -84,7 +85,8 @@ public class ListClient extends AppCompatActivity {
                             jsonObject.getString(COMPANY),
                             jsonObject.getString(POLICY_NUMBER),
                             jsonObject.getString(GLOBAL_NAME_NUMBER),
-                            jsonObject.getString(ADDRESS).replace("\n", " ")
+                            jsonObject.getString(ADDRESS).replace("\n", " "),
+                            jsonObject.getBoolean(STATUS)
                     ));
         }
     }

@@ -40,7 +40,7 @@ public class Client {
                     jsonObject.getString(ADDRESS)));
                     */
     public Client(String firstname, String lastname, String dob, String company, String policy_number, String global_name_number,
-                  String address) {
+                  String address, boolean status) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.dob = dob;
@@ -48,6 +48,7 @@ public class Client {
         this.policy_number = policy_number;
         this.global_name_number = global_name_number;
         this.address = address;
+        this.status = status;
     }
 
     public String getGlobal_name_number() {
