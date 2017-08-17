@@ -1,20 +1,28 @@
 package com.inassa.inassa.activities;
 
+import android.app.ActivityManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -36,9 +44,12 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -50,24 +61,63 @@ public class SearchClientActivity extends AppCompatActivity {
     private static final int MY_SOCKET_TIMEOUT_MS = 30000;
     UserInfo userInfo;
     int current_date;
+    TextView institution;
 
     private Calendar calendar;
     private int year, month, day;
     private EditText editText_birthdate, editText_firstname, editText_lastname;
 
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    startActivity(new Intent(SearchClientActivity.this, HomeActivity.class));
+                    overridePendingTransition(0, 0);
+                    finish();
+                    return true;
+                case R.id.navigation_search:
+                    startActivity(new Intent(SearchClientActivity.this, SearchClientActivity.class));
+                    overridePendingTransition(0, 0);
+                    finish();
+                    return true;
+                case R.id.navigation_user_guide:
+                    startActivity(new Intent(SearchClientActivity.this, UserGuide.class));
+                    overridePendingTransition(0, 0);
+                    finish();
+                    return true;
+            }
+            return false;
+        }
+
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_search_client);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Rechercher un client");
         toolbar.setSubtitle("");
         setSupportActionBar(toolbar);
 
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.getMenu().getItem(1).setChecked(true);
+
+
         userInfo = new UserInfo(this);
 
+        institution = (TextView) findViewById(R.id.institution);
         editText_birthdate = (EditText) findViewById(R.id.search_client_edittext_birthdate_client);
         editText_birthdate.setEnabled(false);
+
+        institution.setText(userInfo.getUserInstitution());
 
         DateFormat dateFormat = new SimpleDateFormat("dd");
         Date date = new Date();
@@ -213,7 +263,24 @@ public class SearchClientActivity extends AppCompatActivity {
                         Log.i("birthday", dob);
                         progressDialog.dismiss();
 
-                        saveInLogs(response);
+                        JSONObject obj = null;
+
+                        try {
+                            obj = new JSONObject(response);
+                            if (obj.getBoolean("success") && obj.getJSONArray("clients").length() > 0) {
+                                if(obj.getJSONArray("clients").length() == 1) {
+                                    saveInLogs(response);
+                                }
+                                else{
+                                    Intent intent = new Intent(SearchClientActivity.this, ListClient.class);
+                                    intent.putExtra("jsonObject", response);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -279,8 +346,8 @@ public class SearchClientActivity extends AppCompatActivity {
             if (obj.getBoolean("success") && obj.getJSONArray("clients").length() > 0){
 
                 obj = (JSONObject) obj.getJSONArray("clients").get(0);
-                firstname = editText_firstname.getText().toString();
-                lastname = editText_lastname.getText().toString();
+                firstname = obj.getString("first_name");
+                lastname = obj.getString("last_name");
                 status = obj.getBoolean("status");
                 Date birthdate = originalFormat.parse(obj.getString("dob"));
                 dob = targetFormat.format(birthdate);
@@ -306,7 +373,6 @@ public class SearchClientActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         try {
                             JSONObject jso  = new JSONObject(response);
-
                             if (!jso.getBoolean("error")){
                                 Log.i("info_2", info_client);
                                 Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
@@ -411,5 +477,34 @@ public class SearchClientActivity extends AppCompatActivity {
         String date = mm + "/" + dd + "/" + yyyy;
 
         editText_birthdate.setText(date);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
+    private final List mBlockedKeys = new ArrayList(Arrays.asList(KeyEvent.KEYCODE_VOLUME_DOWN,
+            KeyEvent.KEYCODE_VOLUME_UP));
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (mBlockedKeys.contains(event.getKeyCode())) {
+            return true;
+        } else {
+            return super.dispatchKeyEvent(event);
+        }
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        ActivityManager activityManager = (ActivityManager) getApplicationContext()
+                .getSystemService(Context.ACTIVITY_SERVICE);
+
+        activityManager.moveTaskToFront(getTaskId(), 0);
     }
 }

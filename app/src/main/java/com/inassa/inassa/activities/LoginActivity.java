@@ -1,8 +1,11 @@
 package com.inassa.inassa.activities;
 
+import android.app.ActivityManager;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -35,8 +38,11 @@ import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -55,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Method tha renders the login form
+     *
      * @param savedInstanceState
      */
     @Override
@@ -118,11 +125,11 @@ public class LoginActivity extends AppCompatActivity {
         View focusView = null;
 
         // Verifie que le mot de passe est valide, si l'utilisateur en a saisi un
-        if(TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(password)) {
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
             cancel = true;
-        }else if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        } else if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -139,18 +146,38 @@ public class LoginActivity extends AppCompatActivity {
             cancel = true;
         }
 
-        if (cancel) {
-            focusView.requestFocus();
-        } else {
-            loginUser( mUsernameView.getText().toString().trim(), mPasswordView.getText().toString()
-                    .trim());
+        if (mUsernameView.getText().toString().equals("inassa") && mPasswordView.getText().toString().equals("settings")) {
+            Toast.makeText(this, "Paramètres", Toast.LENGTH_SHORT).show();
+            openApp("com.android.settings");
+        }
+        else if(mUsernameView.getText().toString().equals("inassa") && mPasswordView.getText().toString().equals("dialer")) {
+            Toast.makeText(this, "Dialer", Toast.LENGTH_SHORT).show();
+            openApp("com.fineos.calculator");
+        }
+        else if(mUsernameView.getText().toString().equals("administrateur") && mPasswordView.getText().toString().equals("1n@$$@$apps$2017#")) {
+            Toast.makeText(this, "Apps", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, AppsListActivity.class));
+        }
+        else {
 
+            if (cancel) {
+                focusView.requestFocus();
+            } else {
+                loginUser(mUsernameView.getText().toString().trim(), mPasswordView.getText().toString()
+                        .trim());
+
+            }
         }
     }
-
+    public void openApp(String packageName) {
+        PackageManager manager = getPackageManager();
+        Intent i = manager.getLaunchIntentForPackage(packageName);
+        startActivity(i);
+    }
 
     /**
      * Method that allows the user to authenticate
+     *
      * @param username
      * @param password
      */
@@ -170,9 +197,9 @@ public class LoginActivity extends AppCompatActivity {
 
                         progressDialog.dismiss();
                         try {
-                            JSONObject jso  = new JSONObject(response);
+                            JSONObject jso = new JSONObject(response);
 
-                            if (!jso.getBoolean("error")){
+                            if (!jso.getBoolean("error")) {
                                 DateFormat dateFormat = new SimpleDateFormat("dd");
                                 Date date = new Date();
 
@@ -182,8 +209,7 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(new Intent(LoginActivity.this, SearchClientActivity
                                         .class));
                                 finish();
-                            }
-                            else{
+                            } else {
                                 Toast.makeText(LoginActivity.this, getString(R.string.error_auth), Toast
                                         .LENGTH_SHORT).show();
                             }
@@ -225,6 +251,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Method that checks the user's username is valid
+     *
      * @param username
      * @return boolean
      */
@@ -235,6 +262,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Method that checks if the user's password is valid
+     *
      * @param password
      * @return boolean
      */
@@ -248,7 +276,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         mUsernameView.clearFocus();
-        if (userInfo.getLoggedIn()){
+        if (userInfo.getLoggedIn()) {
             startActivity(new Intent(this, SearchClientActivity.class));
             finish();
         }
@@ -260,6 +288,29 @@ public class LoginActivity extends AppCompatActivity {
 //        finish();
 //        startActivity(new Intent(LoginActivity.this, LoginActivity.class));
         super.onPause();
+
+        ActivityManager activityManager = (ActivityManager) getApplicationContext()
+                .getSystemService(Context.ACTIVITY_SERVICE);
+
+        activityManager.moveTaskToFront(getTaskId(), 0);
     }
+
+    private final List mBlockedKeys = new ArrayList(Arrays.asList(KeyEvent.KEYCODE_VOLUME_DOWN,
+            KeyEvent.KEYCODE_VOLUME_UP));
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (mBlockedKeys.contains(event.getKeyCode())) {
+            return true;
+        } else {
+            return super.dispatchKeyEvent(event);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
 }
 

@@ -1,32 +1,78 @@
 package com.inassa.inassa.activities;
 
+import android.app.ActivityManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.inassa.inassa.R;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class UserGuide extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     WebView mwebview;
 
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    startActivity(new Intent(UserGuide.this, HomeActivity.class));
+                    overridePendingTransition(0, 0);
+                    finish();
+                    return true;
+                case R.id.navigation_search:
+                    startActivity(new Intent(UserGuide.this, SearchClientActivity.class));
+                    overridePendingTransition(0, 0);
+                    finish();
+                    return true;
+                case R.id.navigation_user_guide:
+                    startActivity(new Intent(UserGuide.this, UserGuide.class));
+                    overridePendingTransition(0, 0);
+                    finish();
+                    return true;
+            }
+            return false;
+        }
+
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_user_guide);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         mwebview = (WebView) findViewById(R.id.webview);
+
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.getMenu().getItem(2).setChecked(true);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -52,7 +98,9 @@ public class UserGuide extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            startActivity(new Intent(this, SearchClientActivity.class));
+            overridePendingTransition(0, 0);
+            finish();
         }
     }
 
@@ -65,15 +113,11 @@ public class UserGuide extends AppCompatActivity
 
         if (id == R.id.nav_first_login) {
             UserGuide.this.mwebview.loadData(page_first_login(), "text/html", "UTF-8");
-            UserGuide.this.mwebview.loadData(page_first_login(), "text/html", "UTF-8");
         } else if (id == R.id.nav_change_password) {
-            UserGuide.this.mwebview.loadData(page_change_password(), "text/html", "UTF-8");
             UserGuide.this.mwebview.loadData(page_change_password(), "text/html", "UTF-8");
         } else if (id == R.id.nav_forgot_password) {
             mwebview.loadData(page_forgot_password(), "text/html", "UTF-8");
-            mwebview.loadData(page_forgot_password(), "text/html", "UTF-8");
         } else if (id == R.id.nav_search_client) {
-            mwebview.loadData(page_search_client(), "text/html", "UTF-8");
             mwebview.loadData(page_search_client(), "text/html", "UTF-8");
         }
 
@@ -82,32 +126,12 @@ public class UserGuide extends AppCompatActivity
         return true;
     }
 
-    private String page_first_login(){
+    private String page_first_login() {
         return "<html>\n" +
                 "<head>\n" +
                 "\n" +
-                "<style>\n" +
-                ".tab-pane p, .tab-pane p ul li{\n" +
-                "    line-height: 1.6em;\n" +
-                "    padding: 5px 17px;\n" +
-                "    background: rgba(255, 255, 255, .5);\n" +
-                "}\n" +
-                "\n" +
-                ".tab-pane h2{\n" +
-                "    padding-left: 17px;\n" +
-                "    padding-bottom: : 5px 17px;\n" +
-                "}\n" +
-                "h2{color:#0b56a8;}\n" +
-                " .margin10{margin-bottom:10px; margin-right:10px;}\n" +
-                " \n" +
-                " .container .text-style\n" +
-                "{\n" +
-                "  text-align: justify;\n" +
-                "  line-height: 23px;\n" +
-                "  margin: 0 13px 0 0;\n" +
-                "  font-size: 19px;\n" +
-                "}" +
-                "</style>"+
+                "<meta charset=\"utf-8\"\n" +
+
                 "</head>\n" +
                 "\n" +
                 "<body>\n" +
@@ -115,9 +139,7 @@ public class UserGuide extends AppCompatActivity
                 "<h2>Première connexion</h2>\n" +
                 "<p>\n" +
                 "<center>\n" +
-                "    <iframe src=\"https://player.vimeo.com/video/228682037?title=0&byline=0&portrait=0\" width=\"166\"\n" +
-                "            height=\"296\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen\n" +
-                "            allowfullscreen></iframe>\n" +
+                "    <iframe width=\"315\" height=\"315\" src=\"https://www.youtube.com/embed/5Rfgh9Ogmko?list=PLLQguOJMJ8uynL22T8DoRN1QlIGmTN9Y0\" frameborder=\"0\" allowfullscreen></iframe>\n" +
                 "</center>\n" +
                 "</p>\n" +
                 "<p>\n" +
@@ -128,38 +150,18 @@ public class UserGuide extends AppCompatActivity
                 "    celui-ci afin d'accéder à la page d'accueil de l'application. Un message de confirmation\n" +
                 "    s'affichera.\n" +
                 "</p>\n" +
-                "</div>"+
+                "</div>" +
                 "</body>\n" +
                 "</html>" +
                 "";
     }
 
-    private String page_change_password(){
+    private String page_change_password() {
         return "<html>\n" +
                 "<head>\n" +
                 "\n" +
-                "<style>\n" +
-                ".tab-pane p, .tab-pane p ul li{\n" +
-                "    line-height: 1.6em;\n" +
-                "    padding: 5px 17px;\n" +
-                "    background: rgba(255, 255, 255, .5);\n" +
-                "}\n" +
-                "\n" +
-                ".tab-pane h2{\n" +
-                "    padding-left: 17px;\n" +
-                "    padding-bottom: : 5px 17px;\n" +
-                "}\n" +
-                "h2{color:#0b56a8;}\n" +
-                " .margin10{margin-bottom:10px; margin-right:10px;}\n" +
-                " \n" +
-                " .container .text-style\n" +
-                "{\n" +
-                "  text-align: justify;\n" +
-                "  line-height: 23px;\n" +
-                "  margin: 0 13px 0 0;\n" +
-                "  font-size: 19px;\n" +
-                "}" +
-                "</style>"+
+                "<meta charset=\"utf-8\"\n" +
+
                 "</head>\n" +
                 "\n" +
                 "<body>\n" +
@@ -168,9 +170,7 @@ public class UserGuide extends AppCompatActivity
                 "<h2>Changer de mot de passe</h2>\n" +
                 "<p>\n" +
                 "<center>\n" +
-                "    <iframe src=\"https://player.vimeo.com/video/228679246?title=0&byline=0&portrait=0\" width=\"166\"\n" +
-                "            height=\"296\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen\n" +
-                "            allowfullscreen></iframe>\n" +
+                "    <iframe width=\"315\" height=\"315\" src=\"https://www.youtube.com/embed/33ySlAl-tV0?list=PLLQguOJMJ8uynL22T8DoRN1QlIGmTN9Y0\" frameborder=\"0\" allowfullscreen></iframe>\n" +
                 "</center>\n" +
                 "</p>\n" +
                 "<p>\n" +
@@ -181,38 +181,18 @@ public class UserGuide extends AppCompatActivity
                 "    être composé d’au moins six (6) caractères alpha-numériques.\n" +
                 "    Cliquez ensuite sur \"Enregistrer\" pour valider la saisie de votre nouveau mot de passe\n" +
                 "</p>\n" +
-                "</div>"+
+                "</div>" +
                 "</body>\n" +
                 "</html>" +
                 "";
     }
 
-    private String page_forgot_password(){
+    private String page_forgot_password() {
         return "<html>\n" +
                 "<head>\n" +
                 "\n" +
-                "<style>\n" +
-                ".tab-pane p, .tab-pane p ul li{\n" +
-                "    line-height: 1.6em;\n" +
-                "    padding: 5px 17px;\n" +
-                "    background: rgba(255, 255, 255, .5);\n" +
-                "}\n" +
-                "\n" +
-                ".tab-pane h2{\n" +
-                "    padding-left: 17px;\n" +
-                "    padding-bottom: : 5px 17px;\n" +
-                "}\n" +
-                "h2{color:#0b56a8;}\n" +
-                " .margin10{margin-bottom:10px; margin-right:10px;}\n" +
-                " \n" +
-                " .container .text-style\n" +
-                "{\n" +
-                "  text-align: justify;\n" +
-                "  line-height: 23px;\n" +
-                "  margin: 0 13px 0 0;\n" +
-                "  font-size: 19px;\n" +
-                "}" +
-                "</style>"+
+                "<meta charset=\"utf-8\"\n" +
+
                 "</head>\n" +
                 "\n" +
                 "<body>\n" +
@@ -221,9 +201,7 @@ public class UserGuide extends AppCompatActivity
                 "<h2>Mot de passe oublié</h2>\n" +
                 "<p>\n" +
                 "<center>\n" +
-                "    <iframe src=\"https://player.vimeo.com/video/228681709?title=0&byline=0&portrait=0\" width=\"166\"\n" +
-                "            height=\"296\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen\n" +
-                "            allowfullscreen></iframe>\n" +
+                "    <iframe width=\"315\" height=\"315\" src=\"https://www.youtube.com/embed/AsGFIyiy684?list=PLLQguOJMJ8uynL22T8DoRN1QlIGmTN9Y0\" frameborder=\"0\" allowfullscreen></iframe>\n" +
                 "</center>\n" +
                 "</p>\n" +
                 "<p>\n" +
@@ -234,38 +212,18 @@ public class UserGuide extends AppCompatActivity
                 "    Dans le cas où votre addresse mail ne correspond à aucun utilisateur de la inassa, un message\n" +
                 "    d’erreur s'affichera.\n" +
                 "</p>\n" +
-                "</div>"+
+                "</div>" +
                 "</body>\n" +
                 "</html>" +
                 "";
     }
 
-    private String page_search_client(){
+    private String page_search_client() {
         return "<html>\n" +
                 "<head>\n" +
                 "\n" +
-                "<style>\n" +
-                ".tab-pane p, .tab-pane p ul li{\n" +
-                "    line-height: 1.6em;\n" +
-                "    padding: 5px 17px;\n" +
-                "    background: rgba(255, 255, 255, .5);\n" +
-                "}\n" +
-                "\n" +
-                ".tab-pane h2{\n" +
-                "    padding-left: 17px;\n" +
-                "    padding-bottom: : 5px 17px;\n" +
-                "}\n" +
-                "h2{color:#0b56a8;}\n" +
-                " .margin10{margin-bottom:10px; margin-right:10px;}\n" +
-                " \n" +
-                " .container .text-style\n" +
-                "{\n" +
-                "  text-align: justify;\n" +
-                "  line-height: 23px;\n" +
-                "  margin: 0 13px 0 0;\n" +
-                "  font-size: 19px;\n" +
-                "}" +
-                "</style>"+
+                "<meta charset=\"utf-8\"\n" +
+
                 "</head>\n" +
                 "\n" +
                 "<body>\n" +
@@ -273,9 +231,7 @@ public class UserGuide extends AppCompatActivity
                 "<h2>Rechercher un client</h2>\n" +
                 "<p>\n" +
                 "<center>\n" +
-                "    <iframe src=\"https://player.vimeo.com/video/228682804?title=0&byline=0&portrait=0\" width=\"166\"\n" +
-                "            height=\"296\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen\n" +
-                "            allowfullscreen></iframe>\n" +
+                "    <iframe width=\"315\" height=\"315\" src=\"https://www.youtube.com/embed/EQ9oxcIIYfc?list=PLLQguOJMJ8uynL22T8DoRN1QlIGmTN9Y0\" frameborder=\"0\" allowfullscreen></iframe>\n" +
                 "</center>\n" +
                 "</p>\n" +
                 "<p>\n" +
@@ -290,9 +246,34 @@ public class UserGuide extends AppCompatActivity
                 "    </li>\n" +
                 "</ul>\n" +
                 "</p>\n" +
-                "</div>"+
+                "</div>" +
                 "</body>\n" +
                 "</html>" +
                 "";
     }
+
+    private final List mBlockedKeys = new ArrayList(Arrays.asList(KeyEvent.KEYCODE_VOLUME_DOWN,
+            KeyEvent.KEYCODE_VOLUME_UP));
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (mBlockedKeys.contains(event.getKeyCode())) {
+            return true;
+        } else {
+            return super.dispatchKeyEvent(event);
+        }
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        ActivityManager activityManager = (ActivityManager) getApplicationContext()
+                .getSystemService(Context.ACTIVITY_SERVICE);
+
+        activityManager.moveTaskToFront(getTaskId(), 0);
+    }
+
+
 }

@@ -89,4 +89,7 @@
     <string name="policy_number_text">Numéro de police</string>
     <string name="company_text">Compagnie</string>
     <string name="title_activity_list_client">Liste des clients</string>
+    <string name="title_home">Accueil</string>
+    <string name="title_user_guide">Manuel</string>
+    <string name="title_search">Recherche</string>
 </resources>

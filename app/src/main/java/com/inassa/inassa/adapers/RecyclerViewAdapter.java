@@ -1,9 +1,11 @@
 package com.inassa.inassa.adapers;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +13,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.inassa.inassa.R;
 import com.inassa.inassa.activities.InfoClientActivity;
+import com.inassa.inassa.activities.SearchClientActivity;
 import com.inassa.inassa.tools.Client;
+import com.inassa.inassa.tools.Constants;
 import com.inassa.inassa.tools.UserInfo;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Created by hollyn.derisse on 10/08/2017.
@@ -26,10 +46,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     Context context;
     private final List<Client> clients;
+    UserInfo userInfo;
 
     public RecyclerViewAdapter(Context context, List<Client> clients) {
         this.clients = clients;
         this.context = context;
+        userInfo = new UserInfo(context);
     }
 
     @Override
@@ -51,8 +73,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         clientViewHolder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, InfoClientActivity.class);
-                intent.putExtra("info_client", "{\n" +
+                String info_client = "{\n" +
                         "     \"success\": true,\n" +
                         "     \"clients\": [\n" +
                         "       {\n" +
@@ -66,11 +87,105 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         "         \"status\": "+ clients.get(i).isStatus() +"\n" +
                         "       }\n" +
                         "     ]\n" +
-                        "   }");
-                context.startActivity(intent);
+                        "   }";
+
+                saveInLogs(info_client);
 
             }
         });
+    }
+    private void saveInLogs(final String info_client) {
+        final ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setTitle("Enregistrement ...");
+        progressDialog.setMessage("Patientez s'il vous plait");
+        progressDialog.show();
+
+        final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        final Date date = new Date();
+
+        JSONObject obj;
+        String firstname = "";
+        String lastname = "";
+        boolean status = false;
+        String dob = "";
+        DateFormat originalFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+        DateFormat targetFormat = new SimpleDateFormat("yyyy-MM-dd");
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        try {
+            obj = new JSONObject(info_client);
+            if (obj.getBoolean("success") && obj.getJSONArray("clients").length() > 0){
+
+                obj = (JSONObject) obj.getJSONArray("clients").get(0);
+                firstname = obj.getString("first_name");
+                lastname = obj.getString("last_name");
+                status = obj.getBoolean("status");
+                Date birthdate = originalFormat.parse(obj.getString("dob"));
+                dob = targetFormat.format(birthdate);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+
+        final String finalFirstname = firstname;
+        final String finalLastname = lastname;
+        final boolean finalStatus = status;
+        final String finalDob = dob;
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.ADD_ADDRESS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i("response_login", response);
+
+
+                        progressDialog.dismiss();
+                        try {
+                            JSONObject jso  = new JSONObject(response);
+
+                            if (!jso.getBoolean("error")){
+                                Log.i("info_2", info_client);
+                                Intent intent = new Intent(context, InfoClientActivity.class);
+                                intent.putExtra("info_client", info_client);
+                                context.startActivity(intent);
+
+                            }
+                            else{
+                                Toast.makeText(context, "Client inconnu.", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        error.printStackTrace();
+                        Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put(Constants.KEY_FIRSTNAME, finalFirstname.toUpperCase());
+                params.put(Constants.KEY_LASTNAME, finalLastname.toUpperCase());
+                params.put(Constants.KEY_DOCTOR, userInfo.getUserFirstname() + " " + userInfo.getUserLastname());
+                params.put(Constants.KEY_STATUS, String.valueOf((finalStatus) ? 1 : 0));
+                params.put(Constants.KEY_DATE, dateFormat.format(date));
+                params.put(Constants.KEY_DOB, finalDob);
+                params.put(Constants.KEY_INSTITUTION, userInfo.getUserInstitution());
+                params.put(Constants.KEY_TOKEN, Constants.TOKEN);
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
     }
 
     @Override
