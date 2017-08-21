@@ -21,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -90,11 +91,13 @@ public class InfoClientActivity extends AppCompatActivity {
         toolbar.setTitle("Information du client");
         toolbar.setSubtitle("");
         setSupportActionBar(toolbar);
+/*
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+*/
 
         info_client = getIntent().getStringExtra("info_client");
-        Log.i("info_1", info_client);
+
 
         textView_client_firstname = (TextView) findViewById(R.id.info_client_firstname);
         textView_client_lastname = (TextView) findViewById(R.id.info_client_lastname);
@@ -106,19 +109,20 @@ public class InfoClientActivity extends AppCompatActivity {
         navigation.getMenu().getItem(1).setChecked(true);
 
         try {
-            obj = new JSONObject(info_client);
-            if (obj.getBoolean("success") && obj.getJSONArray(CLIENTS).length() > 0){
+            if (!info_client.equals("")) {
+                obj = new JSONObject(info_client);
+                if (obj.getBoolean("success") && obj.getJSONArray(CLIENTS).length() > 0) {
 
-                if (obj.getJSONArray(CLIENTS).length() == 1){
-                    printInfoClient(obj);
-                }else if (obj.getJSONArray(CLIENTS).length() > 1){
-                    finish();
-                    Intent intent = new Intent(this, ListClient.class);
-                    intent.putExtra("jsonObject", obj.toString());
-                    startActivity(intent);
+                    if (obj.getJSONArray(CLIENTS).length() == 1) {
+                        printInfoClient(obj);
+                    }
                 }
+            }else{
+                ScrollView scrollView_info = (ScrollView) findViewById(R.id.scrollview_client_info);
+                TextView textView_not_update = (TextView) findViewById(R.id.client_not_update);
 
-
+                scrollView_info.setVisibility(View.GONE);
+                textView_not_update.setVisibility(View.VISIBLE);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -131,12 +135,11 @@ public class InfoClientActivity extends AppCompatActivity {
         textView_client_firstname.setText(obj.getString(FIRSTNAME));
         textView_client_lastname.setText(obj.getString(LASTNAME));
         textView_client_global_name_number.setText(obj.getString(GLOBAL_NAME_NUMBER));
-        if (obj.getBoolean("status")){
+        if (obj.getBoolean("status")) {
             textView_client_status.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_good));
             textView_client_status.setTextColor(getResources().getColor(R.color.green_active));
             textView_client_status.setText(getResources().getString(R.string.active));
-        }
-        else{
+        } else {
             textView_client_status.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_bad));
             textView_client_status.setTextColor(getResources().getColor(R.color.red_inactive));
             textView_client_status.setText(getResources().getString(R.string.inactive));
@@ -145,6 +148,7 @@ public class InfoClientActivity extends AppCompatActivity {
 
     /**
      * Method that allows the user to go to the parent activity
+     *
      * @param item
      * @return MenuItem
      */
@@ -152,7 +156,7 @@ public class InfoClientActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == android.R.id.home){
+        if (id == android.R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
         }
         return super.onOptionsItemSelected(item);
@@ -179,5 +183,11 @@ public class InfoClientActivity extends AppCompatActivity {
                 .getSystemService(Context.ACTIVITY_SERVICE);
 
         activityManager.moveTaskToFront(getTaskId(), 0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(InfoClientActivity.this, SearchClientActivity.class));
+        finish();
     }
 }

@@ -33,7 +33,22 @@
             android:layout_margin="16dp"
             app:cardCornerRadius="8dp">
 
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/client_not_update"
+                android:layout_margin="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/bg_bad"
+                android:gravity="center_horizontal"
+                android:text="@string/client_not_update"
+                android:textColor="@color/red_inactive"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
             <ScrollView
+                android:id="@+id/scrollview_client_info"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"

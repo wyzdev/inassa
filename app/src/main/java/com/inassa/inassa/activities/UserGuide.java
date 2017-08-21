@@ -13,6 +13,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,6 +22,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.inassa.inassa.R;
+import com.inassa.inassa.tools.UserInfo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +32,7 @@ public class UserGuide extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     WebView mwebview;
-
+    UserInfo userInfo;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -67,6 +70,7 @@ public class UserGuide extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        userInfo = new UserInfo(this);
         mwebview = (WebView) findViewById(R.id.webview);
 
 
@@ -88,6 +92,7 @@ public class UserGuide extends AppCompatActivity
         mwebview.getSettings().setDomStorageEnabled(true);
 
         mwebview.getSettings().setPluginState(WebSettings.PluginState.ON);
+        mwebview.getSettings().setDefaultTextEncodingName("utf-8");
 
         mwebview.loadData(page_first_login(), "text/html", "UTF-8");
     }
@@ -130,7 +135,7 @@ public class UserGuide extends AppCompatActivity
         return "<html>\n" +
                 "<head>\n" +
                 "\n" +
-                "<meta charset=\"utf-8\"\n" +
+                "<meta charset=\"utf-8\"/>\n" +
 
                 "</head>\n" +
                 "\n" +
@@ -139,7 +144,7 @@ public class UserGuide extends AppCompatActivity
                 "<h2>Première connexion</h2>\n" +
                 "<p>\n" +
                 "<center>\n" +
-                "    <iframe width=\"315\" height=\"315\" src=\"https://www.youtube.com/embed/5Rfgh9Ogmko?list=PLLQguOJMJ8uynL22T8DoRN1QlIGmTN9Y0\" frameborder=\"0\" allowfullscreen></iframe>\n" +
+                "    <iframe width=\"315\" height=\"315\" src=\"https://www.youtube.com/embed/5Rfgh9Ogmko?rel=0&showinfo=0\" frameborder=\"0\" allowfullscreen></iframe>\n" +
                 "</center>\n" +
                 "</p>\n" +
                 "<p>\n" +
@@ -160,7 +165,7 @@ public class UserGuide extends AppCompatActivity
         return "<html>\n" +
                 "<head>\n" +
                 "\n" +
-                "<meta charset=\"utf-8\"\n" +
+                "<meta charset=\"utf-8\"/>\n" +
 
                 "</head>\n" +
                 "\n" +
@@ -170,7 +175,7 @@ public class UserGuide extends AppCompatActivity
                 "<h2>Changer de mot de passe</h2>\n" +
                 "<p>\n" +
                 "<center>\n" +
-                "    <iframe width=\"315\" height=\"315\" src=\"https://www.youtube.com/embed/33ySlAl-tV0?list=PLLQguOJMJ8uynL22T8DoRN1QlIGmTN9Y0\" frameborder=\"0\" allowfullscreen></iframe>\n" +
+                "    <iframe width=\"315\" height=\"315\" src=\"https://www.youtube.com/embed/33ySlAl-tV0?rel=0&showinfo=0\" frameborder=\"0\" allowfullscreen></iframe>\n" +
                 "</center>\n" +
                 "</p>\n" +
                 "<p>\n" +
@@ -191,7 +196,7 @@ public class UserGuide extends AppCompatActivity
         return "<html>\n" +
                 "<head>\n" +
                 "\n" +
-                "<meta charset=\"utf-8\"\n" +
+                "<meta charset=\"utf-8\"/>\n" +
 
                 "</head>\n" +
                 "\n" +
@@ -201,7 +206,7 @@ public class UserGuide extends AppCompatActivity
                 "<h2>Mot de passe oublié</h2>\n" +
                 "<p>\n" +
                 "<center>\n" +
-                "    <iframe width=\"315\" height=\"315\" src=\"https://www.youtube.com/embed/AsGFIyiy684?list=PLLQguOJMJ8uynL22T8DoRN1QlIGmTN9Y0\" frameborder=\"0\" allowfullscreen></iframe>\n" +
+                "    <iframe width=\"315\" height=\"315\" src=\"https://www.youtube.com/embed/AsGFIyiy684?rel=0&showinfo=0\" frameborder=\"0\" allowfullscreen></iframe>\n" +
                 "</center>\n" +
                 "</p>\n" +
                 "<p>\n" +
@@ -222,7 +227,7 @@ public class UserGuide extends AppCompatActivity
         return "<html>\n" +
                 "<head>\n" +
                 "\n" +
-                "<meta charset=\"utf-8\"\n" +
+                "<meta charset=\"utf-8\"/>\n" +
 
                 "</head>\n" +
                 "\n" +
@@ -231,7 +236,7 @@ public class UserGuide extends AppCompatActivity
                 "<h2>Rechercher un client</h2>\n" +
                 "<p>\n" +
                 "<center>\n" +
-                "    <iframe width=\"315\" height=\"315\" src=\"https://www.youtube.com/embed/EQ9oxcIIYfc?list=PLLQguOJMJ8uynL22T8DoRN1QlIGmTN9Y0\" frameborder=\"0\" allowfullscreen></iframe>\n" +
+                "    <iframe width=\"315\" height=\"315\" src=\"https://www.youtube.com/embed/EQ9oxcIIYfc?rel=0&showinfo=0\" frameborder=\"0\" allowfullscreen></iframe>\n" +
                 "</center>\n" +
                 "</p>\n" +
                 "<p>\n" +
@@ -252,19 +257,6 @@ public class UserGuide extends AppCompatActivity
                 "";
     }
 
-    private final List mBlockedKeys = new ArrayList(Arrays.asList(KeyEvent.KEYCODE_VOLUME_DOWN,
-            KeyEvent.KEYCODE_VOLUME_UP));
-
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        if (mBlockedKeys.contains(event.getKeyCode())) {
-            return true;
-        } else {
-            return super.dispatchKeyEvent(event);
-        }
-    }
-
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -273,6 +265,42 @@ public class UserGuide extends AppCompatActivity
                 .getSystemService(Context.ACTIVITY_SERVICE);
 
         activityManager.moveTaskToFront(getTaskId(), 0);
+    }
+
+    /**
+     * Method that creates an option menu
+     * @param menu
+     * @return boolean
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.login_menu, menu);
+        return true;
+    }
+
+    /**
+     * Method that allows the user to choose an item in the option menu
+     * @param item
+     * @return boolean
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:
+                userInfo.setLoggedin(false);
+                userInfo.clear();
+                startActivity(new Intent(UserGuide.this, LoginActivity.class));
+                finish();
+                return true;
+            case R.id.change_password:
+                startActivity(new Intent(UserGuide.this, ChangePasswordActivity.class));
+                return true;
+            case R.id.user_guide:
+                startActivity(new Intent(UserGuide.this, UserGuide.class));
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

@@ -92,4 +92,8 @@
     <string name="title_home">Accueil</string>
     <string name="title_user_guide">Manuel</string>
     <string name="title_search">Recherche</string>
+    <string name="title_activity_home">Accueil</string>
+    <string name="change_password_user_guide">Changer de mot de passe</string>
+    <string name="search_client_user_guide">Rechercher un client</string>
+    <string name="client_not_update">Client pas à jour</string>
 </resources>

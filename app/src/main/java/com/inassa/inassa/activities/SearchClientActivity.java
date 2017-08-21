@@ -277,6 +277,11 @@ public class SearchClientActivity extends AppCompatActivity {
                                     startActivity(intent);
                                     finish();
                                 }
+                            }else{
+                                Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
+                                intent.putExtra("info_client", "");
+                                startActivity(intent);
+                                finish();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

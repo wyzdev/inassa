@@ -7,15 +7,12 @@
             android:title="@string/first_login" />
         <item
             android:id="@+id/nav_change_password"
-            android:title="@string/change_password" />
+            android:title="@string/change_password_user_guide" />
         <item
             android:id="@+id/nav_forgot_password"
             android:title="@string/forgot_password" />
         <item
             android:id="@+id/nav_search_client"
-            android:title="@string/search_client_text" />
+            android:title="@string/search_client_user_guide" />
     </group>
-
-
-
 </menu>
