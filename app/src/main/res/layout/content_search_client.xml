@@ -10,6 +10,7 @@
     android:background="@color/white">
 
     <ImageView
+        android:layout_centerHorizontal="true"
         android:scaleType="fitCenter"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="16dp"
@@ -113,7 +114,6 @@
                     android:layout_height="wrap_content"/>
 
                 <android.support.v7.widget.AppCompatImageButton
-                    android:onClick="setDate"
                     android:paddingTop="8dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="0.3"
@@ -123,6 +123,7 @@
                     android:src="@drawable/ic_calendar"
                     android:scaleType="fitCenter"
                     android:id="@+id/search_client_imagebutton_calendar" />
+
             </LinearLayout>
 
 
@@ -136,7 +137,7 @@
 
                 android:id="@+id/search_button"
                 style="?android:textAppearanceSmall"
-                android:background="@drawable/ripple3"
+                android:background="@color/colorPrimary"
                 android:elevation="24dp"
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"

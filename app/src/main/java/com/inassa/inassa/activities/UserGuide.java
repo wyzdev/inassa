@@ -117,13 +117,13 @@ public class UserGuide extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_first_login) {
-            UserGuide.this.mwebview.loadData(page_first_login(), "text/html", "UTF-8");
+            UserGuide.this.mwebview.loadData(page_first_login(), "text/html; charset=UTF-8", null);
         } else if (id == R.id.nav_change_password) {
-            UserGuide.this.mwebview.loadData(page_change_password(), "text/html", "UTF-8");
+            UserGuide.this.mwebview.loadData(page_change_password(), "text/html; charset=UTF-8", null);
         } else if (id == R.id.nav_forgot_password) {
-            mwebview.loadData(page_forgot_password(), "text/html", "UTF-8");
+            mwebview.loadData(page_forgot_password(), "text/html;UTF-8", null);
         } else if (id == R.id.nav_search_client) {
-            mwebview.loadData(page_search_client(), "text/html", "UTF-8");
+            mwebview.loadData(page_search_client(), "text/html; charset=UTF-8", null);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -141,18 +141,18 @@ public class UserGuide extends AppCompatActivity
                 "\n" +
                 "<body>\n" +
                 "<div class=\"tab-pane text-style\">" +
-                "<h2>Première connexion</h2>\n" +
+                "<h2>Premi&#232;re connexion</h2>\n" +
                 "<p>\n" +
                 "<center>\n" +
                 "    <iframe width=\"315\" height=\"315\" src=\"https://www.youtube.com/embed/5Rfgh9Ogmko?rel=0&showinfo=0\" frameborder=\"0\" allowfullscreen></iframe>\n" +
                 "</center>\n" +
                 "</p>\n" +
                 "<p>\n" +
-                "    Après la récupération du nom d'utilisateur et du mot de passe reçu par mail, rendez-vous sur la\n" +
+                "    Apr&#232;s la r&#233;cup&#233;ration du nom d'utilisateur et du mot de passe re&#231;u par mail, rendez-vous sur la\n" +
                 "    page \"Login\". Authentifiez-vous avec votre nom d'utilisateur et votre mot de passe. Lors de la\n" +
-                "    redirection, vous serez ammené à choisir un nouveau mot de passe supérieur ou égal à six (6)\n" +
-                "    caractères alpha-numériques. Confirmez ce mot de passe dans le second champ puis enregistrez\n" +
-                "    celui-ci afin d'accéder à la page d'accueil de l'application. Un message de confirmation\n" +
+                "    redirection, vous serez ammen&#233; &#224; choisir un nouveau mot de passe sup&#233;rieur ou &#233;gal &#224; six (6)\n" +
+                "    caract&#232;res alpha-num&#233;riques. Confirmez ce mot de passe dans le second champ puis enregistrez\n" +
+                "    celui-ci afin d'acc&#233;der &#224; la page d'accueil de l'application. Un message de confirmation\n" +
                 "    s'affichera.\n" +
                 "</p>\n" +
                 "</div>" +
@@ -179,11 +179,11 @@ public class UserGuide extends AppCompatActivity
                 "</center>\n" +
                 "</p>\n" +
                 "<p>\n" +
-                "    Afin de garder l’application sécurisée, il est conseillé de régulièrement changer son mot de\n" +
+                "    Afin de garder l’application s&#233;curis&#233;e, il est conseill&#233; de r&#233;guli&#232;rement changer son mot de\n" +
                 "    passe. Pour cela, rendez-vous sur le menu principal dans la section « Changer de mot de passe »\n" +
-                "    situé en haut à droite.\n" +
+                "    situ&#233; en haut &#224; droite.\n" +
                 "    Une boite de dialogue vous permettra de rentrer et confirmer votre nouveau mot de passe devant\n" +
-                "    être composé d’au moins six (6) caractères alpha-numériques.\n" +
+                "    être compos&#233; d’au moins six (6) caract&#232;res alpha-num&#233;riques.\n" +
                 "    Cliquez ensuite sur \"Enregistrer\" pour valider la saisie de votre nouveau mot de passe\n" +
                 "</p>\n" +
                 "</div>" +
@@ -203,19 +203,14 @@ public class UserGuide extends AppCompatActivity
                 "<body>\n" +
                 "\n" +
                 "<div class=\"tab-pane text-style\">" +
-                "<h2>Mot de passe oublié</h2>\n" +
+                "<h2>Mot de passe oubli&#233;</h2>\n" +
                 "<p>\n" +
                 "<center>\n" +
                 "    <iframe width=\"315\" height=\"315\" src=\"https://www.youtube.com/embed/AsGFIyiy684?rel=0&showinfo=0\" frameborder=\"0\" allowfullscreen></iframe>\n" +
                 "</center>\n" +
                 "</p>\n" +
                 "<p>\n" +
-                "    Dans le cas où vouz oubliez votre mot de passe, cliquez sur « mot de passe oublié » sur la page\n" +
-                "    d’authentification.\n" +
-                "    Indiquez ensuite votre adresse électronique puis validez pour recevoir votre nouveau mot de\n" +
-                "    passe par e-mail.\n" +
-                "    Dans le cas où votre addresse mail ne correspond à aucun utilisateur de la inassa, un message\n" +
-                "    d’erreur s'affichera.\n" +
+                "Dans le cas o&#249; vouz oubliez votre mot de passe, cliquez sur \"mot de passe oubli&#233;\" sur la page d'authentification. Indiquez ensuite votre adresse &#233;lectronique puis validez pour recevoir votre nouveau mot de passe par e-mail. Dans le cas o&#249; votre addresse mail ne correspond &#224; aucun utilisateur de la inassa, un message d'erreur s'affichera.\n" +
                 "</p>\n" +
                 "</div>" +
                 "</body>\n" +
@@ -240,13 +235,13 @@ public class UserGuide extends AppCompatActivity
                 "</center>\n" +
                 "</p>\n" +
                 "<p>\n" +
-                "    Lorsqu'un assuré se présente, vous pouvez vérifiez le status de son assurance en faisant une\n" +
-                "    recherche client. Pour cela indiquez son nom, son prénom et sa date de naissance en utilisant le\n" +
-                "    calendrier. Plusieurs résultats sont possible.\n" +
+                "    Lorsqu'un assur&#233; se pr&#233;sente, vous pouvez v&#233;rifiez le status de son assurance en faisant une\n" +
+                "    recherche client. Pour cela indiquez son nom, son pr&#233;nom et sa date de naissance en utilisant le\n" +
+                "    calendrier. Plusieurs r&#233;sultats sont possible.\n" +
                 "<ul>\n" +
                 "    <li>Si le client est actif, le message \"ACTIF\" s'affichera</li>\n" +
                 "    <li>Si le client est inactif, le message \"INACTIF\" s'affichera</li>\n" +
-                "    <li>Dans le cas où les informations indiquées ne correspondent à aucun client de la INASSA, une\n" +
+                "    <li>Dans le cas o&#249; les informations indiqu&#233;es ne correspondent &#224; aucun client de la INASSA, une\n" +
                 "        bulle \"Client iconnu.\" s'affichera\n" +
                 "    </li>\n" +
                 "</ul>\n" +

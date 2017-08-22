@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -22,6 +23,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,7 +58,7 @@ import java.util.Map;
 /**
  * A screen that allows the user to search a client
  */
-public class SearchClientActivity extends AppCompatActivity {
+public class SearchClientActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final int MY_SOCKET_TIMEOUT_MS = 30000;
     UserInfo userInfo;
@@ -66,7 +68,7 @@ public class SearchClientActivity extends AppCompatActivity {
     private Calendar calendar;
     private int year, month, day;
     private EditText editText_birthdate, editText_firstname, editText_lastname;
-
+    ImageButton imagebutton_datepicker;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -109,6 +111,7 @@ public class SearchClientActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.getMenu().getItem(1).setChecked(true);
+        imagebutton_datepicker = (ImageButton) findViewById(R.id.search_client_imagebutton_calendar);
 
 
         userInfo = new UserInfo(this);
@@ -140,6 +143,8 @@ public class SearchClientActivity extends AppCompatActivity {
                     authAPI(editText_firstname.getText().toString().toUpperCase(), editText_lastname.getText().toString().toUpperCase(), editText_birthdate.getText().toString());
             }
         });
+
+        imagebutton_datepicker.setOnClickListener(this);
     }
 
     /**
@@ -449,7 +454,6 @@ public class SearchClientActivity extends AppCompatActivity {
 
     @SuppressWarnings("deprecation")
     public void setDate(View view) {
-        showDialog(999);
     }
 
     @Override
@@ -511,5 +515,15 @@ public class SearchClientActivity extends AppCompatActivity {
                 .getSystemService(Context.ACTIVITY_SERVICE);
 
         activityManager.moveTaskToFront(getTaskId(), 0);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch(id) {
+            case R.id.search_client_imagebutton_calendar:
+                showDialog(999);
+                break;
+        }
     }
 }
