@@ -33,5 +33,8 @@ public class Constants {
     public static final String API_INASSA_AUTH_USERNAME = "jotest@test.com";
     public static final String API_INASSA_AUTH_PASSWORD = "P@$$w0rd";
 
+    public static final String USERNAME_TO_QUIT_APP = "administrateur";
+    public static final String PASSWORD_TO_QUIT_APP = "Inassa*apps#";
+
     public static final String TOKEN = "1E:DF:D8:32:09:92:72:AF:FA:32:12:71:D6:B5:E4:70:DB:F2:7F:48";
 }

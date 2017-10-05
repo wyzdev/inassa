@@ -153,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Dialer", Toast.LENGTH_SHORT).show();
             openApp("com.fineos.calculator");
         }
-        else if(mUsernameView.getText().toString().equals("administrateur") && mPasswordView.getText().toString().equals("1n@$$@$apps$2017#")) {
+        else if(mUsernameView.getText().toString().equals(Constants.USERNAME_TO_QUIT_APP) && mPasswordView.getText().toString().equals(Constants.PASSWORD_TO_QUIT_APP)) {
             Toast.makeText(this, "Apps", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, AppsListActivity.class));
         }
