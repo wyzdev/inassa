@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.inassa.inassa.activities.SearchClientActivity"
+    tools:context=".activities.SearchClientActivity"
     tools:showIn="@layout/activity_search_client"
     android:background="@color/white">
 
@@ -130,7 +130,7 @@
             <android.support.v7.widget.AppCompatButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/search_client_text"
+                android:text="@string/search_text"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
 

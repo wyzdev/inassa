@@ -4,7 +4,7 @@
     <item
         android:icon="@drawable/ic_lock_black_24dp"
         android:id="@+id/change_password"
-        android:title="@string/change_password"/>
+        android:title="@string/change_password_user_guide"/>
     <item
         android:icon="@drawable/ic_lock_black_24dp"
         android:id="@+id/user_guide"

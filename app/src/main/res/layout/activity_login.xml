@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/black"
     android:gravity="center_horizontal"
-    tools:context="com.inassa.inassa.activities.LoginActivity">
+    tools:context=".activities.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -69,7 +69,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                        android:text="@string/login"
+                        android:text="@string/authentication_text"
                         android:textAlignment="center"
                         android:textColor="@color/black_overlay"
                         android:textSize="18sp" />
@@ -118,7 +118,7 @@
                         android:elevation="24dp"
                         android:paddingLeft="64dp"
                         android:paddingRight="64dp"
-                        android:text="@string/login"
+                        android:text="@string/validate"
                         android:textAlignment="center"
                         android:textColor="@color/cardview_light_background"
                         android:textStyle="bold" />

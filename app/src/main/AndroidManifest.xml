@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.inassa.inassa">
+    package="com.nassagroup">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -48,7 +48,7 @@
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.inassa.inassa.activities.SearchClientActivity" />
+                android:value=".activities.SearchClientActivity" />
         </activity>
         <activity
             android:name=".activities.UserGuide"
