@@ -383,6 +383,8 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
 
                                 Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
                                 intent.putExtra("info_client", info_client);
+
+                                Log.i("info_client", info_client);
                                 startActivity(intent);
                                 editText_birthdate.setText("");
                                 editText_firstname.setText("");

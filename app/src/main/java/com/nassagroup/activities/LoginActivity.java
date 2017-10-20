@@ -224,8 +224,7 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         error.printStackTrace();
                         Toast.makeText(LoginActivity.this,
-                                "S'il vous plait, verifier votre connection internet." + error
-                                        .toString(), Toast.LENGTH_LONG).show();
+                                "S'il vous plait, verifier votre connection internet.", Toast.LENGTH_LONG).show();
                     }
                 }) {
             @Override

@@ -144,7 +144,7 @@ public class UserGuide extends AppCompatActivity
                 "<p>\n" +
                 "    Apr&#232;s la r&#233;cup&#233;ration du nom d'utilisateur et du mot de passe re&#231;u par mail, rendez-vous sur la\n" +
                 "    page \"Login\". Authentifiez-vous avec votre nom d'utilisateur et votre mot de passe. Lors de la\n" +
-                "    redirection, vous serez ammen&#233; &#224; choisir un nouveau mot de passe sup&#233;rieur ou &#233;gal &#224; six (6)\n" +
+                "    redirection, vous serez amen&#233; &#224; choisir un nouveau mot de passe sup&#233;rieur ou &#233;gal &#224; six (6)\n" +
                 "    caract&#232;res alpha-num&#233;riques. Confirmez ce mot de passe dans le second champ puis enregistrez\n" +
                 "    celui-ci afin d'acc&#233;der &#224; la page d'accueil de l'application. Un message de confirmation\n" +
                 "    s'affichera.\n" +
@@ -204,7 +204,7 @@ public class UserGuide extends AppCompatActivity
                 "</center>\n" +
                 "</p>\n" +
                 "<p>\n" +
-                "Dans le cas o&#249; vouz oubliez votre mot de passe, cliquez sur \"mot de passe oubli&#233;\" sur la page d'authentification. Indiquez ensuite votre adresse &#233;lectronique puis validez pour recevoir votre nouveau mot de passe par e-mail. Dans le cas o&#249; votre addresse mail ne correspond &#224; aucun utilisateur de la inassa, un message d'erreur s'affichera.\n" +
+                "Dans le cas o&#249; vouz oubliez votre mot de passe, cliquez sur \"mot de passe oubli&#233;\" sur la page d'authentification. Indiquez ensuite votre adresse &#233;lectronique puis validez pour recevoir votre nouveau mot de passe par e-mail. Dans le cas o&#249; votre adresse mail ne correspond &#224; aucun utilisateur de la INASSA, un message d'erreur s'affichera.\n" +
                 "</p>\n" +
                 "</div>" +
                 "</body>\n" +
@@ -229,14 +229,14 @@ public class UserGuide extends AppCompatActivity
                 "</center>\n" +
                 "</p>\n" +
                 "<p>\n" +
-                "    Lorsqu'un assur&#233; se pr&#233;sente, vous pouvez v&#233;rifiez le status de son assurance en faisant une\n" +
+                "    Lorsqu'un assur&#233; se pr&#233;sente, vous pouvez v&#233;rifier le statut de son assurance en faisant une\n" +
                 "    recherche client. Pour cela indiquez son nom, son pr&#233;nom et sa date de naissance en utilisant le\n" +
                 "    calendrier. Plusieurs r&#233;sultats sont possible.\n" +
                 "<ul>\n" +
                 "    <li>Si le client est actif, le message \"ACTIF\" s'affichera</li>\n" +
                 "    <li>Si le client est inactif, le message \"INACTIF\" s'affichera</li>\n" +
                 "    <li>Dans le cas o&#249; les informations indiqu&#233;es ne correspondent &#224; aucun client de la INASSA, une\n" +
-                "        bulle \"Client iconnu.\" s'affichera\n" +
+                "        bulle \"Client inconnu.\" s'affichera\n" +
                 "    </li>\n" +
                 "</ul>\n" +
                 "</p>\n" +

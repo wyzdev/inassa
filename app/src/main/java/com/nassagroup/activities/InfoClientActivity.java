@@ -9,13 +9,16 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nassagroup.R;
 
@@ -33,6 +36,9 @@ public class InfoClientActivity extends AppCompatActivity {
 
     String info_client;
     JSONObject obj;
+    ScrollView scrollView_info;
+    TextView textView_not_update;
+    LinearLayout not_update_layout;
     TextView textView_client_firstname, textView_client_lastname, textView_client_global_name_number, textView_client_status;
 
     private final String FIRSTNAME = "first_name";
@@ -87,10 +93,14 @@ public class InfoClientActivity extends AppCompatActivity {
         info_client = getIntent().getStringExtra("info_client");
 
 
+
         textView_client_firstname = (TextView) findViewById(R.id.info_client_firstname);
         textView_client_lastname = (TextView) findViewById(R.id.info_client_lastname);
         textView_client_global_name_number = (TextView) findViewById(R.id.info_client_global_name_number);
         textView_client_status = (TextView) findViewById(R.id.info_client_status);
+        scrollView_info = (ScrollView) findViewById(R.id.scrollview_client_info);
+        textView_not_update = (TextView) findViewById(R.id.client_not_update);
+        not_update_layout = (LinearLayout) findViewById(R.id.not_update_layout);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -101,16 +111,17 @@ public class InfoClientActivity extends AppCompatActivity {
                 obj = new JSONObject(info_client);
                 if (obj.getBoolean("success") && obj.getJSONArray(CLIENTS).length() > 0) {
 
+
                     if (obj.getJSONArray(CLIENTS).length() == 1) {
                         printInfoClient(obj);
                     }
                 }
             }else{
-                ScrollView scrollView_info = (ScrollView) findViewById(R.id.scrollview_client_info);
-                TextView textView_not_update = (TextView) findViewById(R.id.client_not_update);
 
                 scrollView_info.setVisibility(View.GONE);
                 textView_not_update.setVisibility(View.VISIBLE);
+                not_update_layout.setVisibility(View.VISIBLE);
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -118,8 +129,12 @@ public class InfoClientActivity extends AppCompatActivity {
     }
 
     private void printInfoClient(JSONObject obj) throws JSONException {
+        scrollView_info.setVisibility(View.VISIBLE);
+        textView_not_update.setVisibility(View.VISIBLE);
+        not_update_layout.setVisibility(View.GONE);
 
         obj = (JSONObject) obj.getJSONArray(CLIENTS).get(0);
+
         textView_client_firstname.setText(obj.getString(FIRSTNAME));
         textView_client_lastname.setText(obj.getString(LASTNAME));
         textView_client_global_name_number.setText(obj.getString(GLOBAL_NAME_NUMBER));
