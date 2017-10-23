@@ -25,9 +25,14 @@ import com.nassagroup.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A screen that displays the client's information
@@ -138,7 +143,18 @@ public class InfoClientActivity extends AppCompatActivity {
 
                 textView_client_firstname.setText(firstname_str);
                 textView_client_lastname.setText(lastname_str);
-                textView_client_dob.setText(dob_str);
+
+                DateFormat originalFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+                DateFormat targetFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = null;
+                try {
+                    date = originalFormat.parse(dob_str);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                String formattedDate = targetFormat.format(date);
+
+                textView_client_dob.setText(formattedDate);
 
             }
         } catch (JSONException e) {
