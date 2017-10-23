@@ -120,6 +120,7 @@ public class LoginActivity extends AppCompatActivity {
         String username = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
 
+
         boolean cancel = false;
         View focusView = null;
 
@@ -155,6 +156,12 @@ public class LoginActivity extends AppCompatActivity {
         }
         else if(mUsernameView.getText().toString().equals(Constants.USERNAME_TO_QUIT_APP) && mPasswordView.getText().toString().equals(Constants.PASSWORD_TO_QUIT_APP)) {
             Toast.makeText(this, "Apps", Toast.LENGTH_SHORT).show();
+
+            // Effacer les identifiants dans les editText
+            mUsernameView.setText("");
+            mPasswordView.setText("");
+
+            // lance les apps
             startActivity(new Intent(this, AppsListActivity.class));
         }
         else {

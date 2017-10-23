@@ -37,12 +37,12 @@ public class InfoClientActivity extends AppCompatActivity {
     String info_client;
     JSONObject obj;
     ScrollView scrollView_info;
-    TextView textView_not_update;
-    LinearLayout not_update_layout;
-    TextView textView_client_firstname, textView_client_lastname, textView_client_global_name_number, textView_client_status;
+    LinearLayout not_update_layout, dob_not_update, text_global_name_number_layout;
+    TextView textView_client_firstname, textView_client_lastname, textView_client_global_name_number, textView_client_status, textView_client_dob;
 
     private final String FIRSTNAME = "first_name";
     private final String LASTNAME = "last_name";
+    private final String DOB = "dob";
     private final String GLOBAL_NAME_NUMBER = "global_name_number";
     private final String CLIENTS = "clients";
     RelativeLayout viewClient, viewRecyclerView;
@@ -96,11 +96,13 @@ public class InfoClientActivity extends AppCompatActivity {
 
         textView_client_firstname = (TextView) findViewById(R.id.info_client_firstname);
         textView_client_lastname = (TextView) findViewById(R.id.info_client_lastname);
+        textView_client_dob = (TextView) findViewById(R.id.info_client_dob);
         textView_client_global_name_number = (TextView) findViewById(R.id.info_client_global_name_number);
         textView_client_status = (TextView) findViewById(R.id.info_client_status);
         scrollView_info = (ScrollView) findViewById(R.id.scrollview_client_info);
-        textView_not_update = (TextView) findViewById(R.id.client_not_update);
         not_update_layout = (LinearLayout) findViewById(R.id.not_update_layout);
+        dob_not_update = (LinearLayout) findViewById(R.id.dob_not_update);
+        text_global_name_number_layout = (LinearLayout) findViewById(R.id.text_global_name_number);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -117,10 +119,16 @@ public class InfoClientActivity extends AppCompatActivity {
                     }
                 }
             }else{
-
-                scrollView_info.setVisibility(View.GONE);
-                textView_not_update.setVisibility(View.VISIBLE);
+                text_global_name_number_layout.setVisibility(View.GONE);
+                textView_client_status.setVisibility(View.GONE);
+                dob_not_update.setVisibility(View.VISIBLE);
                 not_update_layout.setVisibility(View.VISIBLE);
+
+
+                obj = (JSONObject) new JSONObject(info_client).getJSONArray(CLIENTS).get(0);
+                textView_client_firstname.setText(obj.getString(FIRSTNAME));
+                textView_client_lastname.setText(obj.getString(LASTNAME));
+                textView_client_dob.setText(obj.getString(DOB));
 
             }
         } catch (JSONException e) {
@@ -129,9 +137,14 @@ public class InfoClientActivity extends AppCompatActivity {
     }
 
     private void printInfoClient(JSONObject obj) throws JSONException {
+
+        text_global_name_number_layout.setVisibility(View.GONE);
+        textView_client_global_name_number.setVisibility(View.VISIBLE);
+        textView_client_status.setVisibility(View.VISIBLE);
+
         scrollView_info.setVisibility(View.VISIBLE);
-        textView_not_update.setVisibility(View.VISIBLE);
         not_update_layout.setVisibility(View.GONE);
+        dob_not_update.setVisibility(View.GONE);
 
         obj = (JSONObject) obj.getJSONArray(CLIENTS).get(0);
 

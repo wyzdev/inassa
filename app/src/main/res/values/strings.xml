@@ -99,4 +99,6 @@
     <string name="client_not_update">Client pas à jour</string>
     <string name="search_text">Rechercher</string>
     <string name="contact">Veuillez contacter la INASSA au 2812-6700 pour de plus amples informations</string>
+    <string name="dob_text">Date de naissance</string>
+    <string name="sample_dob">01/01/01</string>
 </resources>

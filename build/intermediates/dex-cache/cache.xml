@@ -3,30 +3,30 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\hollyn.derisse\AndroidStudioProjects\inassa_android\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="f580973d335c99e3c16384e97fc562853fffb796">
-        <dex dex="C:\Users\hollyn.derisse\AndroidStudioProjects\inassa_android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_8b4026b4124e369ce3772dd3ce89ab7060d02cdd\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\hollyn.derisse\AndroidStudioProjects\inassa_android\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="C:\Users\hollyn.derisse\AndroidStudioProjects\inassa_android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_24ee2a0d0f5f1b85dad8c7189739f7cc7cc6a09c\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\hollyn.derisse\AndroidStudioProjects\inassa_android\app\libs\acsaudiojack.jar"
+        jar="/root/AndroidStudioProjects/inassa_android/app/libs/acsaudiojack.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="a5787fcb1fffa669222236689d377ece0518434a">
-        <dex dex="C:\Users\hollyn.derisse\AndroidStudioProjects\inassa_android\app\build\intermediates\transforms\dex\debug\folders\1000\2\acsaudiojack_b225b759b48097f78467ad331f6ebf61740ecee8\classes.dex" />
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/transforms/dex/debug/folders/1000/2/acsaudiojack_30240a095913699ffb9d3a140bf13f34f9451295/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3c40f583f7a4363c8270160ef7d4542e90ebf36e">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_f1f1ab8b465c2b7e303f45a00d561c2a2207e53b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/root/AndroidStudioProjects/inassa_android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_f0b7d82e9425a27c8578c769e81615ee875947a4/classes.dex" />
     </item>
 
 </items>
