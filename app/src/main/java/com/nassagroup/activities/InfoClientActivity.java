@@ -46,7 +46,7 @@ public class InfoClientActivity extends AppCompatActivity {
     private final String GLOBAL_NAME_NUMBER = "global_name_number";
     private final String CLIENTS = "clients";
     RelativeLayout viewClient, viewRecyclerView;
-
+    String firstname_str, lastname_str, dob_str;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -90,7 +90,18 @@ public class InfoClientActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 */
 
-        info_client = getIntent().getStringExtra("info_client");
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+
+        info_client =  extras.getString("info_client");
+
+//        Toast.makeText(this, extras.getString("info_client"), Toast.LENGTH_SHORT).show();
+
+        if ( extras.getString("firstname") != null &&  extras.getString("lastname") != null &&  extras.getString("dob") != null) {
+            firstname_str =  extras.getString("firstname");
+            lastname_str =  extras.getString("lastname");
+            dob_str =  extras.getString("dob");
+        }
 
 
 
@@ -125,10 +136,9 @@ public class InfoClientActivity extends AppCompatActivity {
                 not_update_layout.setVisibility(View.VISIBLE);
 
 
-                obj = (JSONObject) new JSONObject(info_client).getJSONArray(CLIENTS).get(0);
-                textView_client_firstname.setText(obj.getString(FIRSTNAME));
-                textView_client_lastname.setText(obj.getString(LASTNAME));
-                textView_client_dob.setText(obj.getString(DOB));
+                textView_client_firstname.setText(firstname_str);
+                textView_client_lastname.setText(lastname_str);
+                textView_client_dob.setText(dob_str);
 
             }
         } catch (JSONException e) {

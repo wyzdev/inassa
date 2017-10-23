@@ -68,6 +68,8 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
     private EditText editText_birthdate, editText_firstname, editText_lastname;
     ImageButton imagebutton_datepicker;
 
+    String firstname_str, lastname_str, dob_str;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -137,8 +139,12 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
         button_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!editText_firstname.getText().toString().isEmpty() && !editText_lastname.getText().toString().isEmpty() && !editText_birthdate.getText().toString().isEmpty())
-                    authAPI(editText_firstname.getText().toString().toUpperCase(), editText_lastname.getText().toString().toUpperCase(), editText_birthdate.getText().toString());
+                firstname_str = editText_firstname.getText().toString();
+                lastname_str = editText_lastname.getText().toString();
+                dob_str = editText_birthdate.getText().toString();
+
+                if (!firstname_str.isEmpty() && !lastname_str.isEmpty() && !dob_str.isEmpty())
+                    authAPI(firstname_str.toUpperCase(), lastname_str.toUpperCase(), dob_str);
             }
         });
 
@@ -222,7 +228,7 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
                         progressDialog.dismiss();
                         error.printStackTrace();
                         Log.i("error_response", error.toString());
-                        Toast.makeText(SearchClientActivity.this, "ERroR " + error.toString(), Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(SearchClientActivity.this, "ERroR " + error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }) {
 
@@ -282,6 +288,14 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
                                 }
                             }else{
                                 Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
+                                Bundle extras = new Bundle();
+                                extras.putString("info_client", "");
+
+                                // trois extras de plus "nom", "prenom", "date de naissance
+                                extras.putString("firstname", firstname_str);
+                                extras.putString("lastname", lastname_str);
+                                extras.putString("dob", dob_str);
+                                intent.putExtras(extras);
                                 intent.putExtra("info_client", "");
                                 startActivity(intent);
                                 finish();
@@ -297,7 +311,7 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
                         progressDialog.dismiss();
                         error.printStackTrace();
                         Log.i("error_response", error.toString());
-                        Toast.makeText(SearchClientActivity.this, "ERroR", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(SearchClientActivity.this, "ERroR", Toast.LENGTH_SHORT).show();
                     }
                 }) {
 
@@ -382,7 +396,12 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
                             if (!jso.getBoolean("error")){
 
                                 Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
-                                intent.putExtra("info_client", info_client);
+                                Bundle extras = new Bundle();
+
+                                extras.putString("info_client", info_client);
+                                intent.putExtras(extras);
+
+
 
                                 Log.i("info_client", info_client);
                                 startActivity(intent);
@@ -406,7 +425,7 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
                         error.printStackTrace();
-                        Toast.makeText(SearchClientActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(SearchClientActivity.this, error.toString(), Toast.LENGTH_LONG).show();
                     }
                 }) {
             @Override
