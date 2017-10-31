@@ -35,6 +35,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.nassagroup.R;
 import com.nassagroup.tools.Constants;
+import com.nassagroup.tools.LogOutTimerTask;
 import com.nassagroup.tools.UserInfo;
 
 import org.json.JSONArray;
@@ -52,6 +53,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A screen that allows the user to search a client
@@ -96,6 +99,7 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
         }
 
     };
+    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,6 +202,7 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Authentification ...");
         progressDialog.setMessage("Patientez s'il vous plait");
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
 
@@ -261,6 +266,7 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Recherche en cours ...");
         progressDialog.setMessage("Patientez s'il vous plait");
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
 
@@ -350,6 +356,7 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Enregistrement ...");
         progressDialog.setMessage("Patientez s'il vous plait");
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
         final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -471,6 +478,12 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
             finish();
         }
         super.onResume();
+
+        if (timer != null) {
+            timer.cancel();
+            Log.i("Main", "Search cancel timer");
+            timer = null;
+        }
     }
 
 
@@ -537,6 +550,11 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
                 .getSystemService(Context.ACTIVITY_SERVICE);
 
         activityManager.moveTaskToFront(getTaskId(), 0);
+
+        timer = new Timer();
+        Log.i("Main", "Search Invoking logout timer");
+        LogOutTimerTask logoutTimeTask = new LogOutTimerTask(SearchClientActivity.this);
+        timer.schedule(logoutTimeTask, 600000); //auto logout in 10 minutes
     }
 
     @Override
@@ -546,6 +564,18 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
             case R.id.search_client_imagebutton_calendar:
                 showDialog(999);
                 break;
+        }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (timer != null) {
+            timer.cancel();
+            Log.i("Main", "Search cancel timer");
+            timer = null;
         }
     }
 }

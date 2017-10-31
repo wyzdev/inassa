@@ -114,6 +114,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Reinitialisation du mot de passe ...");
         progressDialog.setMessage("Attendez s'il vous plait");
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
 

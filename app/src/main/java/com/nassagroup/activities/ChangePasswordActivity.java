@@ -164,6 +164,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Changement de mot de passe en cours  ...");
         progressDialog.setMessage("Patientez s'il vous plait");
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
 

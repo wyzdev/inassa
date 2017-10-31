@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +18,12 @@ import android.widget.TextView;
 
 import com.nassagroup.R;
 import com.nassagroup.tools.AppDetail;
+import com.nassagroup.tools.LogOutTimerTask;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
 
 /**
  * Created by hollyn.derisse on 14/08/2017.
@@ -29,6 +32,7 @@ public class AppsListActivity extends Activity {
 
     private PackageManager manager;
     private List<AppDetail> apps;
+    Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,5 +124,33 @@ public class AppsListActivity extends Activity {
                 .getSystemService(Context.ACTIVITY_SERVICE);
 
         activityManager.moveTaskToFront(getTaskId(), 0);*/
+
+
+        timer = new Timer();
+        Log.i("Main", "apps Invoking logout timer");
+        LogOutTimerTask logoutTimeTask = new LogOutTimerTask(AppsListActivity.this);
+        timer.schedule(logoutTimeTask, 600000); //auto logout in 10 minutes
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (timer != null) {
+            timer.cancel();
+            Log.i("Main", "apps cancel timer");
+            timer = null;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (timer != null) {
+            timer.cancel();
+            Log.i("Main", "apps cancel timer");
+            timer = null;
+        }
     }
 }

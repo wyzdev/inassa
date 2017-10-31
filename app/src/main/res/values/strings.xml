@@ -101,4 +101,5 @@
     <string name="contact">Veuillez contacter la INASSA au 2812-6700 pour de plus amples informations</string>
     <string name="dob_text">Date de naissance</string>
     <string name="sample_dob">01/01/01</string>
+    <string name="service_name">LogoutService</string>
 </resources>

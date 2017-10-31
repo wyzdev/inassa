@@ -21,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nassagroup.R;
+import com.nassagroup.tools.LogOutTimerTask;
+import com.nassagroup.tools.UserInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,12 +35,15 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A screen that displays the client's information
  */
 public class InfoClientActivity extends AppCompatActivity {
 
+    Timer timer;
     String info_client;
     JSONObject obj;
     ScrollView scrollView_info;
@@ -225,6 +230,11 @@ public class InfoClientActivity extends AppCompatActivity {
                 .getSystemService(Context.ACTIVITY_SERVICE);
 
         activityManager.moveTaskToFront(getTaskId(), 0);
+
+        timer = new Timer();
+        Log.i("Main", "Info Invoking logout timer");
+        LogOutTimerTask logoutTimeTask = new LogOutTimerTask(InfoClientActivity.this);
+        timer.schedule(logoutTimeTask, 600000); //auto logout in 10 minutes
     }
 
     @Override
@@ -232,4 +242,26 @@ public class InfoClientActivity extends AppCompatActivity {
         startActivity(new Intent(InfoClientActivity.this, SearchClientActivity.class));
         finish();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (timer != null) {
+            timer.cancel();
+            Log.i("Main", "Info cancel timer");
+            timer = null;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (timer != null) {
+            timer.cancel();
+            Log.i("Main", "Info cancel timer");
+            timer = null;
+        }
+    }
+
 }

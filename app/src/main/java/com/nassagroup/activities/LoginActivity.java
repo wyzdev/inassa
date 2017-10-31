@@ -189,6 +189,7 @@ public class LoginActivity extends AppCompatActivity {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Connexion ...");
         progressDialog.setMessage("Attendez s'il vous plait");
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
 

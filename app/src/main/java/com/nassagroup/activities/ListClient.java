@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -17,6 +18,8 @@ import android.view.WindowManager;
 import com.nassagroup.R;
 import com.nassagroup.adapers.RecyclerViewAdapter;
 import com.nassagroup.tools.Client;
+import com.nassagroup.tools.LogOutTimerTask;
+import com.nassagroup.tools.UserInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,9 +28,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ListClient extends AppCompatActivity {
 
+    Timer timer;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     List clients;
@@ -150,11 +156,37 @@ public class ListClient extends AppCompatActivity {
                 .getSystemService(Context.ACTIVITY_SERVICE);
 
         activityManager.moveTaskToFront(getTaskId(), 0);
+
+        timer = new Timer();
+        Log.i("Main", "List Invoking logout timer");
+        LogOutTimerTask logoutTimeTask = new LogOutTimerTask(ListClient.this);
+        timer.schedule(logoutTimeTask, 600000); //auto logout in 10 minutes
     }
 
     @Override
     public void onBackPressed() {
         startActivity(new Intent(this, SearchClientActivity.class));
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (timer != null) {
+            timer.cancel();
+            Log.i("Main", "List cancel timer");
+            timer = null;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (timer != null) {
+            timer.cancel();
+            Log.i("Main", "List cancel timer");
+            timer = null;
+        }
     }
 }

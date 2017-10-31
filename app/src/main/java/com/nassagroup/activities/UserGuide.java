@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,13 +21,18 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.nassagroup.R;
+import com.nassagroup.tools.LogOutTimerTask;
 import com.nassagroup.tools.UserInfo;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class UserGuide extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     WebView mwebview;
     UserInfo userInfo;
+    Timer timer;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -254,6 +260,12 @@ public class UserGuide extends AppCompatActivity
                 .getSystemService(Context.ACTIVITY_SERVICE);
 
         activityManager.moveTaskToFront(getTaskId(), 0);
+
+
+        timer = new Timer();
+        Log.i("Main", "guide Invoking logout timer");
+        LogOutTimerTask logoutTimeTask = new LogOutTimerTask(UserGuide.this);
+        timer.schedule(logoutTimeTask, 600000); //auto logout in 10 minutes
     }
 
     /**
@@ -292,5 +304,25 @@ public class UserGuide extends AppCompatActivity
         }
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (timer != null) {
+            timer.cancel();
+            Log.i("Main", "guide cancel timer");
+            timer = null;
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (timer != null) {
+            timer.cancel();
+            Log.i("Main", "guide cancel timer");
+            timer = null;
+        }
+    }
 
 }
