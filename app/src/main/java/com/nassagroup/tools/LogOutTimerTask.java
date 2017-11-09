@@ -1,5 +1,6 @@
 package com.nassagroup.tools;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -32,6 +33,6 @@ public class LogOutTimerTask extends TimerTask {
         Intent i = new Intent(this.context, LoginActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(i);
-//        context.finish();
+        ((Activity)context).finish();
     }
 }

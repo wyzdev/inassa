@@ -203,6 +203,7 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         try {
                             JSONObject jso = new JSONObject(response);
+                            Log.i("auth_login", jso.toString());
 
                             if (!jso.getBoolean("error")) {
                                 DateFormat dateFormat = new SimpleDateFormat("dd");
