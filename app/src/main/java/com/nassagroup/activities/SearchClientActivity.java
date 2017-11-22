@@ -326,9 +326,9 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
                 String str = "{\n" +
                         "\"resquestkey\":{\n" +
                         "\"key\":\""+ key + "\"},\n" +
-                        " \"first_name\":\""+ prenom +"\",\n" +
-                        " \"last_name\":\""+ nom +"\",\n" +
-                        " \"dob\":\""+ dob +"\"\n" +
+                        " \"first_name\":\""+ prenom.trim() +"\",\n" +
+                        " \"last_name\":\""+ nom.trim() +"\",\n" +
+                        " \"dob\":\""+ dob.trim() +"\"\n" +
                         "}";
 
                 return str.getBytes();
