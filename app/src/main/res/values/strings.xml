@@ -102,4 +102,25 @@
     <string name="dob_text">Date de naissance</string>
     <string name="sample_dob">01/01/01</string>
     <string name="service_name">LogoutService</string>
+
+
+    <string name="dummy_date_time">13/06/2018</string>
+    <string name="sample_company">INASSA</string>
+    <string name="police_number_text">Numéro de police</string>
+    <string name="sample_police_number">123231</string>
+    <string name="sample_hero">N/A</string>
+    <string name="hero_text">Hero</string>
+    <string name="sample_is_dependant">\?</string>
+    <string name="dependant_text">Dépendant</string>
+    <string name="sample_primary_name">John DOE</string>
+    <string name="primary_name_text">Nom du primaire</string>
+    <string name="sample_name">John DOE</string>
+    <string name="client_name_text">Client</string>
+    <string name="identification_text">Identification</string>
+    <string name="yes">OUI</string>
+    <string name="no">NON</string>
+    <string name="status_text">Statut</string>
+    <string name="sample_status">actif / inactif</string>
+    <string name="legacy_policy_number_text">Numéro de police hérité</string>
+    <string name="server_problem">Les serveurs sont temporairement indisponibles. Essayez à nouveau dans 5 minutes et si le problème persiste, contactez la INASSA au 28127600.</string>
 </resources>

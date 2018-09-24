@@ -1,10 +1,12 @@
 package com.nassagroup.activities;
 
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -33,7 +35,19 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.nassagroup.APIInterfaces.RetrofitInterfaces;
 import com.nassagroup.R;
+import com.nassagroup.RetrofitClientInstance;
+import com.nassagroup.core.Benefits;
+import com.nassagroup.core.CheckLogin;
+import com.nassagroup.core.Client;
+import com.nassagroup.core.Historic;
+import com.nassagroup.core.PolicyExtension;
+import com.nassagroup.core.SearchClient;
+import com.nassagroup.core.Signout;
 import com.nassagroup.tools.Constants;
 import com.nassagroup.tools.LogOutTimerTask;
 import com.nassagroup.tools.UserInfo;
@@ -56,20 +70,28 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+
 /**
  * A screen that allows the user to search a client
  */
-public class SearchClientActivity extends AppCompatActivity implements View.OnClickListener{
+public class SearchClientActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final int MY_SOCKET_TIMEOUT_MS = 30000;
+    ProgressDialog progressDialog;
+
+    //    private static final int MY_SOCKET_TIMEOUT_MS = 30000;
     UserInfo userInfo;
     int current_date;
     TextView institution;
-
+    String key;
     private Calendar calendar;
     private int year, month, day;
     private EditText editText_birthdate, editText_firstname, editText_lastname;
     ImageButton imagebutton_datepicker;
+    String hero_name;
+    int employee_id;
+    String firstname_client;
 
     String firstname_str, lastname_str, dob_str;
 
@@ -148,15 +170,73 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
                 dob_str = editText_birthdate.getText().toString();
 
                 if (!firstname_str.isEmpty() && !lastname_str.isEmpty() && !dob_str.isEmpty())
-                    authAPI(firstname_str.toUpperCase(), lastname_str.toUpperCase(), dob_str);
+                    checkCanLogin(firstname_str.toUpperCase(), lastname_str.toUpperCase(), dob_str);
             }
         });
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
 
         imagebutton_datepicker.setOnClickListener(this);
     }
 
+    public void checkCanLogin(final String firstname_str, final String lastname_str, final String dob_str) {
+
+        progressDialog.setMessage("Patientez s'il vous plait ...");
+        progressDialog.show();
+
+        RetrofitInterfaces service = RetrofitClientInstance.getClientForInassapp().create(RetrofitInterfaces.class);
+        Call<CheckLogin> call = service.canLogin(userInfo.getUserId());
+        call.enqueue(new Callback<CheckLogin>() {
+            @Override
+            public void onResponse(Call<CheckLogin> call, retrofit2.Response<CheckLogin> response) {
+                CheckLogin checkLogin = response.body();
+                if (checkLogin != null) {
+                    if (checkLogin.can) {
+                        progressDialog.dismiss();
+                        //authAPI(firstname_str.toUpperCase(), lastname_str.toUpperCase(), dob_str);
+                        proceedSearchClient(firstname_str.toUpperCase(), lastname_str.toUpperCase(), dob_str);
+                    } else {
+                        dialogError();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CheckLogin> call, Throwable t) {
+                progressDialog.dismiss();
+                dialogError();
+                //Toast.makeText(SearchClientActivity.this, "Un problème est survenu.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void dialogError() {
+        new AlertDialog.Builder(SearchClientActivity.this)
+                .setTitle("Erreur")
+                .setMessage(this.getResources().getString(R.string.server_problem))
+//                            .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        ProgressDialog progressDialog = new ProgressDialog(SearchClientActivity.this);
+                        progressDialog.setTitle("Déconnexion");
+                        progressDialog.setMessage("Patientez s'il vous plait ...");
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
+                        // logout
+                        logout(progressDialog);
+                        //Toast.makeText(SearchClientActivity.this, "Déconnexion", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                //.setNegativeButton(android.R.string.no, null)
+                .show();
+    }
+
     /**
      * Method that creates an option menu
+     *
      * @param menu
      * @return boolean
      */
@@ -169,6 +249,7 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
 
     /**
      * Method that allows the user to choose an item in the option menu
+     *
      * @param item
      * @return boolean
      */
@@ -176,10 +257,12 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout:
-                userInfo.setLoggedin(false);
-                userInfo.clear();
-                startActivity(new Intent(SearchClientActivity.this, LoginActivity.class));
-                finish();
+                ProgressDialog progressDialog = new ProgressDialog(this);
+                progressDialog.setTitle("Déconnexion");
+                progressDialog.setMessage("Patientez s'il vous plait ...");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+                logout(progressDialog);
                 return true;
             case R.id.change_password:
                 startActivity(new Intent(SearchClientActivity.this, ChangePasswordActivity.class));
@@ -191,108 +274,53 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-
-    /**
-     * Method that authenticates the application to the API of INASSA
-     * @param prenom
-     * @param nom
-     * @param dob
-     */
-    public void authAPI(final String prenom, final String nom, final String dob){
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Authentification ...");
-        progressDialog.setMessage("Patientez s'il vous plait");
+    public void proceedSearchClient(final String firstname, final String lastname, final String dob) {
+        final ProgressDialog progressDialog = new ProgressDialog(SearchClientActivity.this);
+        progressDialog.setTitle("Recherche client en cours");
+        progressDialog.setMessage("Patientez s'il vous plait ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.SERVER_INASSA + Constants.API_INASSA_AUTH,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i("response_auth", response);
-                        progressDialog.dismiss();
-                        //Toast.makeText(SearchClientActivity.this, "Susccess", Toast.LENGTH_SHORT).show();
+        RetrofitInterfaces retrofitInterfaces = RetrofitClientInstance.getClientForInassapp().create(RetrofitInterfaces.class);
 
-                        try {
-                            JSONArray array = new JSONArray(response);
-                            JSONObject obj = new JSONObject(array.get(0).toString());
-                            array = new JSONArray(obj.getJSONArray("Response").toString());
-                            obj = new JSONObject(array.get(0).toString());
-                            String key = obj.getString("key");
-
-                            getInfoClient(key, prenom, nom, dob);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-                        error.printStackTrace();
-                        Log.i("error_response", error.toString());
-                       // Toast.makeText(SearchClientActivity.this, "ERroR " + error.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                }) {
-
+        Call<SearchClient> call = retrofitInterfaces.searchClient(firstname, lastname, dob, userInfo.getUserId(), Constants.TOKEN);
+        call.enqueue(new Callback<SearchClient>() {
             @Override
-            public byte[] getBody() throws AuthFailureError {
-                String str = "{\"Login\":{\"username\":\"" + Constants.API_INASSA_AUTH_USERNAME + "\",\"password\":\"" + Constants.API_INASSA_AUTH_PASSWORD + "\"}}";
-                return str.getBytes();
-            }
+            public void onResponse(Call<SearchClient> call, retrofit2.Response<SearchClient> response) {
+                progressDialog.dismiss();
+                SearchClient searchClient = response.body();
 
+                if (searchClient != null) {
+                    List<Client> clients;
 
-        };
+                    if (!searchClient.isError()) {
+                        clients = searchClient.getClients();
+                        if (clients == null) {
+                            Toast.makeText(SearchClientActivity.this, searchClient.getErrorMessage(), Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                        if (!searchClient.isError() && clients.size() >= 1) {
+                            if (clients.size() == 1) {
+                                employee_id = (int) searchClient.getClients().get(0).getEmployeeId();
+                                firstname_client = searchClient.getClients().get(0).getFirstname();
 
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                MY_SOCKET_TIMEOUT_MS,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                                Gson gson = new Gson();
+                                String json = gson.toJson(searchClient);
+                                // print
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }
+                                saveInLogs(json);
+                            } else if (clients.size() > 1) {
 
-    /**
-     * Method that retrieves the client's information
-     * @param key
-     * @param prenom
-     * @param nom
-     * @param dob
-     */
-    public void getInfoClient(final String key, final String prenom, final String nom, final String dob){
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Recherche en cours ...");
-        progressDialog.setMessage("Patientez s'il vous plait");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.SERVER_INASSA + Constants.INASSA_API_SEARCH,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i("response_client", response);
-                        progressDialog.dismiss();
-
-                        JSONObject obj = null;
-
-
-                        try {
-                            obj = new JSONObject(response);
-                            if (obj.getBoolean("success") && obj.getJSONArray("clients").length() > 0) {
-                                if(obj.getJSONArray("clients").length() == 1) {
-                                    saveInLogs(response);
-                                }
-                                else{
-                                    Intent intent = new Intent(SearchClientActivity.this, ListClient.class);
-                                    intent.putExtra("jsonObject", response);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            }else{
+                                Gson gson = new Gson();
+                                String json = gson.toJson(searchClient);
+                                userInfo.setKey(key);
+                                // list
+                                Intent intent = new Intent(SearchClientActivity.this, ListClient.class);
+                                intent.putExtra("jsonObject", json);
+                                startActivity(intent);
+                                finish();
+                            } else {
                                 Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
                                 Bundle extras = new Bundle();
                                 extras.putString("info_client", "");
@@ -306,50 +334,226 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
                                 startActivity(intent);
                                 finish();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        } else if (!searchClient.isError() && clients.size() == 0) {
+
+                            Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
+                            Bundle extras = new Bundle();
+                            extras.putString("info_client", "");
+
+                            // trois extras de plus "nom", "prenom", "date de naissance
+                            extras.putString("firstname", firstname_str);
+                            extras.putString("lastname", lastname_str);
+                            extras.putString("dob", dob_str);
+                            intent.putExtras(extras);
+                            intent.putExtra("info_client", "");
+                            startActivity(intent);
+                            finish();
                         }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-                        error.printStackTrace();
-                        Log.i("error_response", error.toString());
-                       // Toast.makeText(SearchClientActivity.this, "ERroR", Toast.LENGTH_SHORT).show();
-                    }
-                }) {
 
-            @Override
-            public byte[] getBody() throws AuthFailureError {
-                String str = "{\n" +
-                        "\"resquestkey\":{\n" +
-                        "\"key\":\""+ key + "\"},\n" +
-                        " \"first_name\":\""+ prenom.trim() +"\",\n" +
-                        " \"last_name\":\""+ nom.trim() +"\",\n" +
-                        " \"dob\":\""+ dob.trim() +"\"\n" +
-                        "}";
+                } else {
+                    Toast.makeText(SearchClientActivity.this, "Ne peut pas trouver le client.", Toast.LENGTH_SHORT).show();
+                }
 
-                return str.getBytes();
-                //return super.getBody();
+
             }
 
+            @Override
+            public void onFailure(Call<SearchClient> call, Throwable t) {
+                progressDialog.dismiss();
+            }
 
-        };
-
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                MY_SOCKET_TIMEOUT_MS,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+        });
     }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void proceedGetBenefits(final ProgressDialog progressDialog, final int employee_id,
+                                   final String firstname, final String info_client) {
+
+        RetrofitInterfaces retrofitInterfaces = RetrofitClientInstance.getClient().create(RetrofitInterfaces.class);
+
+//        Toast.makeText(SearchClientActivity.this, key +
+//                "\n" + employee_id +
+//                "\n" + firstname, Toast.LENGTH_SHORT).show();
+
+        JsonParser parser = new JsonParser();
+        JsonObject o = parser.parse("{\"resquestkey\":{\"key\":\"" + key + " \"},\"employee_id\": " + employee_id + ",\"first_name\": \"" + firstname + "\"}").getAsJsonObject();
+
+        Call<Benefits> call = retrofitInterfaces.postRawGetBenefits(o);
+        call.enqueue(new Callback<Benefits>() {
+            @Override
+            public void onResponse(Call<Benefits> call, retrofit2.Response<Benefits> response) {
+                progressDialog.dismiss();
+                //Toast.makeText(SearchClientActivity.this, response.body().isSuccess() + "", Toast.LENGTH_LONG).show();
+                Benefits Benefits = response.body();
+                List<PolicyExtension> policyExtensions = Benefits.getPolicyExtensions();
+
+                if (policyExtensions != null) {
+                    int pos_extension_hero = posExtensionHero(policyExtensions);
+                    if (pos_extension_hero != -1) {
+                        hero_name = policyExtensions.get(pos_extension_hero).getNameForDisplay();
+                    } else {
+                        hero_name = "N/A";
+                    }
+
+                    final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    final Date date = new Date();
+
+                    JSONObject obj;
+                    String firstname = "";
+                    String lastname = "";
+                    boolean status = false;
+                    String dob = "";
+                    DateFormat originalFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+                    DateFormat targetFormat = new SimpleDateFormat("yyyy-MM-dd");
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    try {
+                        obj = new JSONObject(info_client);
+                        if (obj.getBoolean("success") && obj.getJSONArray("clients").length() > 0) {
+
+                            obj = (JSONObject) obj.getJSONArray("clients").get(0);
+                            firstname = obj.getString("first_name");
+                            lastname = obj.getString("last_name");
+                            status = obj.getBoolean("status");
+                            Date birthdate = originalFormat.parse(obj.getString("dob"));
+                            dob = targetFormat.format(birthdate);
+
+
+                            int status_int = (status) ? 1 : 0;
+                            int is_dependant_int = (obj.getLong("primary_employee_id") != obj.getLong("employee_id")) ? 1 : 0;
+
+                            // Toast.makeText(SearchClientActivity.this, userInfo.getUserFirstname() + " " + userInfo.getUserLastname(), Toast.LENGTH_SHORT).show();
+                            proceedSaveInHistoric(info_client,
+                                    firstname,
+                                    lastname,
+                                    userInfo.getUserFirstname() + " " + userInfo.getUserLastname(),
+                                    status_int,
+                                    dateFormat.format(date),
+                                    dob,
+                                    userInfo.getUserInstitution(),
+                                    Constants.TOKEN,
+                                    obj.getInt("employee_id"),
+                                    is_dependant_int,
+                                    hero_name,
+                                    obj.getString("primary_name"),
+                                    userInfo.getUserId()
+                            );
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Benefits> call, Throwable t) {
+                progressDialog.dismiss();
+
+            }
+
+        });
+//        return hero_name;
+    }
+
+    public void proceedSaveInHistoric(final String info_client,
+                                      String first_name,
+                                      String last_name,
+                                      String doctor_name,
+                                      int status,
+                                      String date,
+                                      String dob,
+                                      String institution,
+                                      String token,
+                                      int employee_id,
+                                      int is_dependant,
+                                      String hero,
+                                      String primary_name,
+                                      int user_id) {
+        if (is_dependant == 0)
+            primary_name = "-";
+
+        /*Create handle for the RetrofitInstance interface*/
+        RetrofitInterfaces retrofitInterfaces = RetrofitClientInstance.getClientForInassapp().create(RetrofitInterfaces.class);
+        Call<Historic> call = retrofitInterfaces
+                .saveInHistoric(first_name,
+                        last_name,
+                        doctor_name,
+                        status,
+                        date,
+                        dob,
+                        institution,
+                        token,
+                        employee_id,
+                        is_dependant,
+                        hero,
+                        employee_id + " - " + primary_name,
+                        user_id);
+        call.enqueue(new Callback<Historic>() {
+            @Override
+            public void onResponse(Call<Historic> call, retrofit2.Response<Historic> response) {
+                //progressDialog.dismiss();
+                Historic historic = response.body();
+                if (historic != null) {
+                    if (historic.error) {
+                        Toast.makeText(SearchClientActivity.this, "Erreur d'enregistrement", Toast.LENGTH_LONG).show();
+
+                        return;
+                    }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
+                    Bundle extras = new Bundle();
+
+                    extras.putString("info_client", info_client);
+                    extras.putString("hero_name", hero_name);
+                    intent.putExtras(extras);
+
+
+                    startActivity(intent);
+                    editText_birthdate.setText("");
+                    editText_firstname.setText("");
+                    editText_lastname.setText("");
+
+                    editText_lastname.requestFocus();
+                    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                } else {
+                    Toast.makeText(SearchClientActivity.this, "Client inconnu", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Historic> call, Throwable t) {
+                //progressDialog.dismiss();
+                Toast.makeText(SearchClientActivity.this, "Something went wrong...Please try later!",
+                        Toast.LENGTH_LONG).show();
+
+            }
+
+        });
+    }
+
+    private int posExtensionHero(List<PolicyExtension> list_extensions) {
+        for (int i = 0; i < list_extensions.size(); i++) {
+            String extension = list_extensions.get(i).getExtension().toLowerCase();
+            if (extension.contains("hero")) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     /**
      * Method that saves the client's information retrieved and doctor's full name
      * and institution in online database.
+     *
      * @param info_client
      */
     private void saveInLogs(final String info_client) {
@@ -359,105 +563,25 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        final Date date = new Date();
-
-        JSONObject obj;
-        String firstname = "";
-        String lastname = "";
-        boolean status = false;
-        String dob = "";
-        DateFormat originalFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
-        DateFormat targetFormat = new SimpleDateFormat("yyyy-MM-dd");
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        try {
-            obj = new JSONObject(info_client);
-            if (obj.getBoolean("success") && obj.getJSONArray("clients").length() > 0){
-
-                obj = (JSONObject) obj.getJSONArray("clients").get(0);
-                firstname = obj.getString("first_name");
-                lastname = obj.getString("last_name");
-                status = obj.getBoolean("status");
-                Date birthdate = originalFormat.parse(obj.getString("dob"));
-                dob = targetFormat.format(birthdate);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-
-        final String finalFirstname = firstname;
-        final String finalLastname = lastname;
-        final boolean finalStatus = status;
-        final String finalDob = dob;
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.ADD_ADDRESS,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i("response_log", response);
-                        progressDialog.dismiss();
-                        try {
-                            JSONObject jso  = new JSONObject(response);
-                            if (!jso.getBoolean("error")){
-
-                                Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
-                                Bundle extras = new Bundle();
-
-                                extras.putString("info_client", info_client);
-                                intent.putExtras(extras);
+        Log.i("client_123", info_client);
 
 
+        //proceedGetBenefits(progressDialog, employee_id, firstname_client, info_client);
 
-                                Log.i("info_client", info_client);
-                                startActivity(intent);
-                                editText_birthdate.setText("");
-                                editText_firstname.setText("");
-                                editText_lastname.setText("");
 
-                                editText_lastname.requestFocus();
-                            }
-                            else{
-                                Toast.makeText(SearchClientActivity.this, "Client inconnu.", Toast.LENGTH_SHORT).show();
-                            }
+        Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
+        Bundle extras = new Bundle();
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-                        error.printStackTrace();
-                        //Toast.makeText(SearchClientActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put(Constants.KEY_FIRSTNAME, finalFirstname.toUpperCase());
-                params.put(Constants.KEY_LASTNAME, finalLastname.toUpperCase());
-                params.put(Constants.KEY_DOCTOR, userInfo.getUserFirstname() + " " + userInfo.getUserLastname());
-                params.put(Constants.KEY_STATUS, String.valueOf((finalStatus) ? 1 : 0));
-                params.put(Constants.KEY_DATE, dateFormat.format(date));
-                params.put(Constants.KEY_DOB, finalDob);
-                params.put(Constants.KEY_INSTITUTION, userInfo.getUserInstitution());
-                params.put(Constants.KEY_TOKEN, Constants.TOKEN);
-                return params;
-            }
+        extras.putString("info_client", info_client);
+        intent.putExtras(extras);
 
-        };
 
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                MY_SOCKET_TIMEOUT_MS,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        startActivity(intent);
+        editText_birthdate.setText("");
+        editText_firstname.setText("");
+        editText_lastname.setText("");
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+        editText_lastname.requestFocus();
     }
 
     /**
@@ -466,12 +590,12 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onResume() {
 
-        if (userInfo.getUserFirstLogin()){
+        if (userInfo.getUserFirstLogin()) {
             startActivity(new Intent(SearchClientActivity.this, ChangePasswordActivity.class));
             finish();
         }
 
-        if (userInfo.getCurrentDate() != current_date){
+        if (userInfo.getCurrentDate() != current_date) {
             userInfo.clear();
             userInfo.setLoggedin(false);
             startActivity(new Intent(SearchClientActivity.this, LoginActivity.class));
@@ -510,7 +634,7 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
                     // arg1 = year
                     // arg2 = month
                     // arg3 = day
-                    showDate(arg1, arg2+1, arg3);
+                    showDate(arg1, arg2 + 1, arg3);
                 }
             };
 
@@ -560,7 +684,7 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        switch(id) {
+        switch (id) {
             case R.id.search_client_imagebutton_calendar:
                 showDialog(999);
                 break;
@@ -577,5 +701,34 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
             Log.i("Main", "Search cancel timer");
             timer = null;
         }
+    }
+
+    public void logout(final ProgressDialog progressDialog) {
+        RetrofitInterfaces retrofitInterfaces = RetrofitClientInstance.getClientForInassapp().create(RetrofitInterfaces.class);
+        Call<Signout> call = retrofitInterfaces.signout(userInfo.getUserId());
+        call.enqueue(new Callback<Signout>() {
+            @Override
+            public void onResponse(Call<Signout> call, retrofit2.Response<Signout> response) {
+                progressDialog.dismiss();
+                Signout signout = response.body();
+                if (signout.error){
+                    Toast.makeText(SearchClientActivity.this, "Vous ne pouvez pas vous deconnecter",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                userInfo.setLoggedin(false);
+                userInfo.clear();
+                startActivity(new Intent(SearchClientActivity.this, LoginActivity.class));
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<Signout> call, Throwable t) {
+                progressDialog.dismiss();
+
+            }
+
+        });
     }
 }

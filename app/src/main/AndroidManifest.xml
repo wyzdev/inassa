@@ -66,6 +66,15 @@
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
+
+
+        <receiver android:name=".broadcastReceiver.ShutdownReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+                <action android:name="android.intent.action.QUICKBOOT_POWEROFF" />
+                <action android:name="android.intent.action.REBOOT" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

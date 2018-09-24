@@ -1,8 +1,10 @@
 package com.nassagroup.activities;
 
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,7 +31,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.nassagroup.APIInterfaces.RetrofitInterfaces;
 import com.nassagroup.R;
+import com.nassagroup.RetrofitClientInstance;
+import com.nassagroup.core.CheckLogin;
+import com.nassagroup.core.LoginInassapp;
 import com.nassagroup.tools.Constants;
 import com.nassagroup.tools.UserInfo;
 
@@ -44,6 +52,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+
 /**
  * A screen that allows the authentication via username/password
  */
@@ -56,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private TextView forgot_password;
     UserInfo userInfo;
+    ProgressDialog progressDialog;
 
 
     /**
@@ -97,6 +109,9 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
 
         Button signInButton = (Button) findViewById(R.id.login_sign_in_button);
         signInButton.setOnClickListener(new OnClickListener() {
@@ -192,68 +207,48 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
+        proceedLoginInassapp(progressDialog, username, password, Constants.TOKEN);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.LOGIN_ADDRESS,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i("response_login", response);
-
-
-                        progressDialog.dismiss();
-                        try {
-                            JSONObject jso = new JSONObject(response);
-                            Log.i("auth_login", jso.toString());
-
-                            if (!jso.getBoolean("error")) {
-                                DateFormat dateFormat = new SimpleDateFormat("dd");
-                                Date date = new Date();
-
-                                userInfo.setLoggedin(true);
-                                userInfo.setUserInfo(String.valueOf(jso.getJSONObject("user")));
-                                userInfo.setCurrentDate(Integer.parseInt(dateFormat.format(date)));
-                                startActivity(new Intent(LoginActivity.this, SearchClientActivity
-                                        .class));
-                                finish();
-                            } else {
-                                Toast.makeText(LoginActivity.this, getString(R.string.error_auth), Toast
-                                        .LENGTH_SHORT).show();
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-                        error.printStackTrace();
-                        Toast.makeText(LoginActivity.this,
-                                "S'il vous plait, verifier votre connection internet.", Toast.LENGTH_LONG).show();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put(Constants.KEY_USERNAME, username);
-                params.put(Constants.KEY_PASSWORD, password);
-                params.put(Constants.KEY_TOKEN, Constants.TOKEN);
-                return params;
-            }
-
-        };
-
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                MY_SOCKET_TIMEOUT_MS,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
     }
 
+    public void proceedLoginInassapp(final ProgressDialog progressDialog, final String username, final String password, final String token){
+        RetrofitInterfaces retrofitInterfaces = RetrofitClientInstance.getClientForInassapp().create(RetrofitInterfaces.class);
+        Call<LoginInassapp> call = retrofitInterfaces.loginInassap(username, password, token);
+        call.enqueue(new Callback<LoginInassapp>() {
+            @Override
+            public void onResponse(Call<LoginInassapp> call, retrofit2.Response<LoginInassapp> response) {
+                progressDialog.dismiss();
+                LoginInassapp loginInassapp = response.body();
+                String json;
+
+
+                Gson gson = new Gson();
+                json = gson.toJson(loginInassapp.user);
+
+
+                if (loginInassapp.error) {
+                    if (loginInassapp.errorApi){
+                        dialogError();
+                        return;
+                    }
+                    Toast.makeText(LoginActivity.this, "Nom d'utilisateur ou mot de passe incorrect.", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    userInfo.setUserInfo(json);
+                    checkCanLogin();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginInassapp> call, Throwable t) {
+                progressDialog.dismiss();
+                dialogError();
+//                Toast.makeText(LoginActivity.this,
+//                        "S'il vous plait, verifier votre connection internet." + call.toString(), Toast.LENGTH_LONG).show();
+            }
+
+        });
+    }
 
     /**
      * Method that checks the user's username is valid
@@ -316,6 +311,71 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+    }
+
+
+    public  void checkCanLogin(){
+
+        progressDialog.setMessage("Patientez s'il vous plait ...");
+        progressDialog.show();
+
+        RetrofitInterfaces service = RetrofitClientInstance.getClientForInassapp().create(RetrofitInterfaces.class);
+        Call<CheckLogin> call = service.canLogin(userInfo.getUserId());
+        call.enqueue(new Callback<CheckLogin>() {
+            @Override
+            public void onResponse(Call<CheckLogin> call, retrofit2.Response<CheckLogin> response) {
+                CheckLogin checkLogin = response.body();
+                if (checkLogin != null) {
+                    progressDialog.dismiss();
+                    if (checkLogin.can){
+
+                        DateFormat dateFormat = new SimpleDateFormat("dd");
+                        Date date = new Date();
+
+                        userInfo.setLoggedin(true);
+
+                        userInfo.setCurrentDate(Integer.parseInt(dateFormat.format(date)));
+                        startActivity(new Intent(LoginActivity.this, SearchClientActivity
+                                .class));
+                        finish();
+                    } else {
+                        dialogError();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CheckLogin> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(LoginActivity.this, "Une problème est survenu", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void dialogError() {
+        new AlertDialog.Builder(LoginActivity.this)
+                .setTitle("Erreur")
+                .setMessage(this.getResources().getString(R.string.server_problem))
+//                            .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // logout
+                        logout();
+//                        Toast.makeText(LoginActivity.this, "Déconnexion", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                //.setNegativeButton(android.R.string.no, null)
+                .show();
+    }
+
+
+    public void logout() {
+        userInfo.setLoggedin(false);
+        userInfo.clear();
+        startActivity(new Intent(LoginActivity.this, LoginActivity.class));
+        finish();
     }
 
 }

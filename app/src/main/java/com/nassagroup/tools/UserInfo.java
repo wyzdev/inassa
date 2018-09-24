@@ -23,6 +23,7 @@ public class UserInfo {
     private final String KEY_STATUS = "status";
     private final String KEY_FIRST_LOGIN = "first_login";
     private final String KEY_CURRENT_DATE = "current_date";
+    String key;
 
 
     private Context context;
@@ -129,6 +130,15 @@ public class UserInfo {
     public String getUserFirstname() {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         return prefs.getString(KEY_FIRSTNAME, "");
+    }
+
+    /**
+     * Method that gets the user's firstname
+     * @return key
+     */
+    public String getKey() {
+        SharedPreferences prefs = context.getSharedPreferences("key", Context.MODE_PRIVATE);
+        return prefs.getString("key", "");
     }
 
     /**
@@ -269,6 +279,15 @@ public class UserInfo {
     public void setUserRole(String role) {
         SharedPreferences.Editor editor = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE).edit();
         editor.putString(KEY_ROLE, role);
+        editor.apply();
+    }
+    /**
+     * Method that sets the user's role
+     * @param key
+     */
+    public void setKey(String key) {
+        SharedPreferences.Editor editor = context.getSharedPreferences("key", Context.MODE_PRIVATE).edit();
+        editor.putString("key", key);
         editor.apply();
     }
 

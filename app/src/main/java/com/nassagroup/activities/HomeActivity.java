@@ -1,6 +1,7 @@
 package com.nassagroup.activities;
 
 import android.app.ActivityManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +15,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.nassagroup.APIInterfaces.RetrofitInterfaces;
 import com.nassagroup.R;
+import com.nassagroup.core.Signout;
 import com.nassagroup.tools.LogOutTimerTask;
 import com.nassagroup.tools.UserInfo;
 
@@ -24,6 +28,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import com.nassagroup.RetrofitClientInstance;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -130,10 +138,13 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout:
-                userInfo.setLoggedin(false);
-                userInfo.clear();
-                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-                finish();
+                ProgressDialog progressDialog = new ProgressDialog(HomeActivity.this);
+                progressDialog.setTitle("Déconnexion");
+                progressDialog.setMessage("Patientez s'il vous plait ...");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+                // logout
+                logout(progressDialog);
                 return true;
             case R.id.change_password:
                 startActivity(new Intent(HomeActivity.this, ChangePasswordActivity.class));
@@ -167,5 +178,33 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+    public void logout(final ProgressDialog progressDialog) {
+        RetrofitInterfaces retrofitInterfaces = RetrofitClientInstance.getClientForInassapp().create(RetrofitInterfaces.class);
+        Call<Signout> call = retrofitInterfaces.signout(userInfo.getUserId());
+        call.enqueue(new Callback<Signout>() {
+            @Override
+            public void onResponse(Call<Signout> call, retrofit2.Response<Signout> response) {
+                progressDialog.dismiss();
+                Signout signout = response.body();
+                if (signout.error){
+                    Toast.makeText(HomeActivity.this, "Vous ne pouvez pas vous deconnecter",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                userInfo.setLoggedin(false);
+                userInfo.clear();
+                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<Signout> call, Throwable t) {
+                progressDialog.dismiss();
+
+            }
+
+        });
+    }
 }
 

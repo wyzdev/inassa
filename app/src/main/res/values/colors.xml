@@ -18,4 +18,13 @@
     <color name="semi_transparent_black">#33000000</color>
     <color name="semi_transparent_white2">#55ffffff</color>
     <color name="white">#ffffff</color>
+
+
+    <color name="color_background_inactive">#F6E8E8</color>
+    <color name="color_background_active">#8DCE8D</color>
+
+    <color name="color_foreground_inactive">#FF5E5E</color>
+
+
+    <color name="color_background_hero">#d9534f</color>
 </resources>

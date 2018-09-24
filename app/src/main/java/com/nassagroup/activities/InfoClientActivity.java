@@ -3,6 +3,7 @@ package com.nassagroup.activities;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -43,6 +44,14 @@ import java.util.TimerTask;
  */
 public class InfoClientActivity extends AppCompatActivity {
 
+    TextView textView_client_name;
+    TextView search_date_time;
+    TextView info_client_identification;
+    TextView info_client_hero;
+    TextView info_client_legacy_police_number;
+    TextView info_client_is_dependant;
+    TextView info_client_primary_name;
+    TextView info_client_company;
     Timer timer;
     String info_client;
     JSONObject obj;
@@ -50,11 +59,28 @@ public class InfoClientActivity extends AppCompatActivity {
     LinearLayout not_update_layout, dob_not_update, text_global_name_number_layout;
     TextView textView_client_firstname, textView_client_lastname, textView_client_global_name_number, textView_client_status, textView_client_dob;
 
-    private final String FIRSTNAME = "first_name";
-    private final String LASTNAME = "last_name";
+    private final String FIRSTNAME = "firstname";
+    private final String LASTNAME = "lastname";
     private final String DOB = "dob";
     private final String GLOBAL_NAME_NUMBER = "global_name_number";
+    private final String COMPANY = "company";
+    private final String LEGACY_POLICE_NUMBER = "legacy_policy_number";
+    //    private String hero_name = "N/A";
+    private final String PRIMARY_EMPLOYEE_ID = "primary_employee_id";
+    private final String PRIMARY_NAME = "primary_name";
+    private final String EMPLOYEE_ID = "employee_id";
+    private boolean is_dependant = false;
     private final String CLIENTS = "clients";
+
+    LinearLayout  linear_layout_primary_name;
+    LinearLayout  linear_layout_hero;
+    LinearLayout  linear_layout_police_number;
+    LinearLayout  linear_layout_identification;
+    LinearLayout  linear_layout_dependant;
+    LinearLayout  linear_layout_company;
+    LinearLayout  linear_layout_client_name;
+
+
     RelativeLayout viewClient, viewRecyclerView;
     String firstname_str, lastname_str, dob_str;
 
@@ -105,18 +131,21 @@ public class InfoClientActivity extends AppCompatActivity {
 
         info_client =  extras.getString("info_client");
 
-//        Toast.makeText(this, extras.getString("info_client"), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, info_client, Toast.LENGTH_SHORT).show();
+//        hero_name = extras.getString("hero_name");
 
-        if ( extras.getString("firstname") != null &&  extras.getString("lastname") != null &&  extras.getString("dob") != null) {
+
+        if ( extras.getString("firstname") != null &&  extras.getString("lastname") != null &&
+                extras.getString("dob") != null) {
             firstname_str =  extras.getString("firstname");
             lastname_str =  extras.getString("lastname");
             dob_str =  extras.getString("dob");
         }
 
+        //Toast.makeText(this, hero_name, Toast.LENGTH_SHORT).show();
 
 
-        textView_client_firstname = (TextView) findViewById(R.id.info_client_firstname);
-        textView_client_lastname = (TextView) findViewById(R.id.info_client_lastname);
+        textView_client_name = (TextView) findViewById(R.id.info_client_name);
         textView_client_dob = (TextView) findViewById(R.id.info_client_dob);
         textView_client_global_name_number = (TextView) findViewById(R.id.info_client_global_name_number);
         textView_client_status = (TextView) findViewById(R.id.info_client_status);
@@ -124,6 +153,20 @@ public class InfoClientActivity extends AppCompatActivity {
         not_update_layout = (LinearLayout) findViewById(R.id.not_update_layout);
         dob_not_update = (LinearLayout) findViewById(R.id.dob_not_update);
         text_global_name_number_layout = (LinearLayout) findViewById(R.id.text_global_name_number);
+        search_date_time  = (TextView) findViewById(R.id.search_date_time);
+        info_client_company  = (TextView) findViewById(R.id.info_client_company);
+        info_client_legacy_police_number  = (TextView) findViewById(R.id.info_client_legacy_police_number);
+        info_client_hero  = (TextView) findViewById(R.id.info_client_hero);
+        info_client_is_dependant  = (TextView) findViewById(R.id.info_client_is_dependant);
+        info_client_primary_name  = (TextView) findViewById(R.id.info_client_primary_name);
+        info_client_identification  = (TextView) findViewById(R.id.info_client_identification);
+        linear_layout_primary_name  = (LinearLayout) findViewById(R.id.linear_layout_primary_name);
+        linear_layout_hero  = (LinearLayout) findViewById(R.id.linear_layout_hero);
+        linear_layout_police_number  = (LinearLayout) findViewById(R.id.linear_layout_police_number);
+        linear_layout_identification  = (LinearLayout) findViewById(R.id.linear_layout_identification);
+        linear_layout_dependant  = (LinearLayout) findViewById(R.id.linear_layout_dependant);
+        linear_layout_company  = (LinearLayout) findViewById(R.id.linear_layout_company);
+        linear_layout_client_name  = (LinearLayout) findViewById(R.id.linear_layout_client_name);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -132,7 +175,7 @@ public class InfoClientActivity extends AppCompatActivity {
         try {
             if (!info_client.equals("")) {
                 obj = new JSONObject(info_client);
-                if (obj.getBoolean("success") && obj.getJSONArray(CLIENTS).length() > 0) {
+                if (!obj.getBoolean("error") && obj.getJSONArray(CLIENTS).length() > 0) {
 
 
                     if (obj.getJSONArray(CLIENTS).length() == 1) {
@@ -142,15 +185,30 @@ public class InfoClientActivity extends AppCompatActivity {
             }else{
                 text_global_name_number_layout.setVisibility(View.GONE);
                 textView_client_status.setVisibility(View.GONE);
+                linear_layout_company.setVisibility(View.GONE);
+                linear_layout_dependant.setVisibility(View.GONE);
+                linear_layout_identification.setVisibility(View.GONE);
+                linear_layout_police_number.setVisibility(View.GONE);
+                linear_layout_hero.setVisibility(View.GONE);
+                linear_layout_primary_name.setVisibility(View.GONE);
+
+
                 dob_not_update.setVisibility(View.VISIBLE);
                 not_update_layout.setVisibility(View.VISIBLE);
 
 
-                textView_client_firstname.setText(firstname_str);
-                textView_client_lastname.setText(lastname_str);
+                Date today = new Date();
+                search_date_time.setText(("Date de recherche : " +
+                        new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.FRANCE).format(today)));
+
+                search_date_time.setPaintFlags(search_date_time.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+
+                textView_client_name.setText((firstname_str + " " + lastname_str));
 
                 DateFormat originalFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
                 DateFormat targetFormat = new SimpleDateFormat("dd/MM/yyyy");
+
                 Date date = null;
                 try {
                     date = originalFormat.parse(dob_str);
@@ -169,23 +227,70 @@ public class InfoClientActivity extends AppCompatActivity {
 
     private void printInfoClient(JSONObject obj) throws JSONException {
 
+
+//        Toast.makeText(this, obj.getLong(PRIMARY_EMPLOYEE_ID) + "", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this,  obj.getLong(EMPLOYEE_ID) + "", Toast.LENGTH_SHORT).show();
+
+
+
         text_global_name_number_layout.setVisibility(View.GONE);
         textView_client_global_name_number.setVisibility(View.VISIBLE);
         textView_client_status.setVisibility(View.VISIBLE);
+        linear_layout_client_name.setVisibility(View.VISIBLE);
 
         scrollView_info.setVisibility(View.VISIBLE);
         not_update_layout.setVisibility(View.GONE);
-        dob_not_update.setVisibility(View.GONE);
+        //dob_not_update.setVisibility(View.GONE);
 
         obj = (JSONObject) obj.getJSONArray(CLIENTS).get(0);
 
-        textView_client_firstname.setText(obj.getString(FIRSTNAME));
-        textView_client_lastname.setText(obj.getString(LASTNAME));
+
+
+        DateFormat originalFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+        DateFormat targetFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        Date date = null;
+        try {
+            date = originalFormat.parse(obj.getString("dob"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String formattedDate = targetFormat.format(date);
+
+        textView_client_dob.setText(formattedDate);
+
+        if (obj.getLong(EMPLOYEE_ID)!= obj.getLong(PRIMARY_EMPLOYEE_ID))
+            is_dependant = true;
+
+        textView_client_name.setText((obj.getString(FIRSTNAME) + " " + obj.getString(LASTNAME)));
+
         textView_client_global_name_number.setText(obj.getString(GLOBAL_NAME_NUMBER));
+
+        Date today = new Date();
+        search_date_time.setText(("Date de recherche : " +
+                new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.FRANCE).format(today)));
+
+        search_date_time.setPaintFlags(search_date_time.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+        info_client_company.setText(obj.getString(COMPANY));
+        info_client_legacy_police_number.setText(obj.getString(LEGACY_POLICE_NUMBER));
+        info_client_identification.setText(obj.getString(EMPLOYEE_ID));
+        info_client_hero.setText(obj.getString("hero_tag"));
+
+        if (is_dependant) {
+            info_client_is_dependant.setText("OUI");
+            info_client_primary_name.setText((obj.getString(PRIMARY_NAME) + " - " + obj.getLong(EMPLOYEE_ID)));
+            linear_layout_primary_name.setVisibility(View.VISIBLE);
+        }else {
+            info_client_is_dependant.setText("NON");
+            linear_layout_primary_name.setVisibility(View.GONE);
+        }
+
         if (obj.getBoolean("status")) {
             textView_client_status.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_good));
             textView_client_status.setTextColor(getResources().getColor(R.color.green_active));
             textView_client_status.setText(getResources().getString(R.string.active));
+
         } else {
             textView_client_status.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_bad));
             textView_client_status.setTextColor(getResources().getColor(R.color.red_inactive));
