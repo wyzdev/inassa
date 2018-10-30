@@ -360,6 +360,7 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
 
             @Override
             public void onFailure(Call<SearchClient> call, Throwable t) {
+                Log.d("INFO", t.getMessage());
                 progressDialog.dismiss();
             }
 

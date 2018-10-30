@@ -10,7 +10,7 @@ android {
         versionCode 14
         versionName "9.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
+        multiDexEnabled false
     }
     buildTypes {
         release {

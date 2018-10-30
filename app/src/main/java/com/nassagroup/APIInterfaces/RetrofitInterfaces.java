@@ -7,6 +7,7 @@ import com.nassagroup.core.Historic;
 import com.nassagroup.core.LoginApi;
 import com.nassagroup.core.LoginInassapp;
 import com.nassagroup.core.SearchClient;
+import com.nassagroup.core.SendResearch;
 import com.nassagroup.core.Signout;
 
 import java.util.List;
@@ -73,4 +74,25 @@ public interface RetrofitInterfaces {
     @POST("users/deconnexion.json")
     @FormUrlEncoded
     Call<Signout> signout(@Field("user_id") int user_id);
+
+    @POST("gestion/sendresearch.json")
+    @FormUrlEncoded
+    Call<SendResearch> sendResearch(@Field("first_name") String first_name,
+                                    @Field("last_name") String last_name,
+                                    @Field("doctor_name") String doctor_name,
+                                    @Field("status") boolean status,
+                                    @Field("date") String date,
+                                    @Field("dob") String dob,
+                                    @Field("employee_id") long employee_id,
+                                    @Field("is_dependant") boolean is_dependant,
+                                    @Field("legacy_number") String legacy_policy_number,
+                                    @Field("company") String company,
+                                    @Field("hero") String hero,
+                                    @Field("primary_name") String primary_name,
+                                    @Field("primary_employee_id") long primary_id,
+                                    @Field("user_id") int user_id,
+                                    @Field("user_email") String useremail);
+
+
+
 }

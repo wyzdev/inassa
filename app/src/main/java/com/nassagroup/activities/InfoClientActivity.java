@@ -15,13 +15,18 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nassagroup.APIInterfaces.RetrofitInterfaces;
 import com.nassagroup.R;
+import com.nassagroup.RetrofitClientInstance;
+import com.nassagroup.core.SearchClient;
+import com.nassagroup.core.SendResearch;
 import com.nassagroup.tools.LogOutTimerTask;
 import com.nassagroup.tools.UserInfo;
 
@@ -38,6 +43,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A screen that displays the client's information
@@ -58,6 +67,8 @@ public class InfoClientActivity extends AppCompatActivity {
     ScrollView scrollView_info;
     LinearLayout not_update_layout, dob_not_update, text_global_name_number_layout;
     TextView textView_client_firstname, textView_client_lastname, textView_client_global_name_number, textView_client_status, textView_client_dob;
+    Button btn_send_mail;
+    UserInfo userInfo;
 
     private final String FIRSTNAME = "firstname";
     private final String LASTNAME = "lastname";
@@ -130,6 +141,7 @@ public class InfoClientActivity extends AppCompatActivity {
         Bundle extras = intent.getExtras();
 
         info_client =  extras.getString("info_client");
+        userInfo = new UserInfo(this);
 
 //        Toast.makeText(this, info_client, Toast.LENGTH_SHORT).show();
 //        hero_name = extras.getString("hero_name");
@@ -167,6 +179,7 @@ public class InfoClientActivity extends AppCompatActivity {
         linear_layout_dependant  = (LinearLayout) findViewById(R.id.linear_layout_dependant);
         linear_layout_company  = (LinearLayout) findViewById(R.id.linear_layout_company);
         linear_layout_client_name  = (LinearLayout) findViewById(R.id.linear_layout_client_name);
+        btn_send_mail = (Button) findViewById(R.id.btn_send_mail);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -223,6 +236,88 @@ public class InfoClientActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        btn_send_mail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    sendClientbyMail(obj);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void sendClientbyMail(JSONObject obj) throws JSONException{
+
+
+        obj = (JSONObject) obj.getJSONArray(CLIENTS).get(0);
+
+        DateFormat originalFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+        DateFormat targetFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        Date date = null;
+        try {
+            date = originalFormat.parse(obj.getString("dob"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        String formattedDate = targetFormat.format(date);
+
+        is_dependant = false;
+
+        if (obj.getLong(EMPLOYEE_ID)!= obj.getLong(PRIMARY_EMPLOYEE_ID))
+            is_dependant = true;
+
+        Date today = new Date();
+        String actual_date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.FRANCE).format(today);
+
+        RetrofitInterfaces retrofitInterfaces = RetrofitClientInstance.getClientForInassapp().create(RetrofitInterfaces.class);
+
+        Call<SendResearch> call = retrofitInterfaces.sendResearch(
+                obj.getString(FIRSTNAME) ,
+                obj.getString(LASTNAME) ,
+                obj.getString(GLOBAL_NAME_NUMBER),
+                obj.getBoolean("status"),
+                actual_date,
+                formattedDate,
+                obj.getLong(EMPLOYEE_ID),
+                is_dependant,
+                obj.getString(LEGACY_POLICE_NUMBER),
+                obj.getString(COMPANY),
+                obj.getString("hero_tag"),
+                obj.getString(PRIMARY_NAME),
+                obj.getLong(PRIMARY_EMPLOYEE_ID),
+                userInfo.getUserId(),
+                userInfo.getUserEmail());
+
+        call.enqueue(new Callback<SendResearch>() {
+            @Override
+            public void onResponse(Call<SendResearch> call, Response<SendResearch> response) {
+
+                Log.d("INFO", response.toString());
+                SendResearch sendResearch = response.body();
+
+                if(sendResearch.isError()){
+
+                }else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SendResearch> call, Throwable t) {
+                Log.d("INFO", t.getMessage());
+            }
+        });
+
+
+
+
+
+
     }
 
     private void printInfoClient(JSONObject obj) throws JSONException {
@@ -230,8 +325,6 @@ public class InfoClientActivity extends AppCompatActivity {
 
 //        Toast.makeText(this, obj.getLong(PRIMARY_EMPLOYEE_ID) + "", Toast.LENGTH_SHORT).show();
 //        Toast.makeText(this,  obj.getLong(EMPLOYEE_ID) + "", Toast.LENGTH_SHORT).show();
-
-
 
         text_global_name_number_layout.setVisibility(View.GONE);
         textView_client_global_name_number.setVisibility(View.VISIBLE);
