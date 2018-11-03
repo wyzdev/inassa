@@ -206,7 +206,7 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
             public void onFailure(Call<CheckLogin> call, Throwable t) {
                 progressDialog.dismiss();
                 dialogError();
-                //Toast.makeText(SearchClientActivity.this, "Un problème est survenu.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(SearchClientActivity.this, "Aucun client de correspond a vos critères de recherche.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -361,6 +361,7 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onFailure(Call<SearchClient> call, Throwable t) {
                 Log.d("INFO", t.getMessage());
+                Toast.makeText(SearchClientActivity.this, "Problème de connexion", Toast.LENGTH_LONG).show();
                 progressDialog.dismiss();
             }
 

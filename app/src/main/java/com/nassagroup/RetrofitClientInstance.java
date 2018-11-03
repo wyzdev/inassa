@@ -1,5 +1,7 @@
 package com.nassagroup;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.nassagroup.tools.Constants;
 
 import okhttp3.OkHttpClient;
@@ -40,9 +42,13 @@ public class RetrofitClientInstance {
     }
 
     public static Retrofit getClientForInassapp(){
+
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        Gson gson = new GsonBuilder().setLenient().create();
+
         if(BuildConfig.DEBUG){
             okHttpClientBuilder.addInterceptor(interceptor);
         }
@@ -51,7 +57,7 @@ public class RetrofitClientInstance {
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl_server)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
                 .build();
 

@@ -1,6 +1,7 @@
 package com.nassagroup.activities;
 
 import android.app.ActivityManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -25,8 +26,8 @@ import android.widget.Toast;
 import com.nassagroup.APIInterfaces.RetrofitInterfaces;
 import com.nassagroup.R;
 import com.nassagroup.RetrofitClientInstance;
-import com.nassagroup.core.SearchClient;
 import com.nassagroup.core.SendResearch;
+import com.nassagroup.tools.Constants;
 import com.nassagroup.tools.LogOutTimerTask;
 import com.nassagroup.tools.UserInfo;
 
@@ -42,7 +43,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,6 +69,9 @@ public class InfoClientActivity extends AppCompatActivity {
     TextView textView_client_firstname, textView_client_lastname, textView_client_global_name_number, textView_client_status, textView_client_dob;
     Button btn_send_mail;
     UserInfo userInfo;
+    ProgressDialog progressDialog;
+
+
 
     private final String FIRSTNAME = "firstname";
     private final String LASTNAME = "lastname";
@@ -142,6 +145,9 @@ public class InfoClientActivity extends AppCompatActivity {
 
         info_client =  extras.getString("info_client");
         userInfo = new UserInfo(this);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
 
 //        Toast.makeText(this, info_client, Toast.LENGTH_SHORT).show();
 //        hero_name = extras.getString("hero_name");
@@ -252,7 +258,14 @@ public class InfoClientActivity extends AppCompatActivity {
     private void sendClientbyMail(JSONObject obj) throws JSONException{
 
 
+        progressDialog.setMessage("Patientez s'il vous plait ...");
+        progressDialog.show();
+
+
+
         obj = (JSONObject) obj.getJSONArray(CLIENTS).get(0);
+
+
 
         DateFormat originalFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
         DateFormat targetFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -268,57 +281,67 @@ public class InfoClientActivity extends AppCompatActivity {
 
         is_dependant = false;
 
-        if (obj.getLong(EMPLOYEE_ID)!= obj.getLong(PRIMARY_EMPLOYEE_ID))
+        if (obj.getInt(EMPLOYEE_ID)!= obj.getInt(PRIMARY_EMPLOYEE_ID))
             is_dependant = true;
 
+        String name = obj.getString(FIRSTNAME);
+        Log.d("INFO", name);
         Date today = new Date();
         String actual_date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.FRANCE).format(today);
 
+        String firsname = obj.getString(FIRSTNAME);
+        String lastname = obj.getString(LASTNAME) ;
+        int global_name_number = obj.getInt(GLOBAL_NAME_NUMBER)  ;
+        boolean status = obj.getBoolean("status") ;
+        int employee_id = obj.getInt(EMPLOYEE_ID) ;
+        String company = obj.getString(COMPANY) ;
+        String hero = obj.getString("hero_tag") ;
+        String primary_name = obj.getString(PRIMARY_NAME) ;
+        int primary_employee_id = obj.getInt(PRIMARY_EMPLOYEE_ID);
+        String legacy_policy_number =  obj.getString(LEGACY_POLICE_NUMBER);
+        int policy_number  = obj.getInt("policy_number");
+
+
+
         RetrofitInterfaces retrofitInterfaces = RetrofitClientInstance.getClientForInassapp().create(RetrofitInterfaces.class);
 
-        Call<SendResearch> call = retrofitInterfaces.sendResearch(
-                obj.getString(FIRSTNAME) ,
-                obj.getString(LASTNAME) ,
-                obj.getString(GLOBAL_NAME_NUMBER),
-                obj.getBoolean("status"),
-                actual_date,
-                formattedDate,
-                obj.getLong(EMPLOYEE_ID),
-                is_dependant,
-                obj.getString(LEGACY_POLICE_NUMBER),
-                obj.getString(COMPANY),
-                obj.getString("hero_tag"),
-                obj.getString(PRIMARY_NAME),
-                obj.getLong(PRIMARY_EMPLOYEE_ID),
-                userInfo.getUserId(),
-                userInfo.getUserEmail());
+        Call<SendResearch> call = retrofitInterfaces.sendResearch(obj, userInfo.getUserId(), Constants.TOKEN);
 
         call.enqueue(new Callback<SendResearch>() {
             @Override
             public void onResponse(Call<SendResearch> call, Response<SendResearch> response) {
 
                 Log.d("INFO", response.toString());
-                SendResearch sendResearch = response.body();
+                try{
+                    SendResearch j = response.body();
+                    Log.d("INFO", j.toString());
+                    if(j.isMail()){
+                        Toast.makeText(InfoClientActivity.this, "Mail envoyé", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(InfoClientActivity.this, SearchClientActivity.class);
+                        startActivity(i);
+                    }
 
-                if(sendResearch.isError()){
-
-                }else{
-
+                }catch (Exception e){
+                    Toast.makeText(InfoClientActivity.this, "Erreur lors de la requête, essayer à nouveau.", Toast.LENGTH_SHORT).show();
                 }
+
+                progressDialog.dismiss();
+
             }
 
             @Override
             public void onFailure(Call<SendResearch> call, Throwable t) {
                 Log.d("INFO", t.getMessage());
+                Toast.makeText(InfoClientActivity.this, "Problème de connexion", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             }
         });
 
 
 
-
-
-
     }
+
+   
 
     private void printInfoClient(JSONObject obj) throws JSONException {
 

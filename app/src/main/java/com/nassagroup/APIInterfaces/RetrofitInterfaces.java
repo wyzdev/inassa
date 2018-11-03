@@ -1,5 +1,6 @@
 package com.nassagroup.APIInterfaces;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.nassagroup.core.Benefits;
 import com.nassagroup.core.CheckLogin;
@@ -10,6 +11,9 @@ import com.nassagroup.core.SearchClient;
 import com.nassagroup.core.SendResearch;
 import com.nassagroup.core.Signout;
 
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -17,6 +21,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 /**
  * Created by hollyn.derisse on 29/05/2018.
@@ -75,23 +80,11 @@ public interface RetrofitInterfaces {
     @FormUrlEncoded
     Call<Signout> signout(@Field("user_id") int user_id);
 
-    @POST("gestion/sendresearch.json")
+    @POST("clients/sendresearchapi.json")
     @FormUrlEncoded
-    Call<SendResearch> sendResearch(@Field("first_name") String first_name,
-                                    @Field("last_name") String last_name,
-                                    @Field("doctor_name") String doctor_name,
-                                    @Field("status") boolean status,
-                                    @Field("date") String date,
-                                    @Field("dob") String dob,
-                                    @Field("employee_id") long employee_id,
-                                    @Field("is_dependant") boolean is_dependant,
-                                    @Field("legacy_number") String legacy_policy_number,
-                                    @Field("company") String company,
-                                    @Field("hero") String hero,
-                                    @Field("primary_name") String primary_name,
-                                    @Field("primary_employee_id") long primary_id,
-                                    @Field("user_id") int user_id,
-                                    @Field("user_email") String useremail);
+    Call<SendResearch> sendResearch(@Field("client")JSONObject client,
+                                 @Field("user_id") int user_id,
+                                 @Field("token") String token);
 
 
 
