@@ -123,4 +123,5 @@
     <string name="sample_status">actif / inactif</string>
     <string name="legacy_policy_number_text">Numéro de police hérité</string>
     <string name="server_problem">Les serveurs sont temporairement indisponibles. Essayez à nouveau dans 5 minutes et si le problème persiste, contactez la INASSA au 28127600.</string>
+    <string name="inassa_support">Veuillez contacter la INASSA</string>
 </resources>

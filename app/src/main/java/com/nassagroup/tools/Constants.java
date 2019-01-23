@@ -5,8 +5,8 @@ package com.nassagroup.tools;
  */
 
 public class Constants {
-//        public static final String SERVER = "http://nassagroup.com/app/";
-    public static final String SERVER = "http://192.168.1.14/";
+        public static final String SERVER = "http://nassagroup.com/app/";
+//    public static final String SERVER = "http://192.168.2.130:8083/";
 
     public static final String SERVER_INASSA = "http://200.113.219.221:8180/";
 

@@ -11,6 +11,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -73,6 +74,7 @@ public class InfoClientActivity extends AppCompatActivity {
 
 
 
+
     private final String FIRSTNAME = "firstname";
     private final String LASTNAME = "lastname";
     private final String DOB = "dob";
@@ -93,6 +95,8 @@ public class InfoClientActivity extends AppCompatActivity {
     LinearLayout  linear_layout_dependant;
     LinearLayout  linear_layout_company;
     LinearLayout  linear_layout_client_name;
+    LinearLayout info_box;
+    TextView user_message;
 
 
     RelativeLayout viewClient, viewRecyclerView;
@@ -185,7 +189,9 @@ public class InfoClientActivity extends AppCompatActivity {
         linear_layout_dependant  = (LinearLayout) findViewById(R.id.linear_layout_dependant);
         linear_layout_company  = (LinearLayout) findViewById(R.id.linear_layout_company);
         linear_layout_client_name  = (LinearLayout) findViewById(R.id.linear_layout_client_name);
+        info_box = (LinearLayout) findViewById(R.id.info_box);
         btn_send_mail = (Button) findViewById(R.id.btn_send_mail);
+        user_message = (TextView) findViewById(R.id.user_message);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -218,7 +224,7 @@ public class InfoClientActivity extends AppCompatActivity {
 
                 Date today = new Date();
                 search_date_time.setText(("Date de recherche : " +
-                        new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.FRANCE).format(today)));
+                        new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.US).format(today)));
 
                 search_date_time.setPaintFlags(search_date_time.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
@@ -247,7 +253,9 @@ public class InfoClientActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    sendClientbyMail(obj);
+                    if(obj != null){
+                        sendClientbyMail(obj);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -260,7 +268,6 @@ public class InfoClientActivity extends AppCompatActivity {
 
         progressDialog.setMessage("Patientez s'il vous plait ...");
         progressDialog.show();
-
 
 
         obj = (JSONObject) obj.getJSONArray(CLIENTS).get(0);
@@ -349,16 +356,30 @@ public class InfoClientActivity extends AppCompatActivity {
 //        Toast.makeText(this, obj.getLong(PRIMARY_EMPLOYEE_ID) + "", Toast.LENGTH_SHORT).show();
 //        Toast.makeText(this,  obj.getLong(EMPLOYEE_ID) + "", Toast.LENGTH_SHORT).show();
 
-        text_global_name_number_layout.setVisibility(View.GONE);
+        text_global_name_number_layout.setVisibility(View.VISIBLE);
         textView_client_global_name_number.setVisibility(View.VISIBLE);
         textView_client_status.setVisibility(View.VISIBLE);
         linear_layout_client_name.setVisibility(View.VISIBLE);
+        textView_client_name.setVisibility(View.VISIBLE);
+        textView_client_dob.setVisibility(View.VISIBLE);
+        textView_client_global_name_number.setVisibility(View.VISIBLE);
+        textView_client_status.setVisibility(View.VISIBLE);
 
         scrollView_info.setVisibility(View.VISIBLE);
         not_update_layout.setVisibility(View.GONE);
         //dob_not_update.setVisibility(View.GONE);
 
         obj = (JSONObject) obj.getJSONArray(CLIENTS).get(0);
+
+
+
+
+        if(TextUtils.equals(obj.getString(LEGACY_POLICE_NUMBER), "12708")){
+            info_box.setVisibility(View.GONE);
+            textView_client_status.setVisibility(View.GONE);
+            btn_send_mail.setVisibility(View.GONE);
+            user_message.setVisibility(View.VISIBLE);
+        }
 
 
 

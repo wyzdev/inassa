@@ -92,6 +92,7 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
     String hero_name;
     int employee_id;
     String firstname_client;
+    AlertDialog alertDialog;
 
     String firstname_str, lastname_str, dob_str;
 
@@ -157,6 +158,7 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
 
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
+        alertDialog = new AlertDialog.Builder(SearchClientActivity.this).create();
 
         editText_firstname = (EditText) findViewById(R.id.search_firstname);
         editText_lastname = (EditText) findViewById(R.id.search_lastname);
@@ -296,9 +298,25 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
 
                     if (!searchClient.isError()) {
                         clients = searchClient.getClients();
-                        if (clients == null) {
-                            Toast.makeText(SearchClientActivity.this, searchClient.getErrorMessage(), Toast.LENGTH_LONG).show();
+                        if (clients.isEmpty()) {
+
+//                              Toast.makeText(SearchClientActivity.this, searchClient.getErrorMessage(), Toast.LENGTH_LONG).show();
+
+                            alertDialog.setTitle("Info");
+                            alertDialog.setMessage(searchClient.getErrorMessage());
+                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            alertDialog.show();
+
+
                             return;
+
+
+
                         }
                         if (!searchClient.isError() && clients.size() >= 1) {
                             if (clients.size() == 1) {
@@ -360,7 +378,7 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
 
             @Override
             public void onFailure(Call<SearchClient> call, Throwable t) {
-                Log.d("INFO", t.getMessage());
+//                Log.d("INFO", t.getMessage());
                 Toast.makeText(SearchClientActivity.this, "Problème de connexion", Toast.LENGTH_LONG).show();
                 progressDialog.dismiss();
             }

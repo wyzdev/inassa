@@ -4,12 +4,15 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,7 +78,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(final ClientViewHolder clientViewHolder, final int i) {
+    public void onBindViewHolder(final ClientViewHolder clientViewHolder, final int i){
         date = new Date();
         try {
             date = originalFormat.parse(clients.get(i).getDob());
@@ -131,6 +134,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         }
 
+        if(TextUtils.equals(clients.get(i).getLegacy_policy_number(), "12708")){
+            clientViewHolder.tv_message.setVisibility(View.VISIBLE);
+            clientViewHolder.info_box.setVisibility(View.GONE);
+        }
+
         clientViewHolder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,7 +165,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         "     ]\n" +
                         "   }";
 
-                saveInLogs(info_client);
+                saveInLogs(info_client, clients.get(i).getLegacy_policy_number());
+
+//                Snackbar.make(context.get, "", Snackbar.LENGTH_LONG);
 
             }
         });
@@ -352,7 +362,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      *
      * @param info_client
      */
-    private void saveInLogs(final String info_client) {
+    private void saveInLogs(final String info_client, final String policy_number) {
         final ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setTitle("Enregistrement ...");
         progressDialog.setMessage("Patientez s'il vous plait");
@@ -385,8 +395,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //        extras.putString("hero_name", hero_name);
         intent.putExtras(extras);
 
-
-        context.startActivity(intent);
+        if(!TextUtils.equals(policy_number, "12708")){
+            progressDialog.hide();
+            context.startActivity(intent);
+//            Toast.makeText(context, policy_number, Toast.LENGTH_SHORT).show();
+        }else{
+            progressDialog.hide();
+            Toast.makeText(context, "Veuillez contacter la INASSA", Toast.LENGTH_SHORT).show();
+        }
 
 
     }
@@ -528,6 +544,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView client_is_dependant;
         TextView client_status;
         TextView client_hero;
+        TextView tv_message;
+        LinearLayout info_box;
 
         ClientViewHolder(View itemView) {
             super(itemView);
@@ -543,6 +561,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             client_is_dependant = (TextView) itemView.findViewById(R.id.client_is_dependant);
             client_status = (TextView) itemView.findViewById(R.id.client_status);
             client_hero = (TextView) itemView.findViewById(R.id.client_hero);
+            tv_message = (TextView) itemView.findViewById(R.id.tv_message);
+            info_box = (LinearLayout) itemView.findViewById(R.id.info_box);
         }
     }
 }

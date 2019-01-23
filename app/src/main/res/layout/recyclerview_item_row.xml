@@ -7,12 +7,15 @@
         android:id="@+id/cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="150dp"
         android:layout_margin="8dp">
 
+
         <LinearLayout
-            android:layout_margin="8dp"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:orientation="vertical">
 
             <!--identification row-->
@@ -22,32 +25,34 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_weight="0.40"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.40"
+                    android:orientation="horizontal">
+
                     <TextView
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/identification_text"/>
+                        android:padding="4dp"
+                        android:text="@string/identification_text"
+                        android:textColor="#000"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="0.70"
-                    android:layout_height="wrap_content">
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/client_identification"
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="John"/>
+                        android:padding="4dp"
+                        android:text="John"
+                        android:textColor="#000"
+                        android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -58,32 +63,34 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_weight="0.40"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.40"
+                    android:orientation="horizontal">
+
                     <TextView
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/firstname_text"/>
+                        android:padding="4dp"
+                        android:text="@string/firstname_text"
+                        android:textColor="#000"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="0.70"
-                    android:layout_height="wrap_content">
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/client_firstname"
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="John"/>
+                        android:padding="4dp"
+                        android:text="John"
+                        android:textColor="#000"
+                        android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -94,331 +101,367 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_weight="0.40"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.40"
+                    android:orientation="horizontal">
+
                     <TextView
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/lastname_text"/>
+                        android:padding="4dp"
+                        android:text="@string/lastname_text"
+                        android:textColor="#000"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="0.70"
-                    android:layout_height="wrap_content">
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/client_lastname"
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="DOE"/>
+                        android:padding="4dp"
+                        android:text="DOE"
+                        android:textColor="#000"
+                        android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!--dob row-->
             <LinearLayout
+                android:id="@+id/info_box"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
+                <!--dob row-->
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_weight="0.40"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        android:layout_width="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/birthdate_hint"/>
+                        android:layout_weight="0.40"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="@string/birthdate_hint"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.70"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/client_dob"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="18/09/1988"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
                 </LinearLayout>
 
+
+                <!--address row-->
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.70"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/client_dob"
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        android:layout_width="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="18/09/1988"/>
-                </LinearLayout>
-            </LinearLayout>
+                        android:layout_weight="0.40"
+                        android:orientation="horizontal">
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="@string/prompt_postal_address"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
 
-            <!--address row-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_weight="0.40"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/prompt_postal_address"/>
-                </LinearLayout>
+                        android:layout_weight="0.70"
+                        android:orientation="horizontal">
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.70"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/client_address"
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="10, Rue Ciraud Bourdon Port-au-Prince Haiti"/>
-                </LinearLayout>
-            </LinearLayout>
-
-
-
-
-            <!--Policy number-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_weight="0.40"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/legacy_policy_number_text"/>
+                        <TextView
+                            android:id="@+id/client_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="10, Rue Ciraud Bourdon Port-au-Prince Haiti"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
                 </LinearLayout>
 
+
+                <!--Policy number-->
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.70"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/client_legacy_policy_number"
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        android:layout_width="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="2901"/>
-                </LinearLayout>
-            </LinearLayout>
+                        android:layout_weight="0.40"
+                        android:orientation="horizontal">
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="@string/legacy_policy_number_text"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
 
-
-            <!-- Company row -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_weight="0.40"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/company_text"/>
-                </LinearLayout>
+                        android:layout_weight="0.70"
+                        android:orientation="horizontal">
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.70"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/client_company"
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Office National d'Assurance Vieillesse"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- is dependant row -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_weight="0.40"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dependant_text"/>
+                        <TextView
+                            android:id="@+id/client_legacy_policy_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="2901"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
                 </LinearLayout>
 
+
+                <!-- Company row -->
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.70"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/client_is_dependant"
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        android:layout_width="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/sample_is_dependant"/>
-                </LinearLayout>
-            </LinearLayout>
+                        android:layout_weight="0.40"
+                        android:orientation="horizontal">
 
-            <!-- primary name row -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="@string/company_text"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_weight="0.40"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/primary_name_text"/>
-                </LinearLayout>
+                        android:layout_weight="0.70"
+                        android:orientation="horizontal">
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.70"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/client_primary_name"
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/sample_primary_name"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- primary name row -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="4dp">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_weight="0.40"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/hero_text"/>
+                        <TextView
+                            android:id="@+id/client_company"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="Office National d'Assurance Vieillesse"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
                 </LinearLayout>
 
+                <!-- is dependant row -->
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.70"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/client_hero"
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/sample_hero"/>
+                        android:layout_weight="0.40"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="@string/dependant_text"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.70"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/client_is_dependant"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="@string/sample_is_dependant"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
 
-            <!-- primary name row -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
+                <!-- primary name row -->
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_weight="0.40"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        android:layout_width="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/status_text"/>
+                        android:layout_weight="0.40"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="@string/primary_name_text"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.70"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/client_primary_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="@string/sample_primary_name"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
                 </LinearLayout>
 
+                <!-- primary name row -->
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.70"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/client_status"
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/sample_status"/>
+                        android:layout_weight="0.40"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="@string/hero_text"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.70"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/client_hero"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="@string/sample_hero"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
                 </LinearLayout>
+
+                <!-- primary name row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.40"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="@string/status_text"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.70"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/client_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="@string/sample_status"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center"
+            android:text="@string/inassa_support"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            />
     </android.support.v7.widget.CardView>
 
 </LinearLayout>
