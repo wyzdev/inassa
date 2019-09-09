@@ -2,26 +2,32 @@ package com.nassagroup.APIInterfaces;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.nassagroup.core.ApiResponse;
 import com.nassagroup.core.Benefits;
 import com.nassagroup.core.CheckLogin;
 import com.nassagroup.core.Historic;
+import com.nassagroup.core.KeyRequestUser;
 import com.nassagroup.core.LoginApi;
 import com.nassagroup.core.LoginInassapp;
+import com.nassagroup.core.Request;
+import com.nassagroup.core.ResponseKey;
 import com.nassagroup.core.SearchClient;
+import com.nassagroup.core.SearchLog;
+import com.nassagroup.core.SearchRequest;
 import com.nassagroup.core.SendResearch;
 import com.nassagroup.core.Signout;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 
 /**
  * Created by hollyn.derisse on 29/05/2018.
@@ -76,6 +82,15 @@ public interface RetrofitInterfaces {
                                     @Field("user_id") int user_id,
                                     @Field("token") String token);
 
+
+    @POST("RequestQuote/epic_mwClientSearch")
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    Call<SearchClient> directsearch(@Body SearchRequest searchRequest);
+
+    @POST("RequestQuote/RequestLogin")
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    Call<List<ResponseKey>> requestKeys(@Body Request request);
+
     @POST("users/deconnexion.json")
     @FormUrlEncoded
     Call<Signout> signout(@Field("user_id") int user_id);
@@ -86,6 +101,8 @@ public interface RetrofitInterfaces {
                                  @Field("user_id") int user_id,
                                  @Field("token") String token);
 
-
+    @POST("clients/saveSearchInAdminLog.json")
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    Call<ApiResponse> saveSearchInAdminLog(@Body SearchLog searchLog);
 
 }

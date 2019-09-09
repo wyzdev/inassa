@@ -33,6 +33,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.nassagroup.APIInterfaces.RetrofitInterfaces;
+import com.nassagroup.App;
 import com.nassagroup.R;
 import com.nassagroup.RetrofitClientInstance;
 import com.nassagroup.core.CheckLogin;
@@ -50,6 +51,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -82,6 +84,11 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Connexion ...");
+        progressDialog.setMessage("Attendez s'il vous plait");
+        progressDialog.setCancelable(false);
 
         userInfo = new UserInfo(this);
 
@@ -164,20 +171,17 @@ public class LoginActivity extends AppCompatActivity {
         if (mUsernameView.getText().toString().equals("inassa") && mPasswordView.getText().toString().equals("settings")) {
             Toast.makeText(this, "Paramètres", Toast.LENGTH_SHORT).show();
             openApp("com.android.settings");
-        }
-        else if(mUsernameView.getText().toString().equals("inassa") && mPasswordView.getText().toString().equals("dialer")) {
+        } else if (mUsernameView.getText().toString().equals("inassa") && mPasswordView.getText().toString().equals("dialer")) {
             Toast.makeText(this, "Dialer", Toast.LENGTH_SHORT).show();
             openApp("com.fineos.calculator");
-        }
-        else if(mUsernameView.getText().toString().equals(Constants.USERNAME_TO_QUIT_APP) && mPasswordView.getText().toString().equals(Constants.PASSWORD_TO_QUIT_APP)) {
+        } else if (mUsernameView.getText().toString().equals(Constants.USERNAME_TO_QUIT_APP) && mPasswordView.getText().toString().equals(Constants.PASSWORD_TO_QUIT_APP)) {
             Toast.makeText(this, "Apps", Toast.LENGTH_SHORT).show();
             // lance les apps
             startActivity(new Intent(this, AppsListActivity.class));
             // Effacer les identifiants dans les editText
             mUsernameView.setText("");
             mPasswordView.setText("");
-        }
-        else {
+        } else {
 
             if (cancel) {
                 focusView.requestFocus();
@@ -188,6 +192,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
+
     public void openApp(String packageName) {
         PackageManager manager = getPackageManager();
         Intent i = manager.getLaunchIntentForPackage(packageName);
@@ -201,41 +206,37 @@ public class LoginActivity extends AppCompatActivity {
      * @param password
      */
     private void loginUser(final String username, final String password) {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Connexion ...");
-        progressDialog.setMessage("Attendez s'il vous plait");
-        progressDialog.setCancelable(false);
         progressDialog.show();
-
-        proceedLoginInassapp(progressDialog, username, password, Constants.TOKEN);
-
+        proceedLoginInassapp(username, password);
     }
 
-    public void proceedLoginInassapp(final ProgressDialog progressDialog, final String username, final String password, final String token){
+    public void proceedLoginInassapp(final String username, final String password) {
         RetrofitInterfaces retrofitInterfaces = RetrofitClientInstance.getClientForInassapp().create(RetrofitInterfaces.class);
-        Call<LoginInassapp> call = retrofitInterfaces.loginInassap(username, password, token);
+        Call<LoginInassapp> call = retrofitInterfaces.loginInassap(username, password, Constants.TOKEN);
         call.enqueue(new Callback<LoginInassapp>() {
             @Override
             public void onResponse(Call<LoginInassapp> call, retrofit2.Response<LoginInassapp> response) {
                 progressDialog.dismiss();
                 LoginInassapp loginInassapp = response.body();
                 String json;
-
-
                 Gson gson = new Gson();
                 json = gson.toJson(loginInassapp.user);
-
-
                 if (loginInassapp.error) {
-                    if (loginInassapp.errorApi){
+                    if (loginInassapp.errorApi) {
                         dialogError();
                         return;
                     }
                     Toast.makeText(LoginActivity.this, "Nom d'utilisateur ou mot de passe incorrect.", Toast.LENGTH_SHORT).show();
                 } else {
-
                     userInfo.setUserInfo(json);
-                    checkCanLogin();
+//                    checkCanLogin();
+                    progressDialog.dismiss();
+                    DateFormat dateFormat = new SimpleDateFormat("dd", Locale.FRANCE);
+                    userInfo.setLoggedin(true);
+                    App.getInstance().requestKeyInBackground();
+                    userInfo.setCurrentDate(Integer.parseInt(dateFormat.format(new Date())));
+                    startActivity(new Intent(LoginActivity.this, SearchClientActivity.class));
+                    finish();
                 }
             }
 
@@ -314,11 +315,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public  void checkCanLogin(){
-
+    public void checkCanLogin() {
         progressDialog.setMessage("Patientez s'il vous plait ...");
         progressDialog.show();
-
         RetrofitInterfaces service = RetrofitClientInstance.getClientForInassapp().create(RetrofitInterfaces.class);
         Call<CheckLogin> call = service.canLogin(userInfo.getUserId());
         call.enqueue(new Callback<CheckLogin>() {
@@ -327,16 +326,13 @@ public class LoginActivity extends AppCompatActivity {
                 CheckLogin checkLogin = response.body();
                 if (checkLogin != null) {
                     progressDialog.dismiss();
-                    if (checkLogin.can){
-
-                        DateFormat dateFormat = new SimpleDateFormat("dd");
+                    if (checkLogin.can) {
+                        DateFormat dateFormat = new SimpleDateFormat("dd", Locale.FRANCE);
                         Date date = new Date();
-
                         userInfo.setLoggedin(true);
-
+                        App.getInstance().requestKeyInBackground();
                         userInfo.setCurrentDate(Integer.parseInt(dateFormat.format(date)));
-                        startActivity(new Intent(LoginActivity.this, SearchClientActivity
-                                .class));
+                        startActivity(new Intent(LoginActivity.this, SearchClientActivity.class));
                         finish();
                     } else {
                         dialogError();
@@ -357,16 +353,16 @@ public class LoginActivity extends AppCompatActivity {
         new AlertDialog.Builder(LoginActivity.this)
                 .setTitle("Erreur")
                 .setMessage(this.getResources().getString(R.string.server_problem))
-//                            .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        // logout
-                        logout();
-//                        Toast.makeText(LoginActivity.this, "Déconnexion", Toast.LENGTH_SHORT).show();
+//                        logout();
+                        userInfo.setLoggedin(false);
+                        userInfo.clear();
+                        mUsernameView.setText("");
+                        mPasswordView.setText("");
+
                     }
                 })
-                //.setNegativeButton(android.R.string.no, null)
                 .show();
     }
 

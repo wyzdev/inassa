@@ -7,9 +7,9 @@ import java.util.List;
 
 public class SearchClient {
 
-        @SerializedName("error")
+        @SerializedName("succes")
         @Expose
-        private boolean error;
+        private boolean succes;
         @SerializedName("clients")
         @Expose
         private List<Client> clients = null;
@@ -17,12 +17,12 @@ public class SearchClient {
         @Expose
         private String errorMessage;
 
-        public boolean isError() {
-            return error;
+        public boolean isSucces() {
+            return succes;
         }
 
-        public void setError(boolean error) {
-            this.error = error;
+        public void setSucces(boolean succes) {
+            this.succes = succes;
         }
 
         public List<Client> getClients() {

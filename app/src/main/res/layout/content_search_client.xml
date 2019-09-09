@@ -98,8 +98,8 @@
                         android:hint="@string/birthdate_hint"
                         android:inputType="text"
                         android:maxLines="1"
+                        android:textColor="@color/black_overlay"
                         android:singleLine="true"
-
                         android:imeActionId="@+id/login"
                         android:imeActionLabel="@string/action_sign_in_short"
                         android:imeOptions="actionUnspecified"

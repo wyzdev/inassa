@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -27,32 +28,26 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.nassagroup.APIInterfaces.RetrofitInterfaces;
+import com.nassagroup.App;
 import com.nassagroup.R;
 import com.nassagroup.RetrofitClientInstance;
 import com.nassagroup.core.Benefits;
 import com.nassagroup.core.CheckLogin;
 import com.nassagroup.core.Client;
 import com.nassagroup.core.Historic;
+import com.nassagroup.core.KeyRequestUser;
 import com.nassagroup.core.PolicyExtension;
 import com.nassagroup.core.SearchClient;
+import com.nassagroup.core.SearchRequest;
 import com.nassagroup.core.Signout;
 import com.nassagroup.tools.Constants;
 import com.nassagroup.tools.LogOutTimerTask;
 import com.nassagroup.tools.UserInfo;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -63,15 +58,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A screen that allows the user to search a client
@@ -140,6 +134,8 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
         navigation.getMenu().getItem(1).setChecked(true);
         imagebutton_datepicker = (ImageButton) findViewById(R.id.search_client_imagebutton_calendar);
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
 
         userInfo = new UserInfo(this);
 
@@ -172,18 +168,16 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
                 dob_str = editText_birthdate.getText().toString();
 
                 if (!firstname_str.isEmpty() && !lastname_str.isEmpty() && !dob_str.isEmpty())
-                    checkCanLogin(firstname_str.toUpperCase(), lastname_str.toUpperCase(), dob_str);
+                    checkForSearch(firstname_str.toUpperCase(), lastname_str.toUpperCase(), dob_str);
+
             }
         });
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
 
         imagebutton_datepicker.setOnClickListener(this);
     }
 
     public void checkCanLogin(final String firstname_str, final String lastname_str, final String dob_str) {
-
         progressDialog.setMessage("Patientez s'il vous plait ...");
         progressDialog.show();
 
@@ -198,6 +192,7 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
                         progressDialog.dismiss();
                         //authAPI(firstname_str.toUpperCase(), lastname_str.toUpperCase(), dob_str);
                         proceedSearchClient(firstname_str.toUpperCase(), lastname_str.toUpperCase(), dob_str);
+//                        checkForSearch(firstname_str.toUpperCase(), lastname_str.toUpperCase(), dob_str);
                     } else {
                         dialogError();
                     }
@@ -277,112 +272,302 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void proceedSearchClient(final String firstname, final String lastname, final String dob) {
-        final ProgressDialog progressDialog = new ProgressDialog(SearchClientActivity.this);
         progressDialog.setTitle("Recherche client en cours");
         progressDialog.setMessage("Patientez s'il vous plait ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-
-        RetrofitInterfaces retrofitInterfaces = RetrofitClientInstance.getClientForInassapp().create(RetrofitInterfaces.class);
-
-        Call<SearchClient> call = retrofitInterfaces.searchClient(firstname, lastname, dob, userInfo.getUserId(), Constants.TOKEN);
-        call.enqueue(new Callback<SearchClient>() {
+        Thread thread = new Thread() {
             @Override
-            public void onResponse(Call<SearchClient> call, retrofit2.Response<SearchClient> response) {
-                progressDialog.dismiss();
-                SearchClient searchClient = response.body();
+            public void run() {
+                RetrofitInterfaces retrofitInterfaces = RetrofitClientInstance.getClientForInassapp().create(RetrofitInterfaces.class);
+                Call<SearchClient> call = retrofitInterfaces.searchClient(firstname, lastname, dob, userInfo.getUserId(), Constants.TOKEN);
+                call.enqueue(new Callback<SearchClient>() {
+                    @Override
+                    public void onResponse(Call<SearchClient> call, retrofit2.Response<SearchClient> response) {
 
-                if (searchClient != null) {
-                    List<Client> clients;
+                        final SearchClient searchClient = response.body();
+                        if (searchClient != null) {
+                            List<Client> clients;
+                            if (!searchClient.isSucces()) {
+                                clients = searchClient.getClients();
+                                if (clients.isEmpty()) {
 
-                    if (!searchClient.isError()) {
-                        clients = searchClient.getClients();
-                        if (clients.isEmpty()) {
-
-//                              Toast.makeText(SearchClientActivity.this, searchClient.getErrorMessage(), Toast.LENGTH_LONG).show();
-
-                            alertDialog.setTitle("Info");
-                            alertDialog.setMessage(searchClient.getErrorMessage());
-                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            progressDialog.dismiss();
+                                            alertDialog.setTitle("Info");
+                                            alertDialog.setMessage(searchClient.getErrorMessage());
+                                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                                    new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                            alertDialog.show();
                                         }
                                     });
-                            alertDialog.show();
 
+                                    return;
+                                }
 
-                            return;
+                                if (!searchClient.isSucces() && clients.size() >= 1) {
+                                    if (clients.size() == 1) {
+                                        employee_id = (int) searchClient.getClients().get(0).getEmployeeId();
+                                        firstname_client = searchClient.getClients().get(0).getFirstname();
 
+                                        Gson gson = new Gson();
+                                        String json = gson.toJson(searchClient);
+                                        // print
 
+                                        saveInLogs(json);
+                                    } else if (clients.size() > 1) {
 
-                        }
-                        if (!searchClient.isError() && clients.size() >= 1) {
-                            if (clients.size() == 1) {
-                                employee_id = (int) searchClient.getClients().get(0).getEmployeeId();
-                                firstname_client = searchClient.getClients().get(0).getFirstname();
+                                        Gson gson = new Gson();
+                                        final String json = gson.toJson(searchClient);
+                                        userInfo.setKey(key);
+                                        // list
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                progressDialog.dismiss();
+                                                Intent intent = new Intent(SearchClientActivity.this, ListClient.class);
+                                                intent.putExtra("jsonObject", json);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        });
 
-                                Gson gson = new Gson();
-                                String json = gson.toJson(searchClient);
-                                // print
+                                    } else {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                progressDialog.dismiss();
+                                                Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
+                                                Bundle extras = new Bundle();
+                                                extras.putString("info_client", "");
+                                                // trois extras de plus "nom", "prenom", "date de naissance
+                                                extras.putString("firstname", firstname_str);
+                                                extras.putString("lastname", lastname_str);
+                                                extras.putString("dob", dob_str);
+                                                intent.putExtras(extras);
+                                                intent.putExtra("info_client", "");
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        });
 
-                                saveInLogs(json);
-                            } else if (clients.size() > 1) {
+                                    }
+                                } else if (!searchClient.isSucces() && clients.size() == 0) {
 
-                                Gson gson = new Gson();
-                                String json = gson.toJson(searchClient);
-                                userInfo.setKey(key);
-                                // list
-                                Intent intent = new Intent(SearchClientActivity.this, ListClient.class);
-                                intent.putExtra("jsonObject", json);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
-                                Bundle extras = new Bundle();
-                                extras.putString("info_client", "");
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
+                                            Bundle extras = new Bundle();
+                                            extras.putString("info_client", "");
+                                            // trois extras de plus "nom", "prenom", "date de naissance
+                                            extras.putString("firstname", firstname_str);
+                                            extras.putString("lastname", lastname_str);
+                                            extras.putString("dob", dob_str);
+                                            intent.putExtras(extras);
+                                            intent.putExtra("info_client", "");
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    });
 
-                                // trois extras de plus "nom", "prenom", "date de naissance
-                                extras.putString("firstname", firstname_str);
-                                extras.putString("lastname", lastname_str);
-                                extras.putString("dob", dob_str);
-                                intent.putExtras(extras);
-                                intent.putExtra("info_client", "");
-                                startActivity(intent);
-                                finish();
+                                }
                             }
-                        } else if (!searchClient.isError() && clients.size() == 0) {
 
-                            Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
-                            Bundle extras = new Bundle();
-                            extras.putString("info_client", "");
+                        } else {
 
-                            // trois extras de plus "nom", "prenom", "date de naissance
-                            extras.putString("firstname", firstname_str);
-                            extras.putString("lastname", lastname_str);
-                            extras.putString("dob", dob_str);
-                            intent.putExtras(extras);
-                            intent.putExtra("info_client", "");
-                            startActivity(intent);
-                            finish();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(SearchClientActivity.this, "Ne peut pas trouver le client.", Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
+                                }
+                            });
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<SearchClient> call, Throwable t) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(SearchClientActivity.this, "Problème de connexion", Toast.LENGTH_LONG).show();
+                                progressDialog.dismiss();
+                            }
+                        });
+
+                    }
+
+                });
+            }
+        };
+        thread.start();
+    }
+
+
+    public void checkForSearch(final String firstname, final String lastname, final String dob) {
+        progressDialog.setTitle("Recherche client en cours");
+        progressDialog.setMessage("Patientez s'il vous plait ...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        long diff = 0L;
+        boolean posponed = false;
+
+        if (App.getInstance().getKeyRequestUser().getDate() != null) {
+            diff = new Date().getTime() - App.getInstance().getKeyRequestUser().getDate().getTime();
+            if (TimeUnit.DAYS.convert(diff, TimeUnit.MINUTES) > 4) {
+                App.getInstance().requestKeyInBackground();
+                posponed = true;
+            }
+        } else {
+            KeyRequestUser user = new KeyRequestUser();
+            user.setUsername();
+            user.setPassword();
+            App.getInstance().setKeyRequestUser(user);
+            App.getInstance().requestKeyInBackground();
+            posponed = true;
+        }
+
+        if (posponed) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    searchForClientInDirectAPI(firstname, lastname, dob);
+                }
+            }, 4000);
+        } else {
+            searchForClientInDirectAPI(firstname, lastname, dob);
+        }
+    }
+
+    public void searchForClientInDirectAPI(final String firstname, final String lastname, final String dob) {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                SearchRequest searchRequest = new SearchRequest();
+                searchRequest.setDob(dob);
+                searchRequest.setFirst_name(firstname);
+                searchRequest.setLast_name(lastname);
+                searchRequest.setKeyRequestUser(App.getInstance().getKeyRequestUser());
+                RetrofitInterfaces retrofitInterfaces = RetrofitClientInstance.getDirectAPIConnexion().create(RetrofitInterfaces.class);
+                Call<SearchClient> call = retrofitInterfaces.directsearch(searchRequest);
+                call.enqueue(new Callback<SearchClient>() {
+                    @Override
+                    public void onResponse(Call<SearchClient> call, Response<SearchClient> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body() != null) {
+                                final SearchClient searchClient = response.body();
+                                    List<Client> clients = searchClient.getClients();
+                                    if (clients != null) {
+                                        if (clients.size() > 0) {
+                                            if (clients.size() == 1) {
+                                                //OneCLient
+                                                employee_id = (int) searchClient.getClients().get(0).getEmployeeId();
+                                                firstname_client = searchClient.getClients().get(0).getFirstname();
+                                                Gson gson = new Gson();
+                                                String json = gson.toJson(searchClient);
+                                                saveInLogs(json);
+                                            } else {
+                                                //ManyCLient
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Gson gson = new Gson();
+                                                        final String json = gson.toJson(searchClient);
+                                                        userInfo.setKey(key);
+                                                        progressDialog.dismiss();
+                                                        Intent intent = new Intent(SearchClientActivity.this, ListClient.class);
+                                                        intent.putExtra("jsonObject", json);
+                                                        startActivity(intent);
+//                                                finish();
+                                                    }
+                                                });
+                                            }
+                                        } else {
+                                            //Aucun resultat
+                                            openRequestNull();
+//                                            requestfailed("Aucun résultat");
+                                        }
+                                    } else {
+                                        //Aucun resultat
+                                        requestfailed("Aucun résultat");
+                                    }
+
+                            } else {
+                                //Requete non aboutie
+                                requestfailed("Requète non aboutie");
+                            }
+                        } else {
+                            //Requete non aboutie
+                            requestfailed("Requète non aboutie");
                         }
                     }
 
-                } else {
-                    Toast.makeText(SearchClientActivity.this, "Ne peut pas trouver le client.", Toast.LENGTH_SHORT).show();
-                }
-
-
+                    @Override
+                    public void onFailure(Call<SearchClient> call, Throwable t) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(SearchClientActivity.this, "Problème de connexion", Toast.LENGTH_LONG).show();
+                                progressDialog.dismiss();
+                            }
+                        });
+                    }
+                });
             }
+        };
+        thread.start();
+    }
 
+
+    public void requestfailed(final String message) {
+        runOnUiThread(new Runnable() {
             @Override
-            public void onFailure(Call<SearchClient> call, Throwable t) {
-//                Log.d("INFO", t.getMessage());
-                Toast.makeText(SearchClientActivity.this, "Problème de connexion", Toast.LENGTH_LONG).show();
+            public void run() {
                 progressDialog.dismiss();
+                alertDialog.setTitle("Info");
+                alertDialog.setMessage(message);
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
             }
+        });
+    }
 
+    public void openRequestNull(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                Toast.makeText(SearchClientActivity.this, "Ne peut pas trouver le client.", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+
+                Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
+                Bundle extras = new Bundle();
+                extras.putString("info_client", "");
+                // trois extras de plus "nom", "prenom", "date de naissance
+                extras.putString("firstname", firstname_str);
+                extras.putString("lastname", lastname_str);
+                extras.putString("dob", dob_str);
+                intent.putExtras(extras);
+                intent.putExtra("info_client", "");
+                startActivity(intent);
+                finish();
+            }
         });
     }
 
@@ -577,31 +762,28 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
      * @param info_client
      */
     private void saveInLogs(final String info_client) {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Enregistrement ...");
-        progressDialog.setMessage("Patientez s'il vous plait");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.setTitle("Enregistrement ...");
+                progressDialog.setMessage("Patientez s'il vous plait");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+                Log.i("client_123", info_client);
+                //proceedGetBenefits(progressDialog, employee_id, firstname_client, info_client);
+                Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
+                Bundle extras = new Bundle();
+                extras.putString("info_client", info_client);
+                progressDialog.hide();
+                intent.putExtras(extras);
+                startActivity(intent);
+//                editText_birthdate.setText("");
+//                editText_firstname.setText("");
+//                editText_lastname.setText("");
+//                editText_lastname.requestFocus();
+            }
+        });
 
-        Log.i("client_123", info_client);
-
-
-        //proceedGetBenefits(progressDialog, employee_id, firstname_client, info_client);
-
-
-        Intent intent = new Intent(SearchClientActivity.this, InfoClientActivity.class);
-        Bundle extras = new Bundle();
-
-        extras.putString("info_client", info_client);
-        intent.putExtras(extras);
-
-
-        startActivity(intent);
-        editText_birthdate.setText("");
-        editText_firstname.setText("");
-        editText_lastname.setText("");
-
-        editText_lastname.requestFocus();
     }
 
     /**
@@ -731,7 +913,7 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
             public void onResponse(Call<Signout> call, retrofit2.Response<Signout> response) {
                 progressDialog.dismiss();
                 Signout signout = response.body();
-                if (signout.error){
+                if (signout.error) {
                     Toast.makeText(SearchClientActivity.this, "Vous ne pouvez pas vous deconnecter",
                             Toast.LENGTH_SHORT).show();
                     return;
@@ -746,7 +928,6 @@ public class SearchClientActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onFailure(Call<Signout> call, Throwable t) {
                 progressDialog.dismiss();
-
             }
 
         });
