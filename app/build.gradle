@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.objectbox'
 
 android {
     compileSdkVersion 26
@@ -6,8 +7,8 @@ android {
         applicationId "com.nassagroup"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 16
-        versionName "16.0"
+        versionCode 17
+        versionName "17.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         javaCompileOptions {
@@ -45,7 +46,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
 
 
-    debugImplementation "io.objectbox:objectbox-android-objectbrowser:2.3.4"
+//    debugImplementation "io.objectbox:objectbox-android-objectbrowser:2.3.4"
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'
@@ -60,4 +61,3 @@ dependencies {
 
 }
 
-apply plugin: 'io.objectbox'

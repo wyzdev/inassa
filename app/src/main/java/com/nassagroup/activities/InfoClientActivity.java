@@ -75,8 +75,8 @@ public class InfoClientActivity extends AppCompatActivity {
 
 
 
-    private final String FIRSTNAME = "firstname";
-    private final String LASTNAME = "lastname";
+    private final String FIRSTNAME = "first_name";
+    private final String LASTNAME = "last_name";
     private final String DOB = "dob";
     private final String GLOBAL_NAME_NUMBER = "global_name_number";
     private final String COMPANY = "company";
@@ -157,10 +157,10 @@ public class InfoClientActivity extends AppCompatActivity {
 //        hero_name = extras.getString("hero_name");
 
 
-        if ( extras.getString("firstname") != null &&  extras.getString("lastname") != null &&
+        if (extras.getString("first_name") != null &&  extras.getString("last_name") != null &&
                 extras.getString("dob") != null) {
-            firstname_str =  extras.getString("firstname");
-            lastname_str =  extras.getString("lastname");
+            firstname_str =  extras.getString("first_name");
+            lastname_str =  extras.getString("last_name");
             dob_str =  extras.getString("dob");
         }
 
@@ -200,7 +200,7 @@ public class InfoClientActivity extends AppCompatActivity {
         try {
             if (!info_client.equals("")) {
                 obj = new JSONObject(info_client);
-                if (!obj.getBoolean("error") && obj.getJSONArray(CLIENTS).length() > 0) {
+                if (obj.getJSONArray(CLIENTS).length() > 0) {
 
 
                     if (obj.getJSONArray(CLIENTS).length() == 1) {
@@ -237,12 +237,14 @@ public class InfoClientActivity extends AppCompatActivity {
                 Date date = null;
                 try {
                     date = originalFormat.parse(dob_str);
-                } catch (ParseException e) {
+                    String formattedDate = targetFormat.format(date);
+                    textView_client_dob.setText(formattedDate);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                String formattedDate = targetFormat.format(date);
 
-                textView_client_dob.setText(formattedDate);
+
+
 
             }
         } catch (JSONException e) {
@@ -302,7 +304,7 @@ public class InfoClientActivity extends AppCompatActivity {
         boolean status = obj.getBoolean("status") ;
         int employee_id = obj.getInt(EMPLOYEE_ID) ;
         String company = obj.getString(COMPANY) ;
-        String hero = obj.getString("hero_tag") ;
+//        String hero = obj.getString("hero_tag") ;
         String primary_name = obj.getString(PRIMARY_NAME) ;
         int primary_employee_id = obj.getInt(PRIMARY_EMPLOYEE_ID);
         String legacy_policy_number =  obj.getString(LEGACY_POLICE_NUMBER);
@@ -412,7 +414,7 @@ public class InfoClientActivity extends AppCompatActivity {
         info_client_company.setText(obj.getString(COMPANY));
         info_client_legacy_police_number.setText(obj.getString(LEGACY_POLICE_NUMBER));
         info_client_identification.setText(obj.getString(EMPLOYEE_ID));
-        info_client_hero.setText(obj.getString("hero_tag"));
+//        info_client_hero.setText(obj.getString("hero_tag"));
 
         if (is_dependant) {
             info_client_is_dependant.setText("OUI");

@@ -38,8 +38,8 @@ public class ListClient extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     List clients;
-    private final String FIRSTNAME = "firstname";
-    private final String LASTNAME = "lastname";
+    private final String FIRSTNAME = "first_name";
+    private final String LASTNAME = "last_name";
     private final String DOB = "dob";
     private final String ADDRESS = "address";
     private final String POLICY_NUMBER = "policy_number";

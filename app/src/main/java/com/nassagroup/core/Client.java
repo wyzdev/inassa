@@ -12,10 +12,10 @@ public class Client {
     @SerializedName("global_name_number")
     @Expose
     private long globalNameNumber;
-    @SerializedName("firstname")
+    @SerializedName("first_name")
     @Expose
     private String firstname;
-    @SerializedName("lastname")
+    @SerializedName("last_name")
     @Expose
     private String lastname;
     @SerializedName("dob")

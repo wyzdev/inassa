@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: io.objectbox:objectbox-android:2.3.4@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/objectbox-android-2.3.4.aar/1e26efe67cad70ade6df7b8224f4a11e/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/objectbox-android-2.3.4.aar/1e26efe67cad70ade6df7b8224f4a11e/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/objectbox-android-2.3.4.aar/1e26efe67cad70ade6df7b8224f4a11e/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.objectbox/objectbox-android/2.3.4/85d0e567b6a9c82e782a71e715d7269f7d45f3c0/objectbox-android-2.3.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -22,8 +22,8 @@ public class ObjectBox {
     public static void init(Context context) {
         boxStore = MyObjectBox.builder().androidContext(context.getApplicationContext()).build();
         if(BuildConfig.DEBUG){
-            Log.d("DEBUG_DB", String.format("Using ObjectBox %s (%s)", BoxStore.getVersion(), BoxStore.getVersionNative()));
-            new AndroidObjectBrowser(boxStore).start(context);
+//            Log.d("DEBUG_DB", String.format("Using ObjectBox %s (%s)", BoxStore.getVersion(), BoxStore.getVersionNative()));
+//            new AndroidObjectBrowser(boxStore).start(context);
         }
 
 //      cardBox = boxStore.boxFor(Card.class);
