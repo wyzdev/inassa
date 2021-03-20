@@ -23,7 +23,8 @@ public class KeyRequestUser {
     }
 
     public void setUsername() {
-        this.username = "jotest@test.com";
+//        this.username = "jotest@test.com";
+        this.username = "wyzdev@nassagroup.com";
     }
 
     public String getPassword() {
@@ -31,7 +32,8 @@ public class KeyRequestUser {
     }
 
     public void setPassword() {
-        this.password = "P@$$w0rd";
+//        this.password = "P@$$w0rd";
+        this.password = "W1Yz$54@8jha$1";
     }
 
     public void setUsername(String username) {

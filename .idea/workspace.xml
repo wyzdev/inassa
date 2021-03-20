@@ -6,7 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="htt" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="http" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
@@ -17,63 +17,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0bacb86f-bb8f-4560-931d-5568f5f03e60" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_objectbox_objectbox_android_2_3_4_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskJars.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskJars.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars___C__dev_inassa_app_libs_acsaudiojack_jar_unspecified_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle____app_libs_acsaudiojack_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_26_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_26_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_appcompat_v7_26_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_appcompat_v7_26_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_cardview_v7_26_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_cardview_v7_26_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_design_26_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_design_26_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_multidex_1_0_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_multidex_1_0_2_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_multidex_instrumentation_1_0_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_multidex_instrumentation_1_0_2_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_recyclerview_v7_26_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_recyclerview_v7_26_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_compat_26_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_compat_26_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_ui_26_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_ui_26_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_utils_26_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_utils_26_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_fragment_26_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_fragment_26_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_media_compat_26_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_media_compat_26_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_v4_26_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_v4_26_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_vector_drawable_26_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_vector_drawable_26_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_monitor_1_0_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_monitor_1_0_2_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_runner_1_0_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_runner_1_0_2_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_transition_26_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_transition_26_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_volley_volley_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_volley_volley_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_commit451_PhotoView_1_2_4_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_commit451_PhotoView_1_2_4_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__de_hdodenhof_circleimageview_2_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__de_hdodenhof_circleimageview_2_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__es_voghdev_pdfviewpager_library_1_0_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__es_voghdev_pdfviewpager_library_1_0_3_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_objectbox_objectbox_android_objectbrowser_2_3_4_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Inassa.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Inassa.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/release/app-release.apk" beforeDir="false" afterPath="$PROJECT_DIR$/app/release/app-release.apk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/release/output.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/release/output.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/nassagroup/activities/InfoClientActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/nassagroup/activities/InfoClientActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/nassagroup/activities/ListClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/nassagroup/activities/ListClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/nassagroup/core/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/nassagroup/core/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/nassagroup/tools/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/nassagroup/tools/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/nassagroup/tools/ObjectBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/nassagroup/tools/ObjectBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/intermediates/lint-cache/maven.google/com/android/support/group-index.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/intermediates/lint-cache/maven.google/com/android/support/test/espresso/group-index.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/intermediates/lint-cache/maven.google/com/android/support/test/group-index.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/intermediates/lint-cache/maven.google/master-index.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -259,22 +207,22 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1557" height="297" key="GridCell.Tab.0.bottom" timestamp="1616185338813">
+    <state width="1557" height="336" key="GridCell.Tab.0.bottom" timestamp="1616185859699">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="297" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1616185338813" />
-    <state width="1557" height="297" key="GridCell.Tab.0.center" timestamp="1616185338813">
+    <state width="1557" height="336" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1616185859699" />
+    <state width="1557" height="336" key="GridCell.Tab.0.center" timestamp="1616185859699">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="297" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1616185338813" />
-    <state width="1557" height="297" key="GridCell.Tab.0.left" timestamp="1616185338813">
+    <state width="1557" height="336" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1616185859699" />
+    <state width="1557" height="336" key="GridCell.Tab.0.left" timestamp="1616185859699">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="297" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1616185338813" />
-    <state width="1557" height="297" key="GridCell.Tab.0.right" timestamp="1616185338813">
+    <state width="1557" height="336" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1616185859699" />
+    <state width="1557" height="336" key="GridCell.Tab.0.right" timestamp="1616185859699">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="297" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1616185338813" />
+    <state width="1557" height="336" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1616185859699" />
     <state width="1557" height="275" key="GridCell.Tab.1.bottom" timestamp="1616185079973">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -291,6 +239,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1557" height="275" key="GridCell.Tab.1.right/0.0.1600.860@0.0.1600.860" timestamp="1616185079973" />
+    <state x="456" y="195" width="672" height="677" key="run.anything.popup" timestamp="1616185658372">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="456" y="195" width="672" height="677" key="run.anything.popup/0.0.1600.860@0.0.1600.860" timestamp="1616185658372" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -377,22 +329,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/nassagroup/activities/InfoClientActivity.java</url>
-          <line>371</line>
+          <line>373</line>
           <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/nassagroup/activities/InfoClientActivity.java</url>
-          <line>376</line>
+          <line>378</line>
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/nassagroup/activities/InfoClientActivity.java</url>
-          <line>401</line>
+          <line>403</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/nassagroup/activities/InfoClientActivity.java</url>
-          <line>403</line>
+          <line>405</line>
           <option name="timeStamp" value="42" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
