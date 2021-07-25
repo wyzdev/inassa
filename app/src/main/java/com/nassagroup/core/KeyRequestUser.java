@@ -9,8 +9,8 @@ import java.util.Date;
  * Created by Noel Emmanuel Roodly on 8/31/2019.
  */
 public class KeyRequestUser {
-    @SerializedName("username") @Expose private String username = "jotest@test.com";
-    @SerializedName("password") @Expose private String password = "P@$$w0rd";
+    @SerializedName("username") @Expose private String username = "wyzdev@nassagroup.com";
+    @SerializedName("password") @Expose private String password = "W1Yz$54@8jha$1";
     @SerializedName("key") @Expose private String key;
     private Date date;
     public Date getDate() { return date; }

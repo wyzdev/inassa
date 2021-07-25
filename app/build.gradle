@@ -7,8 +7,8 @@ android {
         applicationId "com.nassagroup"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 17
-        versionName "17.0"
+        versionCode 18
+        versionName "17.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         javaCompileOptions {

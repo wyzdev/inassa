@@ -4,6 +4,9 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/volley-1.0.0.aar/3416ddaa26be081aa08bd7c77f3cd5fd/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/volley-1.0.0.aar/3416ddaa26be081aa08bd7c77f3cd5fd/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/volley-1.0.0.aar/3416ddaa26be081aa08bd7c77f3cd5fd/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/volley-1.0.0.aar/5040a415e4a6332b16842ca4fe606dcf/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/volley-1.0.0.aar/5040a415e4a6332b16842ca4fe606dcf/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/volley-1.0.0.aar/5040a415e4a6332b16842ca4fe606dcf/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

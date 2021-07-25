@@ -8,7 +8,7 @@ public class Constants {
         public static final String SERVER = "http://nassagroup.com/app/";
 //    public static final String SERVER = "http://192.168.2.130:9001/";
 
-    public static final String SERVER_INASSA = "http://200.113.219.221:8180/";
+    public static final String SERVER_INASSA = "http://200.113.226.83:8180/";
 //    public static final String SERVER_INASSA = "http://192.168.5.8:8080/";
     public static final String API_INASSA_AUTH ="RequestQuote/RequestLogin";
     public static final String INASSA_API_SEARCH = "RequestQuote/epic_mwClientSearch";

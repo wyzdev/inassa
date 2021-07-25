@@ -4,6 +4,9 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/objectbox-android-2.3.4.aar/1e26efe67cad70ade6df7b8224f4a11e/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/objectbox-android-2.3.4.aar/1e26efe67cad70ade6df7b8224f4a11e/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/objectbox-android-2.3.4.aar/1e26efe67cad70ade6df7b8224f4a11e/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/objectbox-android-2.3.4.aar/ee18623e26523b30b3e9600819fded34/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/objectbox-android-2.3.4.aar/ee18623e26523b30b3e9600819fded34/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/objectbox-android-2.3.4.aar/ee18623e26523b30b3e9600819fded34/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

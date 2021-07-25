@@ -159,7 +159,8 @@ public class ListClient extends AppCompatActivity {
                             (jsonObject.getLong("employee_id") != jsonObject.getLong("primary_employee_id")),
                             primary_name,
                             jsonObject.getInt("primary_employee_id"),
-                            jsonObject.getString("hero_tag"),
+                            "NULL",
+//                            jsonObject.getString("hero_tag"),
                             jsonObject.getString("legacy_policy_number")
                     ));
         }

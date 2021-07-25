@@ -401,7 +401,11 @@ public class InfoClientActivity extends AppCompatActivity {
         if (obj.getLong(EMPLOYEE_ID)!= obj.getLong(PRIMARY_EMPLOYEE_ID))
             is_dependant = true;
 
-        textView_client_name.setText((obj.getString(FIRSTNAME) + " " + obj.getString(LASTNAME)));
+        if(obj.has(FIRSTNAME) && obj.has(LASTNAME)){
+            textView_client_name.setText((obj.getString(FIRSTNAME) + " " + obj.getString(LASTNAME)));
+        }else{
+            textView_client_name.setText((obj.getString("firstname") + " " + obj.getString("lastname")));
+        }
 
         textView_client_global_name_number.setText(obj.getString(GLOBAL_NAME_NUMBER));
 
